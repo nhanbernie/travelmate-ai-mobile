@@ -16,7 +16,8 @@
       "@/services/*": ["./services/*"],
       "@/styles/*": ["./styles/*"],
       "@/utils/*": ["./utils/*"],
-      "@/libs/*": ["./libs/*"]
+      "@/libs/*": ["./libs/*"],
+      "@/layouts/*": ["./components/layouts/*"],
     }
   },
   "include": [
