@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
 import { Archive, StickyNote, Settings } from 'lucide-react-native';
 import { useColorScheme } from 'react-native';
+
 export default function TabLayout() {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
