@@ -57,10 +57,10 @@ export const TextField = forwardRef<TextInput, TextFieldProps>(
           <TextInput
             ref={ref}
             className={cn(
-              'w-full border rounded-xl px-4 py-4 text-gray-900 dark:text-white bg-white dark:bg-gray-800 text-base leading-5',
+              'w-full border rounded-3xl px-5 py-5 text-gray-900 dark:text-white bg-white dark:bg-gray-800 text-base leading-5',
               error
                 ? 'border-red-500 dark:border-red-400'
-                : 'border-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400',
+                : 'border-[#FFAD9F] dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400',
               type === 'password' && 'pr-12'
             )}
             value={value}
@@ -76,13 +76,13 @@ export const TextField = forwardRef<TextInput, TextFieldProps>(
           {type === 'password' && (
             <Pressable
               onPress={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-2 p-2"
+              className="absolute right-3 top-3 p-2"
               hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             >
               <Ionicons
                 name={showPassword ? 'eye-off' : 'eye'}
                 size={20}
-                color="#6B7280"
+                color="#FFAD9F"
               />
             </Pressable>
           )}
