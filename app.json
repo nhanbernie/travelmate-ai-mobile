@@ -32,7 +32,8 @@
       }
     },
     "android": {
-      "package": "com.nhanbernie.boltexponativewind"
+      "package": "com.nhanbernie.boltexponativewind",
+      "softwareKeyboardLayoutMode": "pan"
     }
   }
 }
