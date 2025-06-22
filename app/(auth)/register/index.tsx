@@ -2,21 +2,21 @@ import { View } from 'react-native';
 import { AuthLayout } from '@/layouts/AuthLayout';
 import AuthForm from '@/components/form/AuthForm';
 import { AppText } from '@/components/ui/AppText';
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <AuthLayout>
       <View className="flex-1 w-full justify-center px-6 py-8">
         <View className="mb-8">
           <AppText variant="h2" className="text-center mb-2">
-            Chào mừng trở lại
+            Tạo tài khoản mới
           </AppText>
           <AppText variant="subtitle" className="text-center">
-            Đăng nhập để tiếp tục
+            Điền thông tin để đăng ký
           </AppText>
         </View>
 
         <View className="w-full">
-          <AuthForm type="login" />
+          <AuthForm type="register" />
         </View>
       </View>
     </AuthLayout>

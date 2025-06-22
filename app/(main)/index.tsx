@@ -1,12 +1,12 @@
 import { View, Text } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function NotesScreen() {
+const Index = () => {
   return (
-    <SafeAreaView>
-      <View className=''>
-        <Text className='text-5xl text-center text-red-200'>Test</Text>
-      </View>
-    </SafeAreaView>
+    <View className="flex-1 justify-center p-6">
+      <Text className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        Đăng nhập
+      </Text>
+    </View>
   );
-}
+};
+export default Index;
