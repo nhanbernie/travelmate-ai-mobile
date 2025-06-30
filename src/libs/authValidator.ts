@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import { AUTH_FORM_ERROR_MESSAGES } from '@/constants/message.constant';
+
 const AUTH_PASSWORD =
   /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{6,}$/;
 const AUTH_CODE_VERIFICATION = /^[0-9]+$/;
@@ -32,10 +33,21 @@ const validatorSchema = {
     email: Yup.string()
       .email(AUTH_FORM_ERROR_MESSAGES.EMU001)
       .required(AUTH_FORM_ERROR_MESSAGES.EMU002),
-    codeVerification: Yup.string()
+  }),
+  verifyOTP: Yup.object().shape({
+    code: Yup.string()
       .length(6, AUTH_FORM_ERROR_MESSAGES.EMU010)
       .matches(AUTH_CODE_VERIFICATION, AUTH_FORM_ERROR_MESSAGES.EMU011)
       .required(AUTH_FORM_ERROR_MESSAGES.EMU012),
+  }),
+  resetPassword: Yup.object().shape({
+    password: Yup.string()
+      .min(12, AUTH_FORM_ERROR_MESSAGES.EMU003)
+      .matches(AUTH_PASSWORD, AUTH_FORM_ERROR_MESSAGES.EMU009)
+      .required(AUTH_FORM_ERROR_MESSAGES.EMU004),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password')], AUTH_FORM_ERROR_MESSAGES.EMU007)
+      .required(AUTH_FORM_ERROR_MESSAGES.EMU008),
   }),
   changePassword: Yup.object().shape({
     oldPassword: Yup.string()

@@ -9,6 +9,7 @@ export default function AuthLayout() {
         name="forgot-password/index"
         options={{ title: 'Forgot Password' }}
       />
+      
     </Stack>
   );
 }

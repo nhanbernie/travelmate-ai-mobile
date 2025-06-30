@@ -9,20 +9,47 @@ import { cn } from '@/utils/cn';
 import * as yup from 'yup';
 import AuthLogin from '@/components/AuthLogin';
 import { router } from 'expo-router';
+
 export interface IAuthFormProps {
-  type: 'login' | 'register' | 'forgotPassword';
+  type: 'login' | 'register' | 'forgotPassword' | 'verifyOTP' | 'resetPassword';
+  onSubmit?: (data: any) => void | Promise<void>;
+  email?: string; // For passing email to verify step
+  token?: string; // For passing token to reset step
 }
 
-const AuthForm = ({ type }: IAuthFormProps) => {
+const AuthForm = ({
+  type,
+  onSubmit: customOnSubmit,
+  email,
+  token,
+}: IAuthFormProps) => {
   type LoginFormData = yup.InferType<(typeof validatorSchema)[typeof type]>;
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log(data);
+  const defaultOnSubmit = (data: LoginFormData) => {
+    console.log(`${type} data:`, data);
+
+    // Handle navigation based on type
+    if (type === 'forgotPassword') {
+      router.push({
+        pathname: '/(auth)/forgot-password/verify-code',
+        params: { email: (data as any).email },
+      });
+    } else if (type === 'verifyOTP') {
+      router.push({
+        pathname: '/(auth)/forgot-password/reset-password',
+        params: { token: 'temp-token' }, // Replace with actual token from API
+      });
+    } else if (type === 'resetPassword') {
+      router.push('/(auth)/login');
+    }
   };
+
+  const handleSubmit = customOnSubmit || defaultOnSubmit;
 
   const AuthFormContent = () => {
     const { submitForm, isValid, isSubmitting } =
       useFormSubmit<LoginFormData>();
+
     return (
       <View className="w-full">
         <View className="space-y-5">
@@ -64,10 +91,10 @@ const AuthForm = ({ type }: IAuthFormProps) => {
               'w-full py-4 px-6 rounded-3xl shadow-sm',
               isValid && !isSubmitting
                 ? 'bg-[#00C5A7] active:bg-[#00B89A]'
-                : 'bg-gray-300'
+                : 'bg-[#E0E0E0]'
             )}
             disabled={!isValid || isSubmitting}
-            onPress={submitForm(onSubmit)}
+            onPress={submitForm(handleSubmit)}
           >
             <AppText
               variant="body"
@@ -81,13 +108,19 @@ const AuthForm = ({ type }: IAuthFormProps) => {
             </AppText>
           </Pressable>
         </View>
-        <AuthLogin type={type} />
+        {/* Only show AuthLogin for login/register, not for password reset flow */}
+        {(type === 'login' || type === 'register') && (
+          <AuthLogin type={type as 'login' | 'register'} />
+        )}
       </View>
     );
   };
 
   return (
-    <FormProvider validatorSchema={validatorSchema[type]} onSubmit={onSubmit}>
+    <FormProvider
+      validatorSchema={validatorSchema[type]}
+      onSubmit={handleSubmit}
+    >
       <AuthFormContent />
     </FormProvider>
   );
