@@ -16,7 +16,7 @@ export const loginEndpoint = (builder: EndpointBuilder<any, any, any>) =>
       return response;
     },
     transformErrorResponse: (response: any) => {
-      console.error('Login error:', response);
+      console.error('Login error here:', response);
       return response;
     },
   });
