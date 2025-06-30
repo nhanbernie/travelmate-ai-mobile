@@ -25,24 +25,7 @@ const AuthForm = ({
 }: IAuthFormProps) => {
   type LoginFormData = yup.InferType<(typeof validatorSchema)[typeof type]>;
 
-  const defaultOnSubmit = (data: LoginFormData) => {
-    console.log(`${type} data:`, data);
-
-    // Handle navigation based on type
-    if (type === 'forgotPassword') {
-      router.push({
-        pathname: '/(auth)/forgot-password/verify-code',
-        params: { email: (data as any).email },
-      });
-    } else if (type === 'verifyOTP') {
-      router.push({
-        pathname: '/(auth)/forgot-password/reset-password',
-        params: { token: 'temp-token' }, // Replace with actual token from API
-      });
-    } else if (type === 'resetPassword') {
-      router.push('/(auth)/login');
-    }
-  };
+  const defaultOnSubmit = (data: LoginFormData) => {};
 
   const handleSubmit = customOnSubmit || defaultOnSubmit;
 

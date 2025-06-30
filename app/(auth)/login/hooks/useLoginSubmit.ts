@@ -14,6 +14,7 @@ export function useLoginSubmit() {
 
   return useCallback(
     async (data: { email: string; password: string }) => {
+      console.log('Submitting login with data:', data);
       try {
         dispatch(setLoading(true));
         dispatch(setError(null));
