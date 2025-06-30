@@ -52,22 +52,42 @@ const authSlice = createSlice({
       state,
       action: PayloadAction<{
         user: User;
-        token: string;
-        refreshToken?: string;
+        access_token: string;
+        refresh_token: string;
+        expires_in?: number;
       }>
     ) => {
-      const { user, token, refreshToken } = action.payload;
+      const { user, access_token, refresh_token, expires_in } = action.payload;
       state.user = user;
-      state.token = token;
-      state.refreshToken = refreshToken || null;
+      state.token = access_token;
+      state.refreshToken = refresh_token;
       state.isAuthenticated = true;
       state.isLoading = false;
       state.error = null;
     },
 
-    // Update token (for refresh)
+    // Update token (for refresh) - support both formats
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
+    },
+
+    // Update refresh token
+    setRefreshToken: (state, action: PayloadAction<string>) => {
+      state.refreshToken = action.payload;
+    },
+
+    // Update both tokens (for refresh response)
+    setTokens: (
+      state,
+      action: PayloadAction<{
+        access_token: string;
+        refresh_token: string;
+        expires_in?: number;
+      }>
+    ) => {
+      const { access_token, refresh_token } = action.payload;
+      state.token = access_token;
+      state.refreshToken = refresh_token;
     },
 
     // Update user profile
@@ -96,6 +116,8 @@ export const {
   clearError,
   setCredentials,
   setToken,
+  setRefreshToken,
+  setTokens,
   setUser,
   logout,
   resetAuth,

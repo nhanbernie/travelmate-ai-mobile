@@ -5,12 +5,8 @@ import {
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
 import type { RootState } from '../../redux/store';
-import { setToken, logout } from '../../redux/slices/auth.slice';
-
-// Base URL configuration
-const BASE_URL = __DEV__
-  ? 'http://localhost:3000/api/v1' // Development
-  : 'https://your-production-api.com/api/v1'; // Production
+import { setTokens, logout } from '../../redux/slices/auth.slice';
+import { BASE_URL, API_ENDPOINTS } from './config';
 
 // Base query with interceptors
 const baseQuery = fetchBaseQuery({
@@ -49,24 +45,39 @@ export const baseQueryWithReauth: BaseQueryFn<
     const refreshToken = ((api.getState() as any).auth as any)?.refreshToken;
 
     if (refreshToken) {
-      // Attempt to refresh token
+      // Attempt to refresh token using correct API format
       const refreshResult = await baseQuery(
         {
-          url: '/auth/refresh',
+          url: API_ENDPOINTS.AUTH.REFRESH,
           method: 'POST',
-          body: { refreshToken },
+          body: { refresh_token: refreshToken }, // Match API expected format
         },
         api,
         extraOptions
       );
 
       if (refreshResult.data) {
-        const newToken = (refreshResult.data as any).data.token;
-        // Update token in store
-        api.dispatch(setToken(newToken));
+        // Extract access_token from API response format
+        const responseData = refreshResult.data as any;
+        const newAccessToken = responseData.data?.access_token;
+        const newRefreshToken = responseData.data?.refresh_token;
 
-        // Retry original request with new token
-        result = await baseQuery(args, api, extraOptions);
+        if (newAccessToken) {
+          // Update both tokens in store
+          api.dispatch(
+            setTokens({
+              access_token: newAccessToken,
+              refresh_token: newRefreshToken || refreshToken, // Use new refresh token or keep existing one
+              expires_in: responseData.data?.expires_in,
+            })
+          );
+
+          // Retry original request with new token
+          result = await baseQuery(args, api, extraOptions);
+        } else {
+          console.log('Invalid refresh response format, logging out...');
+          api.dispatch(logout());
+        }
       } else {
         // Refresh failed, logout user
         console.log('Refresh token failed, logging out...');
