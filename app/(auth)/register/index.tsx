@@ -2,7 +2,10 @@ import { View } from 'react-native';
 import { AuthLayout } from '@/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
+import { useRegisterSubmit } from './hooks/useRegister';
 export default function RegisterPage() {
+  const handleRegister = useRegisterSubmit();
+
   return (
     <AuthLayout>
       <View className="flex-1 w-full justify-center px-6 py-8">
@@ -16,7 +19,7 @@ export default function RegisterPage() {
         </View>
 
         <View className="w-full">
-          <AuthForm type="register" />
+          <AuthForm type="register" onSubmit={handleRegister} />
         </View>
       </View>
     </AuthLayout>
