@@ -3,7 +3,7 @@ import { AuthLayout } from '@/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
 
-export default function VerifyCodeStep() {
+export default function VerifyOTPStep() {
   return (
     <AuthLayout>
       <View className="flex-1 w-full justify-center px-6 py-8">

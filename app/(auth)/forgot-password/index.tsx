@@ -2,8 +2,10 @@ import { View } from 'react-native';
 import { AuthLayout } from '@/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
-
+import { useForgotPassword } from './hooks/useForgotPassword';
 export default function ForgotPasswordStep1() {
+  const handleForgotPassword = useForgotPassword();
+
   return (
     <AuthLayout>
       <View className="flex-1 w-full justify-center px-6 py-8">
@@ -17,7 +19,7 @@ export default function ForgotPasswordStep1() {
         </View>
 
         <View className="w-full">
-          <AuthForm type="forgotPassword" />
+          <AuthForm type="forgotPassword" onSubmit={handleForgotPassword} />
         </View>
       </View>
     </AuthLayout>
