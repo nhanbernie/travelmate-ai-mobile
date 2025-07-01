@@ -1,20 +1,5 @@
-// Environment configuration
-export const ENV_CONFIG = {
-  DEV: {
-    // IMPORTANT: Replace this with your actual LAN IP address!
-    API_BASE_URL: 'https://travelmate-ai-server-production.up.railway.app/',
-  },
-  PROD: {
-    API_BASE_URL: 'https://your-production-api.com',
-  },
-} as const;
+import { ENV } from '@/utils/env';
 
-// Get current environment config
-export const getCurrentEnvConfig = () => {
-  return __DEV__ ? ENV_CONFIG.DEV : ENV_CONFIG.PROD;
-};
-
-// API endpoints
 export const API_ENDPOINTS = {
   AUTH: {
     LOGIN: '/auth/login',
@@ -28,16 +13,13 @@ export const API_ENDPOINTS = {
     CHANGE_PASSWORD: '/auth/change-password',
     CREATE_OTP: '/auth/create-otp',
   },
-  // Future endpoints
-  USER: {
-    // USER endpoints here
-  },
-  TRAVEL: {
-    // TRAVEL endpoints here
-  },
+  USER: {},
+  TRAVEL: {},
 } as const;
 
-// Export base URL
-export const BASE_URL = getCurrentEnvConfig().API_BASE_URL;
+export const API_CONFIG = {
+  BASE_URL: ENV.API.BASE_URL,
+  TIMEOUT: ENV.API.TIMEOUT,
+} as const;
 
-console.log('[API CONFIG] BASE_URL:', BASE_URL);
+console.log('API_CONFIG:', API_CONFIG.BASE_URL);

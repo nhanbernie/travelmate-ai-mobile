@@ -4,27 +4,40 @@ import {
   FetchArgs,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
-import type { RootState } from '../../redux/store';
-import { setTokens, logout } from '../../redux/slices/auth.slice';
-import { BASE_URL, API_ENDPOINTS } from './config';
+import type { RootState } from '@/redux/store';
+import { setTokens, logout } from '@/slices/auth.slice';
+import { API_CONFIG, API_ENDPOINTS } from './config';
+
+const PUBLIC_ENDPOINTS = [
+  API_ENDPOINTS.AUTH.LOGIN,
+  API_ENDPOINTS.AUTH.REGISTER,
+  API_ENDPOINTS.AUTH.FORGOT_PASSWORD,
+  API_ENDPOINTS.AUTH.VERIFY_OTP,
+  API_ENDPOINTS.AUTH.RESET_PASSWORD,
+  API_ENDPOINTS.AUTH.CREATE_OTP,
+];
+
+const getUrlFromArgs = (arg: any) => {
+  if (typeof arg === 'string') return arg;
+  if (typeof arg === 'object' && arg.url) return arg.url;
+  return '';
+};
 
 // Base query with interceptors
 const baseQuery = fetchBaseQuery({
-  baseUrl: BASE_URL,
-  prepareHeaders: (headers, { getState }) => {
-    // Get token from Redux state
-    const state = getState() as RootState;
-    const token = (state as any).auth?.token;
-
-    // Set default headers
+  baseUrl: API_CONFIG.BASE_URL,
+  prepareHeaders: (headers, { getState, ...rest }) => {
+    const url = getUrlFromArgs(rest.arg);
+    const isPublic = PUBLIC_ENDPOINTS.some((ep) => url.includes(ep));
+    if (!isPublic) {
+      const state = getState() as RootState;
+      const token = (state as any).auth?.token;
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+    }
     headers.set('Content-Type', 'application/json');
     headers.set('Accept', 'application/json');
-
-    // Add authorization header if token exists
-    if (token) {
-      headers.set('Authorization', `Bearer ${token}`);
-    }
-
     return headers;
   },
 });
@@ -35,11 +48,13 @@ export const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  // First attempt
+  // Determine if this is a public endpoint
+  const url = typeof args === 'string' ? args : args.url;
+  const isPublic = PUBLIC_ENDPOINTS.some((ep) => url.includes(ep));
   let result = await baseQuery(args, api, extraOptions);
 
   // If unauthorized (401), try to refresh token
-  if (result.error && result.error.status === 401) {
+  if (!isPublic && result.error && result.error.status === 401) {
     console.log('Token expired, attempting refresh...');
 
     const refreshToken = ((api.getState() as any).auth as any)?.refreshToken;
