@@ -4,31 +4,40 @@ import {
   FetchArgs,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
-import type { RootState } from '../../redux/store';
-import { setToken, logout } from '../../redux/slices/auth.slice';
+import type { RootState } from '@/redux/store';
+import { setTokens, logout } from '@/slices/auth.slice';
+import { API_CONFIG, API_ENDPOINTS } from './config';
 
-// Base URL configuration
-const BASE_URL = __DEV__
-  ? 'http://localhost:3000/api/v1' // Development
-  : 'https://your-production-api.com/api/v1'; // Production
+const PUBLIC_ENDPOINTS = [
+  API_ENDPOINTS.AUTH.LOGIN,
+  API_ENDPOINTS.AUTH.REGISTER,
+  API_ENDPOINTS.AUTH.FORGOT_PASSWORD,
+  API_ENDPOINTS.AUTH.VERIFY_OTP,
+  API_ENDPOINTS.AUTH.RESET_PASSWORD,
+  API_ENDPOINTS.AUTH.CREATE_OTP,
+];
+
+const getUrlFromArgs = (arg: any) => {
+  if (typeof arg === 'string') return arg;
+  if (typeof arg === 'object' && arg.url) return arg.url;
+  return '';
+};
 
 // Base query with interceptors
 const baseQuery = fetchBaseQuery({
-  baseUrl: BASE_URL,
-  prepareHeaders: (headers, { getState }) => {
-    // Get token from Redux state
-    const state = getState() as RootState;
-    const token = (state as any).auth?.token;
-
-    // Set default headers
+  baseUrl: API_CONFIG.BASE_URL,
+  prepareHeaders: (headers, { getState, ...rest }) => {
+    const url = getUrlFromArgs(rest.arg);
+    const isPublic = PUBLIC_ENDPOINTS.some((ep) => url.includes(ep));
+    if (!isPublic) {
+      const state = getState() as RootState;
+      const token = (state as any).auth?.token;
+      if (token) {
+        headers.set('Authorization', `Bearer ${token}`);
+      }
+    }
     headers.set('Content-Type', 'application/json');
     headers.set('Accept', 'application/json');
-
-    // Add authorization header if token exists
-    if (token) {
-      headers.set('Authorization', `Bearer ${token}`);
-    }
-
     return headers;
   },
 });
@@ -39,34 +48,51 @@ export const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  // First attempt
+  // Determine if this is a public endpoint
+  const url = typeof args === 'string' ? args : args.url;
+  const isPublic = PUBLIC_ENDPOINTS.some((ep) => url.includes(ep));
   let result = await baseQuery(args, api, extraOptions);
 
   // If unauthorized (401), try to refresh token
-  if (result.error && result.error.status === 401) {
+  if (!isPublic && result.error && result.error.status === 401) {
     console.log('Token expired, attempting refresh...');
 
     const refreshToken = ((api.getState() as any).auth as any)?.refreshToken;
 
     if (refreshToken) {
-      // Attempt to refresh token
+      // Attempt to refresh token using correct API format
       const refreshResult = await baseQuery(
         {
-          url: '/auth/refresh',
+          url: API_ENDPOINTS.AUTH.REFRESH,
           method: 'POST',
-          body: { refreshToken },
+          body: { refresh_token: refreshToken }, // Match API expected format
         },
         api,
         extraOptions
       );
 
       if (refreshResult.data) {
-        const newToken = (refreshResult.data as any).data.token;
-        // Update token in store
-        api.dispatch(setToken(newToken));
+        // Extract access_token from API response format
+        const responseData = refreshResult.data as any;
+        const newAccessToken = responseData.data?.access_token;
+        const newRefreshToken = responseData.data?.refresh_token;
 
-        // Retry original request with new token
-        result = await baseQuery(args, api, extraOptions);
+        if (newAccessToken) {
+          // Update both tokens in store
+          api.dispatch(
+            setTokens({
+              access_token: newAccessToken,
+              refresh_token: newRefreshToken || refreshToken, // Use new refresh token or keep existing one
+              expires_in: responseData.data?.expires_in,
+            })
+          );
+
+          // Retry original request with new token
+          result = await baseQuery(args, api, extraOptions);
+        } else {
+          console.log('Invalid refresh response format, logging out...');
+          api.dispatch(logout());
+        }
       } else {
         // Refresh failed, logout user
         console.log('Refresh token failed, logging out...');

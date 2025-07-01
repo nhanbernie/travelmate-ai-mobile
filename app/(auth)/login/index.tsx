@@ -2,7 +2,10 @@ import { View } from 'react-native';
 import { AuthLayout } from '@/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
+import { useLoginSubmit } from './hooks/useLoginSubmit';
+
 export default function LoginPage() {
+  const onSubmit = useLoginSubmit();
   return (
     <AuthLayout>
       <View className="flex-1 w-full justify-center px-6 py-8">
@@ -16,7 +19,7 @@ export default function LoginPage() {
         </View>
 
         <View className="w-full">
-          <AuthForm type="login" />
+          <AuthForm type="login" onSubmit={onSubmit} />
         </View>
       </View>
     </AuthLayout>

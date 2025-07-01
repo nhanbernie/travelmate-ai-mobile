@@ -5,9 +5,9 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <SafeAreaProvider style={{ flex: 1 }}>
-      {/* <Provider store={store}> */}
-      <ThemeProvider>{children}</ThemeProvider>
-      {/* </Provider> */}
+      <Provider store={store}>
+        <ThemeProvider>{children}</ThemeProvider>
+      </Provider>
     </SafeAreaProvider>
   );
 };
