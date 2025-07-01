@@ -17,7 +17,7 @@ export function useForgotPassword() {
         console.log('SUBMIT FORGOT PASSWORD', data.email, result);
 
         if (result.success) {
-          router.replace('/(auth)/forgot-password/verify-code');
+          router.replace('/(auth)/forgot-password/verify-otp');
         }
       } catch (error: any) {
         let errorMessage = 'Failed to send reset email. Please try again.';
