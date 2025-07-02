@@ -9,13 +9,6 @@ export function useVerifyOTP() {
   const [verifyOtp] = useVerifyOtpMutation();
   return useCallback(
     async (data: { email: string; otp: string }) => {
-      console.log(
-        'Submitting verify OTP for email:',
-        data.email,
-        'with code:',
-        data.otp
-      );
-
       try {
         dispatch(setLoading(true));
         dispatch(setError(null));

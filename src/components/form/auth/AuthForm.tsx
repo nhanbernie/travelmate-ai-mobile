@@ -31,7 +31,6 @@ const AuthForm = ({
   const handleSubmit = (data: any) => {
     // For verifyOTP, combine the email from props with the code from form
     if (type === 'verifyOTP' && email) {
-      console.log('Combining email with code:', { email, code: data.code });
       return (
         customOnSubmit?.({ email, otp: data.code }) || defaultOnSubmit(data)
       );

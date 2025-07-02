@@ -11,7 +11,6 @@ export default function ResetPasswordStep() {
 
   if (!email || !otp) {
     console.error('Missing required params:', { email, otp });
-    // Có thể thêm xử lý khi thiếu params
   }
 
   return (
