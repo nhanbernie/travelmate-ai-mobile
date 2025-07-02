@@ -3,7 +3,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { AuthLayout } from '@/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
-import { useResetPassword } from './hooks/useResetPassword';
+import useResetPassword from '@/features/auth/forgot-password/hooks/useResetPassword';
 
 export default function ResetPasswordStep() {
   const { email, otp } = useLocalSearchParams<{ email: string; otp: string }>();

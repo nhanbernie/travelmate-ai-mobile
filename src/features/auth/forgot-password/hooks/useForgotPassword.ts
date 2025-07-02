@@ -3,7 +3,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { useForgotPasswordMutation } from '@/services/auth';
 import { setLoading, setError } from '@/redux/slices/auth.slice';
 import { router } from 'expo-router';
-export function useForgotPassword() {
+const useForgotPassword = () => {
   const dispatch = useAppDispatch();
   const [forgotPasswordMutation] = useForgotPasswordMutation();
 
@@ -33,4 +33,6 @@ export function useForgotPassword() {
     },
     [dispatch, forgotPasswordMutation]
   );
-}
+};
+
+export default useForgotPassword;

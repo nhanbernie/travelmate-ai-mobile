@@ -4,7 +4,7 @@ import { useResetPasswordMutation } from '@/services/auth';
 import { setLoading, setError } from '@/redux/slices/auth.slice';
 import { router } from 'expo-router';
 
-export function useResetPassword() {
+const useResetPassword = () => {
   const dispatch = useAppDispatch();
   const [resetPasswordMutation] = useResetPasswordMutation();
 
@@ -41,4 +41,6 @@ export function useResetPassword() {
     },
     [dispatch, resetPasswordMutation]
   );
-}
+};
+
+export default useResetPassword;

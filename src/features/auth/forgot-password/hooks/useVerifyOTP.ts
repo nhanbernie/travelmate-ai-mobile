@@ -4,7 +4,7 @@ import { useVerifyOtpMutation } from '@/services/auth';
 import { setLoading, setError } from '@/redux/slices/auth.slice';
 import { router } from 'expo-router';
 
-export function useVerifyOTP() {
+const useVerifyOTP = () => {
   const dispatch = useAppDispatch();
   const [verifyOtp] = useVerifyOtpMutation();
   return useCallback(
@@ -39,4 +39,6 @@ export function useVerifyOTP() {
     },
     [dispatch, verifyOtp]
   );
-}
+};
+
+export default useVerifyOTP;

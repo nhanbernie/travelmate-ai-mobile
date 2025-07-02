@@ -1,14 +1,10 @@
 import { useCallback } from 'react';
 import { useAppDispatch } from '@/redux/hooks';
 import { useLoginMutation } from '@/services/auth';
-import {
-  setCredentials,
-  setLoading,
-  setError,
-} from '@/redux/slices/auth.slice';
+import { setLoading, setError, setUser } from '@/redux/slices/auth.slice';
 import { router } from 'expo-router';
-
-export function useLoginSubmit() {
+import { SecureStorageService } from '@/services/storage/secureStorage.service';
+const useLoginSubmit = () => {
   const dispatch = useAppDispatch();
   const [loginMutation] = useLoginMutation();
 
@@ -20,14 +16,13 @@ export function useLoginSubmit() {
         dispatch(setError(null));
         const result = await loginMutation(data).unwrap();
         if (result.success && result.data) {
-          dispatch(
-            setCredentials({
-              user: result.data.user,
-              access_token: result.data.access_token,
-              refresh_token: result.data.refresh_token,
-              expires_in: result.data.expires_in,
-            })
-          );
+          await SecureStorageService.setTokenData({
+            access_token: result.data.access_token,
+            refresh_token: result.data.refresh_token,
+            expires_in: result.data.expires_in || 3600,
+          });
+
+          dispatch(setUser(result.data.user));
           router.replace('/(main)');
         } else {
           throw new Error(result.message || 'Login failed');
@@ -43,4 +38,6 @@ export function useLoginSubmit() {
     },
     [dispatch, loginMutation]
   );
-}
+};
+
+export default useLoginSubmit;

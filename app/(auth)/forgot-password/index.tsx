@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import { AuthLayout } from '@/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
-import { useForgotPassword } from './hooks/useForgotPassword';
+import useForgotPassword from '@/features/auth/forgot-password/hooks/useForgotPassword';
 export default function ForgotPasswordStep1() {
   const handleForgotPassword = useForgotPassword();
 

@@ -4,9 +4,8 @@ import {
   FetchArgs,
   FetchBaseQueryError,
 } from '@reduxjs/toolkit/query/react';
-import type { RootState } from '@/redux/store';
-import { setTokens, logout } from '@/slices/auth.slice';
 import { API_CONFIG, API_ENDPOINTS } from './config';
+import { SecureStorageService } from '@/services/storage/secureStorage.service';
 
 const PUBLIC_ENDPOINTS = [
   API_ENDPOINTS.AUTH.LOGIN,
@@ -23,15 +22,14 @@ const getUrlFromArgs = (arg: any) => {
   return '';
 };
 
-// Base query with interceptors
+// Base query with keychain
 const baseQuery = fetchBaseQuery({
   baseUrl: API_CONFIG.BASE_URL,
-  prepareHeaders: (headers, { getState, ...rest }) => {
+  prepareHeaders: async (headers, { ...rest }) => {
     const url = getUrlFromArgs(rest.arg);
     const isPublic = PUBLIC_ENDPOINTS.some((ep) => url.includes(ep));
     if (!isPublic) {
-      const state = getState() as RootState;
-      const token = (state as any).auth?.token;
+      const token = await SecureStorageService.getAccessToken();
       if (token) {
         headers.set('Authorization', `Bearer ${token}`);
       }
@@ -55,52 +53,40 @@ export const baseQueryWithReauth: BaseQueryFn<
 
   // If unauthorized (401), try to refresh token
   if (!isPublic && result.error && result.error.status === 401) {
-    console.log('Token expired, attempting refresh...');
-
-    const refreshToken = ((api.getState() as any).auth as any)?.refreshToken;
+    const refreshToken = await SecureStorageService.getRefreshToken();
 
     if (refreshToken) {
-      // Attempt to refresh token using correct API format
       const refreshResult = await baseQuery(
         {
           url: API_ENDPOINTS.AUTH.REFRESH,
           method: 'POST',
-          body: { refresh_token: refreshToken }, // Match API expected format
+          body: { refresh_token: refreshToken },
         },
         api,
         extraOptions
       );
 
       if (refreshResult.data) {
-        // Extract access_token from API response format
         const responseData = refreshResult.data as any;
         const newAccessToken = responseData.data?.access_token;
         const newRefreshToken = responseData.data?.refresh_token;
 
         if (newAccessToken) {
-          // Update both tokens in store
-          api.dispatch(
-            setTokens({
-              access_token: newAccessToken,
-              refresh_token: newRefreshToken || refreshToken, // Use new refresh token or keep existing one
-              expires_in: responseData.data?.expires_in,
-            })
-          );
+          await SecureStorageService.setTokenData({
+            access_token: newAccessToken,
+            refresh_token: newRefreshToken || refreshToken,
+            expires_in: responseData.data?.expires_in || 3600,
+          });
 
-          // Retry original request with new token
           result = await baseQuery(args, api, extraOptions);
         } else {
-          console.log('Invalid refresh response format, logging out...');
-          api.dispatch(logout());
+          await SecureStorageService.clearAuthData();
         }
       } else {
-        // Refresh failed, logout user
-        console.log('Refresh token failed, logging out...');
-        api.dispatch(logout());
+        await SecureStorageService.clearAuthData();
       }
     } else {
-      // No refresh token, logout user
-      api.dispatch(logout());
+      await SecureStorageService.clearAuthData();
     }
   }
 

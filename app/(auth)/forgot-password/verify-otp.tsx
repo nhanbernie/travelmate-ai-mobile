@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import { AuthLayout } from '@/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
-import { useVerifyOTP } from './hooks/useVerifyOTP';
+import useVerifyOTP from '@/features/auth/forgot-password/hooks/useVerifyOTP';
 import { useLocalSearchParams } from 'expo-router';
 
 export default function VerifyOTPStep() {
