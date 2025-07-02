@@ -17,7 +17,10 @@ export function useForgotPassword() {
         console.log('SUBMIT FORGOT PASSWORD', data.email, result);
 
         if (result.success) {
-          router.replace('/(auth)/forgot-password/verify-otp');
+          router.push({
+            pathname: '/(auth)/forgot-password/verify-otp',
+            params: { email: data.email },
+          });
         }
       } catch (error: any) {
         let errorMessage = 'Failed to send reset email. Please try again.';

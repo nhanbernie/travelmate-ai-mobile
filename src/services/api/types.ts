@@ -17,13 +17,13 @@ export interface ForgotPasswordRequest {
 
 export interface VerifyOTPRequest {
   email: string;
-  code: string;
+  otp: string;
 }
 
 export interface ResetPasswordRequest {
-  token: string;
-  password: string;
-  confirmPassword: string;
+  email: string;
+  otp: string;
+  newPassword: string;
 }
 
 export interface RefreshTokenRequest {

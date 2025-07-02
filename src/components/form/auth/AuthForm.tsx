@@ -27,7 +27,19 @@ const AuthForm = ({
 
   const defaultOnSubmit = (data: LoginFormData) => {};
 
-  const handleSubmit = customOnSubmit || defaultOnSubmit;
+  // Enhanced handleSubmit that includes email for verifyOTP
+  const handleSubmit = (data: any) => {
+    // For verifyOTP, combine the email from props with the code from form
+    if (type === 'verifyOTP' && email) {
+      console.log('Combining email with code:', { email, code: data.code });
+      return (
+        customOnSubmit?.({ email, otp: data.code }) || defaultOnSubmit(data)
+      );
+    }
+
+    // For other form types, pass data as is
+    return customOnSubmit?.(data) || defaultOnSubmit(data);
+  };
 
   const AuthFormContent = () => {
     const { submitForm, isValid, isSubmitting } =
@@ -41,6 +53,16 @@ const AuthForm = ({
             return <TextField key={field.name} {...fieldWithoutLabel} />;
           })}
         </View>
+
+        {/* Display email when in verifyOTP mode */}
+        {type === 'verifyOTP' && email && (
+          <View className="mt-2">
+            <AppText variant="caption" className="text-gray-500 text-center">
+              Code sent to: {email}
+            </AppText>
+          </View>
+        )}
+
         <View className="flex">
           {/* add checkbox for remember me */}
           {type === 'login' && (

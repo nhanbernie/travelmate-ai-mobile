@@ -26,7 +26,7 @@ export function useRegisterSubmit() {
           username: data.username ?? '',
         }).unwrap();
         console.log('SUBMIT REGISTER', data, result);
-        
+
         if (result.success && result.data) {
           dispatch(
             setCredentials({

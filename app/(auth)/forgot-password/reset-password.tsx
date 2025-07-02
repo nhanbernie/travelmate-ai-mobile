@@ -1,26 +1,18 @@
 import { View } from 'react-native';
-import { useLocalSearchParams, router } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { AuthLayout } from '@/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
+import { useResetPassword } from './hooks/useResetPassword';
 
 export default function ResetPasswordStep() {
-  const { token } = useLocalSearchParams<{ token: string }>();
+  const { email, otp } = useLocalSearchParams<{ email: string; otp: string }>();
+  const resetPassword = useResetPassword();
 
-  const handleResetPassword = async (data: {
-    password: string;
-    confirmPassword: string;
-  }) => {
-    try {
-      // TODO: Call API to reset password
-      console.log('Resetting password with token:', token, 'data:', data);
-
-      // Navigate to login with success message
-      router.push('/(auth)/login');
-    } catch (error) {
-      console.error('Reset password error:', error);
-    }
-  };
+  if (!email || !otp) {
+    console.error('Missing required params:', { email, otp });
+    // Có thể thêm xử lý khi thiếu params
+  }
 
   return (
     <AuthLayout>
@@ -32,13 +24,26 @@ export default function ResetPasswordStep() {
           <AppText variant="subtitle" className="text-center">
             Enter your new password
           </AppText>
+          {email && (
+            <AppText className="text-center mt-2 text-gray-500">
+              {email}
+            </AppText>
+          )}
         </View>
 
         <View className="w-full">
           <AuthForm
             type="resetPassword"
-            onSubmit={handleResetPassword}
-            token={token}
+            email={email}
+            token={otp} // Using token prop to pass OTP
+            onSubmit={(formData) => {
+              // Combine form data with params
+              return resetPassword({
+                email: email || '',
+                otp: otp || '',
+                password: formData.password,
+              });
+            }}
           />
         </View>
       </View>
