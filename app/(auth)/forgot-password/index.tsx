@@ -17,7 +17,6 @@ export default function ForgotPasswordStep1() {
             Enter your email to receive verification code
           </AppText>
         </View>
-
         <View className="w-full">
           <AuthForm type="forgotPassword" onSubmit={handleForgotPassword} />
         </View>
