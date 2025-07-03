@@ -7,7 +7,7 @@ import {
   setError,
 } from '@/redux/slices/auth.slice';
 import { router } from 'expo-router';
-export function useRegisterSubmit() {
+const useRegisterSubmit = () => {
   const dispatch = useAppDispatch();
   const [registerMutation] = useRegisterMutation();
 
@@ -26,7 +26,7 @@ export function useRegisterSubmit() {
           username: data.username ?? '',
         }).unwrap();
         console.log('SUBMIT REGISTER', data, result);
-        
+
         if (result.success && result.data) {
           dispatch(
             setCredentials({
@@ -52,3 +52,5 @@ export function useRegisterSubmit() {
     [dispatch, registerMutation]
   );
 }
+
+export default useRegisterSubmit;

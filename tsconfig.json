@@ -19,7 +19,8 @@
       "@/libs/*": ["./libs/*"],
       "@/layouts/*": ["./components/layouts/*"],
       "@/redux/*": ["./redux/*"],
-      "@/slices/*": ["./redux/slices/*"]
+      "@/slices/*": ["./redux/slices/*"],
+      "@/features/*": ["./features/*"]
     }
   },
   "include": [

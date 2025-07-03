@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "ai-interviewer",
-    "slug": "ai-interviewer",
+    "name": "travelmateai",
+    "slug": "travelmateai",
+    "description": "A travel companion app that uses AI to help plan trips.",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -9,6 +10,7 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
+      "bundleIdentifier": "com.nhanbernie.boltexponativewind",
       "supportsTablet": true
     },
     "web": {
@@ -28,12 +30,13 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "b0670bf8-5b58-4bb1-bd5e-287240a997cd"
+        "projectId": "59f2b5f6-39df-4b00-a206-33f0c9b0faf9"
       }
     },
     "android": {
       "package": "com.nhanbernie.boltexponativewind",
       "softwareKeyboardLayoutMode": "pan"
-    }
+    },
+    "owner": "nhanbernie"
   }
 }

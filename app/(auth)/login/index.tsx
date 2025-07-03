@@ -2,7 +2,7 @@ import { View } from 'react-native';
 import { AuthLayout } from '@/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
-import { useLoginSubmit } from './hooks/useLoginSubmit';
+import useLoginSubmit from '@/features/auth/login/hooks/useLoginSubmit';
 
 export default function LoginPage() {
   const onSubmit = useLoginSubmit();

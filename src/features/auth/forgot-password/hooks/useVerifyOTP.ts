@@ -4,7 +4,7 @@ import { useVerifyOtpMutation } from '@/services/auth';
 import { setLoading, setError } from '@/redux/slices/auth.slice';
 import { router } from 'expo-router';
 
-export function useVerifyOTP() {
+const useVerifyOTP = () => {
   const dispatch = useAppDispatch();
   const [verifyOtp] = useVerifyOtpMutation();
   return useCallback(
@@ -14,13 +14,21 @@ export function useVerifyOTP() {
         dispatch(setError(null));
         const result = await verifyOtp({
           email: data.email,
-          code: data.otp,
+          otp: data.otp,
         }).unwrap();
         console.log('SUBMIT VERIFY OTP', data, result);
         if (result.success) {
-          router.replace('/(auth)/forgot-password/reset-password');
+          // Pass email and OTP to reset-password page
+          router.replace({
+            pathname: '/(auth)/forgot-password/reset-password',
+            params: {
+              email: data.email,
+              otp: data.otp,
+            },
+          });
         }
       } catch (error: any) {
+        console.error('Error verifying OTP:', error);
         let errorMessage = 'Failed to verify OTP. Please try again.';
         if (error?.data?.message) errorMessage = error.data.message;
         else if (error?.message) errorMessage = error.message;
@@ -29,6 +37,8 @@ export function useVerifyOTP() {
         dispatch(setLoading(false));
       }
     },
-    [dispatch]
+    [dispatch, verifyOtp]
   );
-}
+};
+
+export default useVerifyOTP;
