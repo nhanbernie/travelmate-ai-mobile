@@ -1,13 +1,24 @@
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView, KeyboardAvoidingView, Platform, View } from 'react-native';
+import {
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+  View,
+  StatusBar,
+} from 'react-native';
 import { useTheme } from '@/hooks/useTheme';
 import { LinearGradient } from 'expo-linear-gradient';
 
 export const AuthLayout = ({ children }: { children: React.ReactNode }) => {
-  const { theme, colors } = useTheme();
+  const { isDark, colors } = useTheme();
 
   return (
     <SafeAreaView className="flex-1" edges={['left', 'right']}>
+      <StatusBar
+        barStyle={isDark ? 'light-content' : 'dark-content'}
+        backgroundColor="transparent"
+        translucent
+      />
       <LinearGradient
         colors={['#FEE7ED', '#FDF2F8', '#FFFFFF']}
         locations={[0, 0.7, 1]}

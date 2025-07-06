@@ -5,7 +5,7 @@ import { SecureStorageService } from '@/services/storage/secureStorage.service';
 interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (userData: any, tokenData: any) => Promise<void>;
+  login: (userData: any) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const authenticated = await SecureStorageService.isAuthenticated();
       setIsAuthenticated(authenticated);
-
+      console.log('Authenticated:', authenticated);
       if (authenticated) {
         router.replace('/(main)');
       } else {
@@ -33,9 +33,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const login = async (userData: any, tokenData: any) => {
+  const login = async (userData: any) => {
     await SecureStorageService.setUserData(userData);
-    await SecureStorageService.setTokenData(tokenData);
     setIsAuthenticated(true);
     router.replace('/(main)');
   };

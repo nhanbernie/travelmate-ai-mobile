@@ -4,6 +4,10 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface LogoutRequest {
+  refresh_token?: string; 
+}
+
 export interface RegisterRequest {
   username: string;
   email: string;
