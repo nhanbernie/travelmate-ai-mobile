@@ -4,7 +4,9 @@ import { useLoginMutation } from '@/services/auth';
 import { setLoading, setError, setUser } from '@/redux/slices/auth.slice';
 import { router } from 'expo-router';
 import { SecureStorageService } from '@/services/storage/secureStorage.service';
+import { useAuth } from '@/contexts/AuthContext';
 const useLoginSubmit = () => {
+  const { login } = useAuth();
   const dispatch = useAppDispatch();
   const [loginMutation] = useLoginMutation();
 
@@ -19,9 +21,9 @@ const useLoginSubmit = () => {
           await SecureStorageService.setTokenData({
             access_token: result.data.access_token,
             refresh_token: result.data.refresh_token,
-            expires_in: result.data.expires_in || 3600,
+            expires_in: result.data.expires_in || 900,
           });
-
+          login(result.data.user);
           dispatch(setUser(result.data.user));
           router.replace('/(main)');
         } else {
