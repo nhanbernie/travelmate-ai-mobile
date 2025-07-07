@@ -1,4 +1,5 @@
 import * as SecureStore from 'expo-secure-store';
+import { refreshTokenUtil } from '@/services/api/refreshTokenUtil';
 
 const STORAGE_KEYS = {
   ACCESS_TOKEN: 'access_token',
@@ -116,6 +117,8 @@ export class SecureStorageService {
 
   static async setUserData(userData: StoredUserData): Promise<void> {
     try {
+      console.log(`Saving user data: ${JSON.stringify(userData)}`);
+
       await SecureStore.setItemAsync(
         STORAGE_KEYS.USER_DATA,
         JSON.stringify(userData)
@@ -141,6 +144,8 @@ export class SecureStorageService {
       const expires_at = await SecureStore.getItemAsync(
         STORAGE_KEYS.EXPIRES_AT
       );
+      console.log(`Checking token expiration, expires_at: ${expires_at}`);
+
       if (!expires_at) return true;
 
       return Date.now() >= parseInt(expires_at);
@@ -163,14 +168,44 @@ export class SecureStorageService {
     }
   }
 
-  // Kiểm tra user đã đăng nhập chưa
   static async isAuthenticated(): Promise<boolean> {
     try {
       const tokenData = await this.getTokenData();
       const userData = await this.getUserData();
       const isExpired = await this.isTokenExpired();
 
-      return !!(tokenData && userData && !isExpired);
+      console.log(`Token data: ${JSON.stringify(tokenData)}`);
+      console.log(`User data: ${JSON.stringify(userData)}`);
+      console.log(`Is token expired: ${isExpired}`);
+
+      if (!tokenData || !userData) {
+        console.log('No token data or user data found');
+        return false;
+      }
+
+      if (!isExpired) {
+        console.log('Token is still valid');
+        return true;
+      }
+
+      if (tokenData.refresh_token) {
+        const { refreshTokenUtil } = await import(
+          '@/services/api/refreshTokenUtil'
+        );
+        const newTokenData = await refreshTokenUtil(tokenData.refresh_token);
+
+        if (newTokenData) {
+          await this.setTokenData(newTokenData);
+          console.log('Token refreshed successfully');
+          return true;
+        } else {
+          console.log('Token refresh failed');
+        }
+      }
+
+      console.log('Clearing auth data');
+      await this.clearAuthData();
+      return false;
     } catch (error) {
       console.error('Error checking authentication status:', error);
       return false;

@@ -16,7 +16,11 @@ const ScreenWrapper = ({ children, style }: ScreenWrapperProps) => {
   const { isDark, theme, colors } = useTheme();
 
   return (
-    <SafeAreaView className="flex-1 bg-white dark:bg-gray-900" style={style}>
+    <SafeAreaView
+      className="flex-1 bg-white-500  dark:bg-gray-900"
+      edges={['top', 'left', 'right']}
+      style={style}
+    >
       <StatusBar
         barStyle={isDark ? 'light-content' : 'dark-content'}
         backgroundColor="transparent"

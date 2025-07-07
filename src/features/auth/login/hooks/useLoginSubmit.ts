@@ -23,6 +23,11 @@ const useLoginSubmit = () => {
             refresh_token: result.data.refresh_token,
             expires_in: result.data.expires_in || 900,
           });
+          console.log(
+            'Login successful check get exprire: ',
+            result.data.expires_in
+          );
+          // await SecureStorageService.setUserData(result.data.user);
           login(result.data.user);
           dispatch(setUser(result.data.user));
           router.replace('/(main)');
