@@ -1,5 +1,4 @@
 import * as SecureStore from 'expo-secure-store';
-import { refreshTokenUtil } from '@/services/api/refreshTokenUtil';
 
 const STORAGE_KEYS = {
   ACCESS_TOKEN: 'access_token',
@@ -144,7 +143,6 @@ export class SecureStorageService {
       const expires_at = await SecureStore.getItemAsync(
         STORAGE_KEYS.EXPIRES_AT
       );
-      console.log(`Checking token expiration, expires_at: ${expires_at}`);
 
       if (!expires_at) return true;
 
@@ -174,17 +172,11 @@ export class SecureStorageService {
       const userData = await this.getUserData();
       const isExpired = await this.isTokenExpired();
 
-      console.log(`Token data: ${JSON.stringify(tokenData)}`);
-      console.log(`User data: ${JSON.stringify(userData)}`);
-      console.log(`Is token expired: ${isExpired}`);
-
       if (!tokenData || !userData) {
-        console.log('No token data or user data found');
         return false;
       }
 
       if (!isExpired) {
-        console.log('Token is still valid');
         return true;
       }
 
@@ -196,14 +188,11 @@ export class SecureStorageService {
 
         if (newTokenData) {
           await this.setTokenData(newTokenData);
-          console.log('Token refreshed successfully');
           return true;
         } else {
-          console.log('Token refresh failed');
         }
       }
 
-      console.log('Clearing auth data');
       await this.clearAuthData();
       return false;
     } catch (error) {

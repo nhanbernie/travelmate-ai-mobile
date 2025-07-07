@@ -1,6 +1,5 @@
 import { ENV } from '@/utils/env';
 import { API_ENDPOINTS } from './config';
-// import { API_ENDPOINTS } from './endpoints';
 
 export interface TokenData {
   access_token: string;
@@ -12,8 +11,6 @@ export const refreshTokenUtil = async (
   refreshToken: string
 ): Promise<TokenData | null> => {
   try {
-    console.log('Attempting to refresh token...');
-
     const response = await fetch(
       `${ENV.API.BASE_URL}${API_ENDPOINTS.AUTH.REFRESH}`,
       {
@@ -28,10 +25,7 @@ export const refreshTokenUtil = async (
       }
     );
 
-    console.log('Refresh token response status:', response.status);
-
     if (!response.ok) {
-      console.log('Refresh token request failed:', response.status);
       return null;
     }
 
