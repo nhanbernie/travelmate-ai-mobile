@@ -14,10 +14,11 @@ interface ScreenWrapperProps {
 
 const ScreenWrapper = ({ children, style }: ScreenWrapperProps) => {
   const { isDark, theme, colors } = useTheme();
+  console.log('ScreenWrapper theme:', isDark, theme);
 
   return (
     <SafeAreaView
-      className="flex-1 bg-white-500  dark:bg-gray-900"
+      className="flex-1 bg-white dark:bg-gray-900"
       edges={['top', 'left', 'right']}
       style={style}
     >

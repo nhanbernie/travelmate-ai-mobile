@@ -171,7 +171,9 @@ export class SecureStorageService {
       const tokenData = await this.getTokenData();
       const userData = await this.getUserData();
       const isExpired = await this.isTokenExpired();
-
+      console.log('check token: ', isExpired);
+      console.log('check user: ', userData);
+      console.log('check tokenData: ', tokenData);
       if (!tokenData || !userData) {
         return false;
       }

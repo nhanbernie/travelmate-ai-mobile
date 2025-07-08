@@ -1,7 +1,6 @@
 import { Pressable, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
-
 import Animated, {
   interpolate,
   useAnimatedStyle,
@@ -52,7 +51,10 @@ const TabBarButton: React.FC<TabBarButtonProps> = (props) => {
     };
   });
   return (
-    <Pressable {...props} style={styles.container}>
+    <Pressable
+      {...props}
+      style={styles.container}
+    >
       <Animated.View style={[animatedIconStyle]}>
         <Ionicons
           name={

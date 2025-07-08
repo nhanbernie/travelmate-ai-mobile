@@ -55,6 +55,13 @@ export function useTheme() {
     border: theme === 'dark' ? 'border-gray-700' : 'border-gray-200',
     primary: theme === 'dark' ? 'bg-blue-600' : 'bg-blue-500',
     primaryText: 'text-white',
+    // theme specific colors
+    primaryColor: '#E95D77',
+    secondaryColor: '#F58601',
+    tertiaryColor: '#00C5A7',
+    quaternaryColor: '#FFAD9F',
+    // simple colors
+    greyColor: '#737373',
   };
 
   return {

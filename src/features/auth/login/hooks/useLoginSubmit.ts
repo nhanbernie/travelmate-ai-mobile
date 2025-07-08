@@ -5,6 +5,7 @@ import { setLoading, setError, setUser } from '@/redux/slices/auth.slice';
 import { router } from 'expo-router';
 import { SecureStorageService } from '@/services/storage/secureStorage.service';
 import { useAuth } from '@/contexts/AuthContext';
+
 const useLoginSubmit = () => {
   const { login } = useAuth();
   const dispatch = useAppDispatch();
