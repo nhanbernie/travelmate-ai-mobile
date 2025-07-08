@@ -5,7 +5,7 @@ import { AppText } from '@/components/ui';
 import Ionicons from '@expo/vector-icons/Ionicons';
 const TravelInsights = () => {
   return (
-    <View className="rounded-2xl overflow-hidden shadow-lg">
+    <View className="rounded-3xl overflow-hidden shadow-lg">
       <LinearGradient
         colors={['#FEE7ED', '#FDF2F8', '#FFFFFF']}
         locations={[0, 0.7, 1]}

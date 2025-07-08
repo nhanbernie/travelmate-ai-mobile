@@ -56,7 +56,7 @@ const QuickActionItem = () => {
           <AppButton
             title={action.title}
             onPress={() => handlePress(action.route)}
-            className="bg-white border border-[#F3F4F6] rounded-xl w-full"
+            className="bg-white border border-[#F3F4F6] rounded-3xl w-full"
             classNameButton="p-2"
             textClassName="text-[#1F2937]"
             startIcon={
