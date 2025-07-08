@@ -7,10 +7,14 @@ const Header = () => {
   const { colors } = useTheme();
   const user = useSelector(selectUser);
   return (
-    <View className="flex-row px-6 py-5">
-      <View className="flex-col">
-        <View className='mb-3'>
-          <AppText variant="h2" className={`text-[${colors.primaryColor}]`}>
+    <View className="flex-row px-6 py-5 justify-between items-start">
+      <View className="flex-col flex-1 pr-4">
+        <View className="mb-3">
+          <AppText
+            variant="h2"
+            className={`text-[${colors.primaryColor}]`}
+            numberOfLines={2}
+          >
             Welcome back, {user?.username || 'Traveler'}!
           </AppText>
         </View>
@@ -18,7 +22,7 @@ const Header = () => {
           <AppText variant="title">Your travel companion</AppText>
         </View>
       </View>
-      <View className='absolute right-6 top-6'>
+      <View className="flex-shrink-0">
         <Avatar />
       </View>
     </View>

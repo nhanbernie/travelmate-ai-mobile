@@ -62,6 +62,11 @@ export function useTheme() {
     quaternaryColor: '#FFAD9F',
     // simple colors
     greyColor: '#737373',
+    greyColorLight: '#9CA3AF',
+
+    // text
+    textPrimary: theme === 'dark' ? '#FFFFFF' : '#4B5563',
+
   };
 
   return {

@@ -5,7 +5,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ScreenWrapper from '@/components/layouts/ScreenWrapper ';
 import Homepage from '@/features/homepage/Homepage';
 const App = () => {
-  return <Homepage />;
+  return (
+    <ScreenWrapper>
+      <Homepage />
+    </ScreenWrapper>
+  );
 };
 
 export default App;

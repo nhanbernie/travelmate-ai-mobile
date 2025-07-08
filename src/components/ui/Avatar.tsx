@@ -13,7 +13,7 @@ interface AvatarProps {
 const Avatar = ({ avatarUrl, size, onPress }: AvatarProps) => {
   return (
     <Pressable onPress={onPress}>
-      <View className="bg-white dark:bg-gray-800 p-1 rounded-full shadow-md">
+      <View className="bg-white dark:bg-gray-800 p-1 rounded-full shadow-lg">
         <Image
           source={{
             uri: avatarUrl ? avatarUrl : AVATAR_URL,

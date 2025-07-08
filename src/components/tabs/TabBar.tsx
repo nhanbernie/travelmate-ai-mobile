@@ -3,11 +3,12 @@ import React from 'react';
 import TabBarButton from './TabBarButton';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@/hooks/useTheme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const { colors } = useTheme();
-
+  const insets = useSafeAreaInsets();
   return (
-    <View style={[styles.tabbar]}>
+    <View style={[styles.tabbar, { bottom: insets.bottom + 5 }]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         let label: string;
@@ -50,7 +51,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
             onLongPress={onLongPress}
             isFocused={isFocused}
             routeName={route.name}
-            color={isFocused ? colors.primaryColor : colors.greyColor}
+            color={isFocused ? colors.primaryColor : colors.greyColorLight}
             label={label}
           />
         );
@@ -62,7 +63,6 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 const styles = StyleSheet.create({
   tabbar: {
     position: 'absolute',
-    bottom: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
