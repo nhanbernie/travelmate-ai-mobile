@@ -46,7 +46,7 @@ export function AppText({
 }: AppTextProps) {
   const customWeight = weight !== 'normal' ? fontWeights[weight] : undefined;
   const combinedClassName = createTextVariant(variant, customWeight, className);
-
+  
   return (
     <Text className={combinedClassName} {...props}>
       {children}

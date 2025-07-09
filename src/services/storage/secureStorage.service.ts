@@ -116,6 +116,8 @@ export class SecureStorageService {
 
   static async setUserData(userData: StoredUserData): Promise<void> {
     try {
+      console.log(`Saving user data: ${JSON.stringify(userData)}`);
+
       await SecureStore.setItemAsync(
         STORAGE_KEYS.USER_DATA,
         JSON.stringify(userData)
@@ -141,6 +143,7 @@ export class SecureStorageService {
       const expires_at = await SecureStore.getItemAsync(
         STORAGE_KEYS.EXPIRES_AT
       );
+
       if (!expires_at) return true;
 
       return Date.now() >= parseInt(expires_at);
@@ -163,14 +166,37 @@ export class SecureStorageService {
     }
   }
 
-  // Kiểm tra user đã đăng nhập chưa
   static async isAuthenticated(): Promise<boolean> {
     try {
       const tokenData = await this.getTokenData();
       const userData = await this.getUserData();
       const isExpired = await this.isTokenExpired();
+      console.log('check token: ', isExpired);
+      console.log('check user: ', userData);
+      console.log('check tokenData: ', tokenData);
+      if (!tokenData || !userData) {
+        return false;
+      }
 
-      return !!(tokenData && userData && !isExpired);
+      if (!isExpired) {
+        return true;
+      }
+
+      if (tokenData.refresh_token) {
+        const { refreshTokenUtil } = await import(
+          '@/services/api/refreshTokenUtil'
+        );
+        const newTokenData = await refreshTokenUtil(tokenData.refresh_token);
+
+        if (newTokenData) {
+          await this.setTokenData(newTokenData);
+          return true;
+        } else {
+        }
+      }
+
+      await this.clearAuthData();
+      return false;
     } catch (error) {
       console.error('Error checking authentication status:', error);
       return false;

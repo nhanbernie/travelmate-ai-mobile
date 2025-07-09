@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "EXPO_NO_TELEMETRY=1 expo start",
     "build:web": "expo export --platform web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
     "@expo-google-fonts/inter": "^0.4.0",
@@ -45,7 +47,7 @@
     "react-i18next": "^15.5.2",
     "react-native": "^0.79.2",
     "react-native-gesture-handler": "~2.24.0",
-    "react-native-reanimated": "3.17.4",
+    "react-native-reanimated": "3.17.5",
     "react-native-safe-area-context": "5.4.0",
     "react-native-screens": "~4.10.0",
     "react-native-svg": "15.11.2",
@@ -53,6 +55,8 @@
     "react-native-web": "^0.20.0",
     "react-native-webview": "13.13.5",
     "react-redux": "^9.2.0",
+    "redux": "^5.0.1",
+    "redux-persist": "^6.0.0",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^3.4.17",
     "yup": "^1.6.1"

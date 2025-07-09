@@ -5,6 +5,7 @@ import { setLoading, setError, setUser } from '@/redux/slices/auth.slice';
 import { router } from 'expo-router';
 import { SecureStorageService } from '@/services/storage/secureStorage.service';
 import { useAuth } from '@/contexts/AuthContext';
+
 const useLoginSubmit = () => {
   const { login } = useAuth();
   const dispatch = useAppDispatch();
@@ -23,6 +24,11 @@ const useLoginSubmit = () => {
             refresh_token: result.data.refresh_token,
             expires_in: result.data.expires_in || 900,
           });
+          console.log(
+            'Login successful check get exprire: ',
+            result.data.expires_in
+          );
+          // await SecureStorageService.setUserData(result.data.user);
           login(result.data.user);
           dispatch(setUser(result.data.user));
           router.replace('/(main)');
