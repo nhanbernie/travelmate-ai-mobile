@@ -8,7 +8,9 @@ import {
 } from './components';
 const Homepage = () => {
   return (
-    <ScrollView>
+    <ScrollView horizontal={false} showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}
+    >
       <Header />
       <View className="flex-1 px-6 py-4 gap-10">
         <QuickActionItem />
