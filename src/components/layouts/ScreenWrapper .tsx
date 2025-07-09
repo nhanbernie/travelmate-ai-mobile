@@ -52,7 +52,7 @@ const ScreenWrapper = ({ children, style }: ScreenWrapperProps) => {
             paddingTop: stableValues.stableInsets.top,
             paddingLeft: stableValues.stableInsets.left,
             paddingRight: stableValues.stableInsets.right,
-            paddingBottom: stableValues.stableInsets.bottom,
+            // paddingBottom: stableValues.stableInsets.bottom,
             backgroundColor: stableValues.backgroundColor,
           },
           style,

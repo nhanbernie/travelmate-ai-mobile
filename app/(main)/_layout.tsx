@@ -16,15 +16,15 @@ export default function MainLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-        }}
-      />
-      <Tabs.Screen
         name="trips"
         options={{
           title: 'Trips',
+        }}
+      />
+      <Tabs.Screen
+        name="explore"
+        options={{
+          title: 'Explore',
         }}
       />
       <Tabs.Screen
