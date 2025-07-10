@@ -103,4 +103,4 @@ This project is licensed under the MIT License.
 
 ## 👨‍💻 Developer
 
-Built with ❤️ for modern travel experiences.
+Built with ❤️ NhanBernie for modern travel experiences.
