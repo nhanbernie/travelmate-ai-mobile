@@ -4,10 +4,13 @@ import ItinerariesCard, { ItineraryCardProps } from './ItinerariesCard';
 import ItinerariesCardSkeleton from './ItinerariesCardSkeleton';
 import EmptyItinerary from './EmptyItinerary';
 import { mockItinerariesData } from '@/services/mock/mockItineraries';
+import { useScrollDetector } from '@/hooks/useScrollDetector';
 
 const mockItineraries: ItineraryCardProps[] = mockItinerariesData;
 
 const HistoryItinerary = () => {
+  // Use our scroll detector to control TabBar visibility
+  const { scrollHandler, scrollEventThrottle } = useScrollDetector();
   const [itineraries, setItineraries] = useState<ItineraryCardProps[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -57,6 +60,8 @@ const HistoryItinerary = () => {
         paddingBottom: 100,
         paddingHorizontal: 16,
       }}
+      onScroll={scrollHandler}
+      scrollEventThrottle={scrollEventThrottle}
     />
   );
 };

@@ -1,14 +1,45 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+} from 'react-native';
+import React, { useEffect, useRef } from 'react';
 import TabBarButton from './TabBarButton';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@/hooks/useTheme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useScrollContext } from '@/contexts/ScrollContext';
+
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
+  const { isScrollingDown } = useScrollContext();
+
+  // Animation for tab bar visibility
+  const translateY = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    // Animate the tab bar when scrolling direction changes
+    Animated.spring(translateY, {
+      toValue: isScrollingDown ? 100 : 0, // Move down (hide) when scrolling down
+      useNativeDriver: true,
+      friction: 8,
+      tension: 70,
+    }).start();
+  }, [isScrollingDown]);
+
   return (
-    <View style={[styles.tabbar, { bottom: insets.bottom + 5 }]}>
+    <Animated.View
+      style={[
+        styles.tabbar,
+        {
+          bottom: insets.bottom + 5,
+          transform: [{ translateY }],
+        },
+      ]}
+    >
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         let label: string;
@@ -56,7 +87,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
           />
         );
       })}
-    </View>
+    </Animated.View>
   );
 };
 
