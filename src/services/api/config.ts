@@ -21,5 +21,3 @@ export const API_CONFIG = {
   BASE_URL: ENV.API.BASE_URL,
   TIMEOUT: ENV.API.TIMEOUT,
 } as const;
-
-console.log('API_CONFIG:', API_CONFIG.BASE_URL);

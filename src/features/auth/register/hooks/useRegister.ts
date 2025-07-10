@@ -25,7 +25,6 @@ const useRegisterSubmit = () => {
           ...data,
           username: data.username ?? '',
         }).unwrap();
-        console.log('SUBMIT REGISTER', data, result);
 
         if (result.success && result.data) {
           dispatch(
@@ -51,6 +50,6 @@ const useRegisterSubmit = () => {
     },
     [dispatch, registerMutation]
   );
-}
+};
 
 export default useRegisterSubmit;

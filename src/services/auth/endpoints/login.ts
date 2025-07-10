@@ -12,7 +12,6 @@ export const loginEndpoint = (builder: EndpointBuilder<any, any, any>) =>
 
     invalidatesTags: ['User', 'Auth'],
     transformResponse: (response: AuthResponse) => {
-      console.log('Login response:', response);
       return response;
     },
     transformErrorResponse: (response: any) => {
