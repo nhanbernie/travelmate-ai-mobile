@@ -1,20 +1,25 @@
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import React from 'react';
 import SubHeader from '@/components/layouts/SubHeader';
+import ItineraryFilter from './components/ItineraryFilter';
+import HistoryItinerary from './components/HistoryItinerary';
 
 const ItineraryPage = () => {
   return (
-    <View>
-      {/* <SubHeader title="Explore" />
-      // With gradient */}
-      {/* <SubHeader title="Popular Destinations" useGradient={true} /> */}
+    <View className="flex-1">
       <SubHeader
         showBackButton={false}
         title="Paris Trip"
         useGradient={false}
-        // gradientColors={['#E95D77', '#FFAD9F']}
       />
-      <Text>hello</Text>
+
+      <View className="flex-1 px-6">
+        <ItineraryFilter />
+
+        <View className="flex-1">
+          <HistoryItinerary />
+        </View>
+      </View>
     </View>
   );
 };
