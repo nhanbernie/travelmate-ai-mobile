@@ -9,7 +9,7 @@ import {
 const Homepage = () => {
   return (
     <ScrollView horizontal={false} showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ flexGrow: 1, paddingBottom: 70 }}
+      contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}
     >
       <Header />
       <View className="flex-1 px-6 py-4 gap-10">

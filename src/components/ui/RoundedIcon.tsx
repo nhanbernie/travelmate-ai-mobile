@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { cn } from '@/utils/cn';
@@ -9,6 +9,8 @@ interface RoundedIconProps {
   colorIcon?: string;
   backgroundColor?: string;
   classNameRounded?: string;
+  onPress?: () => void;
+  onLongPress?: () => void;
 }
 
 const RoundedIcon = ({
@@ -17,16 +19,24 @@ const RoundedIcon = ({
   colorIcon = '#E95D77',
   backgroundColor = '#FEE7ED',
   classNameRounded,
+  onPress,
+  onLongPress,
 }: RoundedIconProps) => {
   return (
-    <View
-      className={cn('p-3 rounded-full self-center', classNameRounded)}
-      style={{
-        backgroundColor: backgroundColor,
-      }}
+    <TouchableOpacity
+      onPress={onPress}
+      onLongPress={onLongPress}
+      activeOpacity={0.8}
     >
-      <Ionicons name={iconName} size={size} color={colorIcon} />
-    </View>
+      <View
+        className={cn('p-3 rounded-full self-center', classNameRounded)}
+        style={{
+          backgroundColor: backgroundColor,
+        }}
+      >
+        <Ionicons name={iconName} size={size} color={colorIcon} />
+      </View>
+    </TouchableOpacity>
   );
 };
 

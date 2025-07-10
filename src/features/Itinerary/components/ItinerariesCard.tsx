@@ -36,7 +36,7 @@ const ItinerariesCard = ({
   return (
     <View
       className={cn(
-        'mb-4 rounded-xl overflow-hidden shadow-sm',
+        'mb-8 rounded-xl overflow-hidden shadow-lg mx-1', // Thêm mx-1 để có không gian cho shadow hiển thị
         isDark ? 'bg-gray-800' : 'bg-white'
       )}
     >
