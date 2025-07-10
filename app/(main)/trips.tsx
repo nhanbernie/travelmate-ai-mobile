@@ -1,12 +1,8 @@
 import { View, Text } from 'react-native';
 import React from 'react';
-
-const create = () => {
-  return (
-    <View>
-      <Text>create</Text>
-    </View>
-  );
+import ItineraryPage from '@/features/Itinerary/ItineraryPage';
+const Itinerary = () => {
+  return <ItineraryPage />;
 };
 
-export default create;
+export default Itinerary;
