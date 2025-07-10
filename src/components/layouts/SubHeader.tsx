@@ -18,6 +18,7 @@ interface SubHeaderProps {
   customBackIcon?: React.ReactNode;
   titleClassName?: string;
   contentClassName?: string;
+  strokeBottom?: boolean;
 }
 
 const SubHeader = ({
@@ -30,7 +31,8 @@ const SubHeader = ({
   children,
   customBackIcon,
   titleClassName,
-  contentClassName = 'flex-row py-5 items-center',
+  contentClassName = 'flex-row py-4 items-center',
+  strokeBottom = false,
 }: SubHeaderProps) => {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
@@ -47,7 +49,9 @@ const SubHeader = ({
 
   const renderContent = () => (
     <View
-      className="flex-row items-center justify-between px-6"
+      className={`flex-row items-center justify-between px-6 ${
+        strokeBottom ? 'border border-b border-gray-100' : ''
+      }  `}
       style={{
         paddingTop: insets.top,
       }}
@@ -78,9 +82,9 @@ const SubHeader = ({
             )}
             {title && (
               <AppText
-                variant="h3"
+                variant="h2"
                 className={`font-semibold ${titleClassName || ''}`}
-                style={{ color: useGradient ? '#FFFFFF' : colors.textPrimary }}
+                style={{ color: useGradient ? '#FFFFFF' : colors.primaryColor }}
               >
                 {title}
               </AppText>
