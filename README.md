@@ -18,7 +18,7 @@ npx expo start
 ```
 
 ## 🎨 UI Link
-# https://motiff.com/file/yOIQamMQ6cWWKtJZswAAH2T?nodeId=0%3A1&type=design "SWD"
+https://motiff.com/file/yOIQamMQ6cWWKtJZswAAH2T?nodeId=0%3A1&type=design
 
 ## 📱 Features
 
