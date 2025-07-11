@@ -4,7 +4,9 @@ import ScreenWrapper from '@/components/layouts/ScreenWrapper ';
 import { useScrollDetector } from '@/hooks/useScrollDetector';
 
 const Profile = () => {
-  const { scrollHandler, scrollEventThrottle } = useScrollDetector();
+  // hideThreshold: 18px để ẩn TabBar
+  // showThreshold: 7px để hiện TabBar
+  const { scrollHandler, scrollEventThrottle } = useScrollDetector(18, 7);
 
   return (
     <ScreenWrapper>

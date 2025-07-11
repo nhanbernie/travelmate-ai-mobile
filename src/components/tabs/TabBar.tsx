@@ -1,10 +1,4 @@
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Animated,
-} from 'react-native';
+import { StyleSheet, Animated } from 'react-native';
 import React, { useEffect, useRef } from 'react';
 import TabBarButton from './TabBarButton';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
@@ -25,8 +19,10 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     Animated.spring(translateY, {
       toValue: isScrollingDown ? 100 : 0, // Move down (hide) when scrolling down
       useNativeDriver: true,
-      friction: 8,
-      tension: 70,
+      friction: 6,
+      tension: 100,
+      restSpeedThreshold: 0.01,
+      restDisplacementThreshold: 0.01,
     }).start();
   }, [isScrollingDown]);
 
