@@ -1,5 +1,6 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import Header from '@/components/layouts/Header';
+// import { Header } from '@/components/Header';
 import {
   TravelInsights,
   QuickActionItem,

@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { authApi } from '../services/auth';
 import { authReducer } from './slices';
+import { apiErrorHandler } from '@/services/api/apiErrorHandler';
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +18,9 @@ export const store = configureStore({
       },
     }).concat(
       // Add RTK Query middleware
-      authApi.middleware
+      authApi.middleware,
+      // Add our custom error handler middleware
+      apiErrorHandler
     ),
   devTools: __DEV__,
 });
