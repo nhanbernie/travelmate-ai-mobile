@@ -10,7 +10,6 @@ export const logoutEndpoint = (builder: EndpointBuilder<any, any, any>) =>
     }),
     invalidatesTags: ['User', 'Auth'],
     transformResponse: (response: ApiResponse) => {
-      console.log('Logout response:', response);
       return response;
     },
     transformErrorResponse: (response: any) => {

@@ -56,7 +56,8 @@ export function useTheme() {
     primary: theme === 'dark' ? 'bg-blue-600' : 'bg-blue-500',
     primaryText: 'text-white',
     // theme specific colors
-    primaryColor: '#E95D77',
+    // primaryColor: '#E95D77',
+    primaryColor: theme === 'dark' ? '#F58601' : '#E95D77',
     secondaryColor: '#F58601',
     tertiaryColor: '#00C5A7',
     quaternaryColor: '#FFAD9F',
@@ -66,7 +67,6 @@ export function useTheme() {
 
     // text
     textPrimary: theme === 'dark' ? '#FFFFFF' : '#4B5563',
-
   };
 
   return {

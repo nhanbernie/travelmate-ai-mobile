@@ -14,7 +14,6 @@ const useResetPassword = () => {
       otp: string;
       password: string; // From form
     }) => {
-      console.log('Submitting reset password for email:', data.email);
       try {
         dispatch(setLoading(true));
         dispatch(setError(null));
@@ -25,7 +24,6 @@ const useResetPassword = () => {
           newPassword: data.password,
         }).unwrap();
 
-        console.log('SUBMIT RESET PASSWORD', data, result);
         if (result.success) {
           router.push('/(auth)/login');
         }

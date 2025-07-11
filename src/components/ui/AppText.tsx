@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, TextProps } from 'react-native';
-import { cn } from '@/utils/cn';
 import { createTextVariant, fontWeights } from '@/utils/textVariants';
 import { type ClassValue } from 'clsx';
 
@@ -46,7 +45,7 @@ export function AppText({
 }: AppTextProps) {
   const customWeight = weight !== 'normal' ? fontWeights[weight] : undefined;
   const combinedClassName = createTextVariant(variant, customWeight, className);
-  
+
   return (
     <Text className={combinedClassName} {...props}>
       {children}
