@@ -25,10 +25,8 @@ export function ScrollProvider({ children }: ScrollProviderProps) {
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // Wrapper function để đảm bảo logic cập nhật đúng
   const updateScrollingDown = (newValue: boolean) => {
     setIsScrollingDown((prev) => {
-      // Chỉ cập nhật nếu giá trị thực sự thay đổi
       if (prev !== newValue) {
         return newValue;
       }
