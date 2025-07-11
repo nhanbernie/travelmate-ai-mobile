@@ -12,7 +12,6 @@ export const useScrollDetector = (hideThreshold = 15, showThreshold = 5) => {
   const { setIsScrollingDown, lastScrollY, setLastScrollY, isScrollingDown } =
     useScrollContext();
 
-  // Dùng useRef để lưu trữ giá trị tạm thời, tránh việc re-render gây delay
   const scrollTimeout = useRef<number | null>(null);
   const isScrollingRef = useRef(false);
   const lastUpdateTime = useRef<number>(0);
@@ -35,7 +34,7 @@ export const useScrollDetector = (hideThreshold = 15, showThreshold = 5) => {
       }
 
       // Debounce với thời gian khác nhau cho ẩn và hiện
-      const debounceTime = scrollingDown ? 30 : 20; // Ẩn chậm hơn, hiện nhanh hơn
+      const debounceTime = scrollingDown ? 30 : 10; // Ẩn chậm hơn, hiện nhanh hơn
       if (currentTime - lastUpdateTime.current < debounceTime) {
         return;
       }

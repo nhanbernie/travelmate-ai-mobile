@@ -9,9 +9,6 @@ import { useScrollDetector } from '@/hooks/useScrollDetector';
 const mockItineraries: ItineraryCardProps[] = mockItinerariesData;
 
 const HistoryItinerary = () => {
-  // Use our scroll detector to control TabBar visibility
-  // hideThreshold: 25px để ẩn TabBar (trong list cần kéo nhiều hơn)
-  // showThreshold: 6px để hiện TabBar (phản hồi nhanh khi kéo ngược)
   const { scrollHandler, scrollEventThrottle } = useScrollDetector(25, 6);
   const [itineraries, setItineraries] = useState<ItineraryCardProps[]>([]);
   const [loading, setLoading] = useState(true);
