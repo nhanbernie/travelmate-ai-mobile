@@ -1,33 +1,30 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import React from 'react';
 import ScreenWrapper from '@/components/layouts/ScreenWrapper ';
 import { useScrollDetector } from '@/hooks/useScrollDetector';
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from '@/components/ui';
+import { AppText } from '@/components/ui/AppText';
+import { useSafeNavigation } from '@/hooks/useSafeNavigation';
+import LanguageTestScreen from '@/components/test/LanguageTestScreen';
 
 const Profile = () => {
-  // hideThreshold: 18px để ẩn TabBar
-  // showThreshold: 7px để hiện TabBar
+  const { t } = useTranslation();
+  const { navigate } = useSafeNavigation();
   const { scrollHandler, scrollEventThrottle } = useScrollDetector(18, 7);
+
+  const handleTestAuth = () => {
+    navigate('/(auth)/login');
+  };
 
   return (
     <ScreenWrapper>
       <ScrollView
         onScroll={scrollHandler}
         scrollEventThrottle={scrollEventThrottle}
-        contentContainerStyle={styles.container}
+        style={{ flex: 1 }}
       >
-        <Text style={styles.title}>Profile</Text>
-        <Text style={styles.description}>
-          Your profile information will appear here
-        </Text>
-
-        {/* Add some extra content to make the screen scrollable for testing */}
-        {Array(20)
-          .fill(0)
-          .map((_, i) => (
-            <Text key={i} style={styles.dummyText}>
-              Scroll content item {i + 1}
-            </Text>
-          ))}
+        <LanguageTestScreen />
       </ScrollView>
     </ScreenWrapper>
   );
@@ -39,19 +36,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     minHeight: '100%',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
+  section: {
+    width: '100%',
+    marginBottom: 24,
+    alignItems: 'center',
   },
-  dummyText: {
-    fontSize: 16,
-    marginVertical: 8,
-    color: '#666',
-  },
-  description: {
-    fontSize: 16,
-    color: '#666',
+  testButton: {
+    backgroundColor: '#E95D77',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
   },
 });
 

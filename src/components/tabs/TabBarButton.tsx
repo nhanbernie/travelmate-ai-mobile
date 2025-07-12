@@ -51,10 +51,7 @@ const TabBarButton: React.FC<TabBarButtonProps> = (props) => {
     };
   });
   return (
-    <Pressable
-      {...props}
-      style={styles.container}
-    >
+    <Pressable {...props} style={styles.container}>
       <Animated.View style={[animatedIconStyle]}>
         <Ionicons
           name={

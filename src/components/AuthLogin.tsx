@@ -1,20 +1,24 @@
 import React from 'react';
 import { View, Pressable } from 'react-native';
-import { router } from 'expo-router';
 import { AppText } from './ui';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useTranslation } from 'react-i18next';
+import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 
 interface AuthLoginProps {
   type: 'login' | 'register' | 'forgotPassword';
 }
 
 const AuthLogin = ({ type }: AuthLoginProps) => {
+  const { t } = useTranslation();
+  const { navigate } = useSafeNavigation();
+
   const handleSocialLogin = (provider: string) => {
     console.log(`Login with ${provider}`);
   };
 
   const handleNavigation = () => {
-    router.push(
+    navigate(
       type === 'login'
         ? { pathname: '/(auth)/register' }
         : { pathname: '/(auth)/login' }
@@ -27,7 +31,7 @@ const AuthLogin = ({ type }: AuthLoginProps) => {
       <View className="flex-row items-center mb-4">
         <View className="flex-1 h-px bg-gray-300 dark:bg-gray-600" />
         <AppText className="mx-4 text-gray-500 text-sm">
-          Or continue with
+          {t('auth.social.divider')}
         </AppText>
         <View className="flex-1 h-px bg-gray-300 dark:bg-gray-600" />
       </View>
@@ -59,10 +63,12 @@ const AuthLogin = ({ type }: AuthLoginProps) => {
       <Pressable onPress={handleNavigation} className="items-center">
         <AppText className="text-center text-gray-600 dark:text-gray-400">
           {type === 'login'
-            ? "Don't have an account? "
-            : 'Already have an account? '}
+            ? t('auth.login.noAccount')
+            : t('auth.register.haveAccount')}
           <AppText weight="bold" className="text-[#00C5A7]">
-            {type === 'login' ? 'Sign Up' : 'Sign In'}
+            {type === 'login'
+              ? t('auth.login.signUp')
+              : t('auth.register.signIn')}
           </AppText>
         </AppText>
       </Pressable>

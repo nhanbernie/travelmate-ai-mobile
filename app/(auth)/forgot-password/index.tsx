@@ -1,9 +1,12 @@
 import { View } from 'react-native';
-import { AuthLayout } from '@/layouts/AuthLayout';
+import { AuthLayout } from '@/components/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
 import useForgotPassword from '@/features/auth/forgot-password/hooks/useForgotPassword';
+import { useTranslation } from 'react-i18next';
+
 export default function ForgotPasswordStep1() {
+  const { t } = useTranslation();
   const handleForgotPassword = useForgotPassword();
 
   return (
@@ -11,10 +14,10 @@ export default function ForgotPasswordStep1() {
       <View className="flex-1 w-full justify-center px-6 py-8">
         <View className="mb-8">
           <AppText variant="h1" className="text-center text-[#E95D77] mb-2">
-            Forgot Password
+            {t('auth.forgotPassword.title')}
           </AppText>
           <AppText variant="subtitle" className="text-center">
-            Enter your email to receive verification code
+            {t('auth.forgotPassword.subtitle')}
           </AppText>
         </View>
         <View className="w-full">

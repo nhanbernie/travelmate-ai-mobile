@@ -1,11 +1,13 @@
 import { View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import { AuthLayout } from '@/layouts/AuthLayout';
+import { AuthLayout } from '@/components/layouts/AuthLayout';
 import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
 import useResetPassword from '@/features/auth/forgot-password/hooks/useResetPassword';
+import { useTranslation } from 'react-i18next';
 
 export default function ResetPasswordStep() {
+  const { t } = useTranslation();
   const { email, otp } = useLocalSearchParams<{ email: string; otp: string }>();
   const resetPassword = useResetPassword();
 
@@ -18,10 +20,10 @@ export default function ResetPasswordStep() {
       <View className="flex-1 w-full justify-center px-6 py-8">
         <View className="mb-8">
           <AppText variant="h1" className="text-center text-[#E95D77] mb-2">
-            Create New Password
+            {t('auth.resetPassword.title')}
           </AppText>
           <AppText variant="subtitle" className="text-center">
-            Enter your new password
+            {t('auth.resetPassword.subtitle')}
           </AppText>
           {email && (
             <AppText className="text-center mt-2 text-gray-500">
