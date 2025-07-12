@@ -3,9 +3,13 @@ import { AppText, Avatar } from '../ui';
 import { useTheme } from '@/hooks/useTheme';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@/redux/selectors/auth.selectors';
+import { useTranslation } from 'react-i18next';
+import SafeLanguageSwitcher from '../ui/SafeLanguageSwitcher';
 const Header = () => {
   const { colors } = useTheme();
   const user = useSelector(selectUser);
+  const { t } = useTranslation();
+
   return (
     <View className="flex-row px-6 py-5 justify-between items-start">
       <View className="flex-col flex-1 pr-4">
@@ -15,11 +19,15 @@ const Header = () => {
             className={`text-[${colors.primaryColor}]`}
             numberOfLines={2}
           >
-            Welcome back, {user?.username || 'Traveler'}!
+            {t('homepage.header.welcomeBack', {
+              username: user?.username || 'Traveler',
+            })}
           </AppText>
         </View>
         <View>
-          <AppText variant="title">Your travel companion</AppText>
+          <AppText variant="title">
+            {t('homepage.header.travelCompanion')}
+          </AppText>
         </View>
       </View>
       <View className="flex-shrink-0">

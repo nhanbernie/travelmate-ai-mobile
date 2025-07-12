@@ -118,5 +118,30 @@
     "profileDescription": "Thông tin hồ sơ của bạn sẽ hiển thị ở đây",
     "testAuth": "Kiểm tra xác thực",
     "scrollContent": "Nội dung cuộn mục"
+  },
+  "homepage": {
+    "header": {
+      "welcomeBack": "Chào mừng trở lại, {{username}}!",
+      "travelCompanion": "Người bạn đồng hành du lịch"
+    },
+    "quickActions": {
+      "title": "Hành động nhanh",
+      "createTrip": "Tạo chuyến đi",
+      "explore": "Khám phá",
+      "myPlaces": "Địa điểm",
+      "settings": "Cài đặt"
+    },
+    "travelInsights": {
+      "title": "Thông tin du lịch",
+      "countries": "Quốc gia",
+      "miles": "Dặm",
+      "daysAvg": "Ngày trung bình"
+    },
+    "recentActivities": {
+      "title": "Hoạt động gần đây",
+      "noActivities": "Không tìm thấy hoạt động gần đây.",
+      "flightToParis": "Chuyến bay đến Paris",
+      "hoursAgo": "2 giờ trước"
+    }
   }
 }

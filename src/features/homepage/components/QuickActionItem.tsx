@@ -3,12 +3,14 @@ import { AppButton } from '@/components/ui';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useTheme } from '@/hooks/useTheme';
 import { useRouter } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
 
 const QuickActionItem = () => {
   const { colors } = useTheme();
   const router = useRouter();
+  const { t } = useTranslation();
 
   const QUICK_ACTIONS: {
     title: string;
@@ -17,25 +19,25 @@ const QuickActionItem = () => {
     route?: string;
   }[] = [
     {
-      title: 'Create Trip',
+      title: t('homepage.quickActions.createTrip'),
       icon: 'add',
       color: colors.primaryColor,
       route: '/trips',
     },
     {
-      title: 'Explore',
+      title: t('homepage.quickActions.explore'),
       icon: 'compass',
       color: colors.secondaryColor,
       route: '/explore',
     },
     {
-      title: 'My Places',
+      title: t('homepage.quickActions.myPlaces'),
       icon: 'location-outline',
       color: colors.tertiaryColor,
       route: '/trips',
     },
     {
-      title: 'Settings',
+      title: t('homepage.quickActions.settings'),
       icon: 'settings-outline',
       color: colors.quaternaryColor,
       route: '/profile',

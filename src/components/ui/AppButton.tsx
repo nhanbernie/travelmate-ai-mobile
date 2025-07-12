@@ -7,7 +7,6 @@ import {
   View,
 } from 'react-native';
 import { cn } from '@/utils/cn';
-import { AppText } from './AppText';
 
 interface AppButtonProps {
   title?: string;
@@ -33,8 +32,7 @@ const AppButton = ({
   endIcon,
 }: AppButtonProps) => {
   const mergedClass = cn(
-    'flex-row items-center px-4 py-3 rounded-full bg-blue-500',
-    startIcon ? 'justify-start' : 'justify-center',
+    'flex-row items-center justify-center px-4 py-3 rounded-full bg-blue-500',
     disabled ? 'opacity-50' : '',
     className
   );
@@ -49,15 +47,12 @@ const AppButton = ({
       {isLoading ? (
         <ActivityIndicator color="#fff" />
       ) : (
-        <View className={cn('flex-row items-center', classNameButton)}>
+        <View className={cn('flex-row justify-start items-center', classNameButton)}>
           {startIcon && <View className="mr-2">{startIcon}</View>}
           {title && (
-            <AppText
-              variant="title"
-              className={cn('text-white font-medium', textClassName)}
-            >
+            <Text className={cn('text-black font-medium', textClassName)}>
               {title}
-            </AppText>
+            </Text>
           )}
           {endIcon && <View className="ml-2">{endIcon}</View>}
         </View>
