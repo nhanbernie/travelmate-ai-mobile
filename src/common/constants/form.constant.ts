@@ -1,3 +1,5 @@
+import i18n from '@/i18n';
+
 export interface IInputFieldProps {
   name: string;
   label?: string;
@@ -6,72 +8,74 @@ export interface IInputFieldProps {
   className?: string;
 }
 
-const commonFields: IInputFieldProps[] = [
+const getCommonFields = (): IInputFieldProps[] => [
   {
-    label: 'Email',
+    label: i18n.t('auth.fields.email.label'),
     name: 'email',
     type: 'email',
-    placeholder: 'Nhập email của bạn',
+    placeholder: i18n.t('auth.fields.email.placeholder'),
   },
   {
-    label: 'Mật khẩu',
+    label: i18n.t('auth.fields.password.label'),
     name: 'password',
     type: 'password',
-    placeholder: 'Nhập mật khẩu',
+    placeholder: i18n.t('auth.fields.password.placeholder'),
   },
 ];
 
 export const INPUT_FIELDS = (
   type: 'register' | 'login' | 'forgotPassword' | 'verifyOTP' | 'resetPassword'
 ): IInputFieldProps[] => {
+  const commonFields = getCommonFields();
+
   const fields: Record<
     'register' | 'login' | 'forgotPassword' | 'verifyOTP' | 'resetPassword',
     IInputFieldProps[]
   > = {
     register: [
       {
-        label: 'Tên người dùng',
+        label: i18n.t('auth.fields.username.label'),
         name: 'username',
         type: 'text',
-        placeholder: 'Nhập tên người dùng',
+        placeholder: i18n.t('auth.fields.username.placeholder'),
       },
       ...commonFields,
       {
-        label: 'Xác nhận mật khẩu',
+        label: i18n.t('auth.fields.confirmPassword.label'),
         name: 'confirmPassword',
         type: 'password',
-        placeholder: 'Nhập lại mật khẩu',
+        placeholder: i18n.t('auth.fields.confirmPassword.placeholder'),
       },
     ],
     login: [...commonFields],
     forgotPassword: [
       {
-        label: 'Email',
+        label: i18n.t('auth.fields.email.label'),
         name: 'email',
         type: 'email',
-        placeholder: 'Nhập email để khôi phục',
+        placeholder: i18n.t('auth.fields.email.placeholder'),
       },
     ],
     verifyOTP: [
       {
-        label: 'Mã xác thực',
+        label: i18n.t('auth.fields.verificationCode.label'),
         name: 'code',
         type: 'number',
-        placeholder: 'Nhập mã 6 chữ số',
+        placeholder: i18n.t('auth.fields.verificationCode.placeholder'),
       },
     ],
     resetPassword: [
       {
-        label: 'Mật khẩu mới',
+        label: i18n.t('auth.fields.newPassword.label'),
         name: 'password',
         type: 'password',
-        placeholder: 'Nhập mật khẩu mới',
+        placeholder: i18n.t('auth.fields.newPassword.placeholder'),
       },
       {
-        label: 'Xác nhận mật khẩu',
+        label: i18n.t('auth.fields.confirmPassword.label'),
         name: 'confirmPassword',
         type: 'password',
-        placeholder: 'Nhập lại mật khẩu mới',
+        placeholder: i18n.t('auth.fields.confirmPassword.placeholder'),
       },
     ],
   };
@@ -79,14 +83,30 @@ export const INPUT_FIELDS = (
   return fields[type];
 };
 
-const BUTTON_TYPE: Record<string, string> = {
-  login: 'Đăng nhập',
-  register: 'Tạo tài khoản',
-  forgotPassword: 'Gửi yêu cầu',
-  verifyOTP: 'Xác thực',
-  resetPassword: 'Đặt lại mật khẩu',
+const getButtonTitle = (type: string): string => {
+  const buttonKeys: Record<string, string> = {
+    login: 'auth.login.button',
+    register: 'auth.register.button',
+    forgotPassword: 'auth.forgotPassword.button',
+    verifyOTP: 'auth.verifyOtp.button',
+    resetPassword: 'auth.resetPassword.button',
+  };
+
+  return i18n.t(buttonKeys[type]) || i18n.t('common.submit');
 };
 
 export const BUTTON_TITLE = (type: string): string => {
-  return BUTTON_TYPE[type] || 'Submit';
+  return getButtonTitle(type);
+};
+
+export const getProcessingText = (type: string): string => {
+  const processingKeys: Record<string, string> = {
+    login: 'auth.login.processing',
+    register: 'auth.register.processing',
+    forgotPassword: 'auth.forgotPassword.processing',
+    verifyOTP: 'auth.verifyOtp.processing',
+    resetPassword: 'auth.resetPassword.processing',
+  };
+
+  return i18n.t(processingKeys[type]) || i18n.t('common.loading');
 };

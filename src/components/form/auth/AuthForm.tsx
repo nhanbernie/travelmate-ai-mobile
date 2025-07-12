@@ -1,14 +1,19 @@
 import validatorSchema from '@/libs/authValidator';
 import FormProvider from '../FormProvider';
 import { View, Pressable } from 'react-native';
-import { INPUT_FIELDS, BUTTON_TITLE } from '@/common/constants/form.constant';
+import {
+  INPUT_FIELDS,
+  BUTTON_TITLE,
+  getProcessingText,
+} from '@/common/constants/form.constant';
 import { TextField } from '../TextField';
 import { useFormSubmit } from '@/hooks/useFormSubmit';
 import { AppText } from '../../ui/AppText';
 import { cn } from '@/utils/cn';
 import * as yup from 'yup';
 import AuthLogin from '@/components/AuthLogin';
-import { router } from 'expo-router';
+import { useTranslation } from 'react-i18next';
+import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 
 export interface IAuthFormProps {
   type: 'login' | 'register' | 'forgotPassword' | 'verifyOTP' | 'resetPassword';
@@ -23,6 +28,8 @@ const AuthForm = ({
   email,
   token,
 }: IAuthFormProps) => {
+  const { t } = useTranslation();
+  const { navigate } = useSafeNavigation();
   type LoginFormData = yup.InferType<(typeof validatorSchema)[typeof type]>;
 
   const defaultOnSubmit = (data: LoginFormData) => {};
@@ -57,7 +64,7 @@ const AuthForm = ({
         {type === 'verifyOTP' && email && (
           <View className="mt-2">
             <AppText variant="caption" className="text-gray-500 text-center">
-              Code sent to: {email}
+              {t('auth.verifyOtp.codeSentTo')} {email}
             </AppText>
           </View>
         )}
@@ -72,17 +79,17 @@ const AuthForm = ({
               >
                 <View className="w-5 h-5 border border-gray-300 rounded-full mr-2" />
                 <AppText variant="body" className="text-gray-700">
-                  Remember me
+                  {t('auth.login.rememberMe')}
                 </AppText>
               </Pressable>
 
               <View className="flex-row justify-end">
                 <Pressable
-                  onPress={() => router.push('/(auth)/forgot-password')}
+                  onPress={() => navigate('/(auth)/forgot-password')}
                   className="text-[#00C5A7]"
                 >
                   <AppText variant="body" className="text-[#F58601]">
-                    Forgot Password?
+                    {t('auth.login.forgotPassword')}
                   </AppText>
                 </Pressable>
               </View>
@@ -108,7 +115,7 @@ const AuthForm = ({
                 isValid && !isSubmitting ? 'text-white' : 'text-gray-500'
               )}
             >
-              {isSubmitting ? 'Đang xử lý...' : BUTTON_TITLE(type)}
+              {isSubmitting ? getProcessingText(type) : BUTTON_TITLE(type)}
             </AppText>
           </Pressable>
         </View>

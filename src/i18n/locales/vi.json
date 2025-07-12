@@ -1,8 +1,122 @@
 {
-  "app_name": "AI interviewer",
-  "app_description": "Ứng dụng phỏng vấn AI giúp bạn luyện tập phỏng vấn và cải thiện kỹ năng trả lời câu hỏi phỏng vấn.",
-  "welcome_message": "Chào mừng bạn đến với AI Interviewer!",
-  "start_button": "Bắt đầu phỏng vấn",
+  "app_name": "TravelMate AI",
+  "app_description": "Trợ lý du lịch cá nhân của bạn",
+  "welcome_message": "Chào mừng bạn đến với TravelMate AI!",
+  "start_button": "Bắt đầu lên kế hoạch",
   "settings": "Cài đặt",
-  "language": "Ngôn ngữ"
+  "language": "Ngôn ngữ",
+  "auth": {
+    "login": {
+      "title": "Chào mừng trở lại!",
+      "subtitle": "Đăng nhập để lên kế hoạch cho chuyến phiêu lưu tiếp theo",
+      "button": "Đăng nhập",
+      "rememberMe": "Ghi nhớ đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "noAccount": "Chưa có tài khoản? ",
+      "signUp": "Đăng ký",
+      "processing": "Đang đăng nhập..."
+    },
+    "register": {
+      "title": "Chào mừng đến với TravelMate AI",
+      "subtitle": "Trợ lý du lịch cá nhân của bạn",
+      "button": "Tạo tài khoản",
+      "haveAccount": "Đã có tài khoản? ",
+      "signIn": "Đăng nhập",
+      "processing": "Đang tạo tài khoản..."
+    },
+    "forgotPassword": {
+      "title": "Quên mật khẩu",
+      "subtitle": "Nhập email để nhận mã xác thực",
+      "button": "Gửi yêu cầu",
+      "processing": "Đang gửi yêu cầu..."
+    },
+    "verifyOtp": {
+      "title": "Xác thực mã",
+      "subtitle": "Nhập mã xác thực đã được gửi đến email của bạn",
+      "button": "Xác thực",
+      "codeSentTo": "Mã đã được gửi đến:",
+      "processing": "Đang xác thực..."
+    },
+    "resetPassword": {
+      "title": "Tạo mật khẩu mới",
+      "subtitle": "Nhập mật khẩu mới của bạn",
+      "button": "Đặt lại mật khẩu",
+      "processing": "Đang đặt lại mật khẩu..."
+    },
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Nhập email của bạn"
+      },
+      "password": {
+        "label": "Mật khẩu",
+        "placeholder": "Nhập mật khẩu"
+      },
+      "username": {
+        "label": "Tên người dùng",
+        "placeholder": "Nhập tên người dùng"
+      },
+      "confirmPassword": {
+        "label": "Xác nhận mật khẩu",
+        "placeholder": "Nhập lại mật khẩu"
+      },
+      "newPassword": {
+        "label": "Mật khẩu mới",
+        "placeholder": "Nhập mật khẩu mới"
+      },
+      "verificationCode": {
+        "label": "Mã xác thực",
+        "placeholder": "Nhập mã 6 chữ số"
+      }
+    },
+    "social": {
+      "divider": "Hoặc tiếp tục với",
+      "google": "Tiếp tục với Google",
+      "apple": "Tiếp tục với Apple",
+      "facebook": "Tiếp tục với Facebook"
+    },
+    "errors": {
+      "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ",
+      "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
+      "passwordsDoNotMatch": "Mật khẩu không khớp",
+      "requiredField": "Trường này là bắt buộc",
+      "invalidCode": "Vui lòng nhập mã xác thực hợp lệ",
+      "usernameTooShort": "Tên người dùng phải có ít nhất 3 ký tự",
+      "passwordComplexity": "Mật khẩu phải chứa chữ hoa, số và ký tự đặc biệt",
+      "samePassword": "Mật khẩu mới phải khác với mật khẩu hiện tại"
+    },
+    "validation": {
+      "emailRequired": "Email là bắt buộc",
+      "passwordRequired": "Mật khẩu là bắt buộc",
+      "usernameRequired": "Tên người dùng là bắt buộc",
+      "confirmPasswordRequired": "Xác nhận mật khẩu là bắt buộc",
+      "oldPasswordRequired": "Mật khẩu cũ là bắt buộc",
+      "newPasswordRequired": "Mật khẩu mới là bắt buộc",
+      "codeRequired": "Mã xác thực là bắt buộc"
+    }
+  },
+  "tabs": {
+    "home": "Trang chủ",
+    "trips": "Chuyến đi",
+    "explore": "Khám phá",
+    "profile": "Hồ sơ"
+  },
+  "common": {
+    "loading": "Đang tải...",
+    "submit": "Gửi",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "done": "Hoàn thành",
+    "save": "Lưu",
+    "edit": "Chỉnh sửa",
+    "delete": "Xóa",
+    "yes": "Có",
+    "no": "Không",
+    "profile": "Hồ sơ",
+    "profileDescription": "Thông tin hồ sơ của bạn sẽ hiển thị ở đây",
+    "testAuth": "Kiểm tra xác thực",
+    "scrollContent": "Nội dung cuộn mục"
+  }
 }

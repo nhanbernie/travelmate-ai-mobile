@@ -1,67 +1,83 @@
 import * as Yup from 'yup';
-import { AUTH_FORM_ERROR_MESSAGES } from '@/constants/message.constant';
+import i18n from '@/i18n';
 
 const AUTH_PASSWORD =
   /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{6,}$/;
 const AUTH_CODE_VERIFICATION = /^[0-9]+$/;
 
+// Helper function to get translated error messages
+const getErrorMessage = (key: string) => i18n.t(key);
+
 const validatorSchema = {
   login: Yup.object().shape({
     email: Yup.string()
-      .email(AUTH_FORM_ERROR_MESSAGES.EMU001)
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU002),
+      .email(getErrorMessage('auth.errors.invalidEmail'))
+      .required(getErrorMessage('auth.errors.requiredField')),
     password: Yup.string()
-      .min(12, AUTH_FORM_ERROR_MESSAGES.EMU003)
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU004),
+      .matches(AUTH_PASSWORD, getErrorMessage('auth.errors.passwordComplexity'))
+      .min(6, getErrorMessage('auth.errors.passwordTooShort'))
+      .required(getErrorMessage('auth.errors.requiredField')),
   }),
   register: Yup.object().shape({
     username: Yup.string()
-      .min(3, AUTH_FORM_ERROR_MESSAGES.EMU005)
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU006),
+      .min(3, getErrorMessage('auth.errors.requiredField'))
+      .required(getErrorMessage('auth.errors.requiredField')),
     email: Yup.string()
-      .email(AUTH_FORM_ERROR_MESSAGES.EMU001)
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU002),
+      .email(getErrorMessage('auth.errors.invalidEmail'))
+      .required(getErrorMessage('auth.errors.requiredField')),
     password: Yup.string()
-      .min(12, AUTH_FORM_ERROR_MESSAGES.EMU003)
-      .matches(AUTH_PASSWORD, AUTH_FORM_ERROR_MESSAGES.EMU009)
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU004),
+      .min(6, getErrorMessage('auth.errors.passwordTooShort'))
+      .required(getErrorMessage('auth.errors.requiredField')),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password')], AUTH_FORM_ERROR_MESSAGES.EMU007)
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU008),
+      .oneOf(
+        [Yup.ref('password')],
+        getErrorMessage('auth.errors.passwordsDoNotMatch')
+      )
+      .required(getErrorMessage('auth.errors.requiredField')),
   }),
   forgotPassword: Yup.object().shape({
     email: Yup.string()
-      .email(AUTH_FORM_ERROR_MESSAGES.EMU001)
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU002),
+      .email(getErrorMessage('auth.errors.invalidEmail'))
+      .required(getErrorMessage('auth.errors.requiredField')),
   }),
   verifyOTP: Yup.object().shape({
     code: Yup.string()
-      .length(6, AUTH_FORM_ERROR_MESSAGES.EMU010)
-      .matches(AUTH_CODE_VERIFICATION, AUTH_FORM_ERROR_MESSAGES.EMU011)
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU012),
+      .length(6, getErrorMessage('auth.errors.invalidCode'))
+      .matches(
+        AUTH_CODE_VERIFICATION,
+        getErrorMessage('auth.errors.invalidCode')
+      )
+      .required(getErrorMessage('auth.errors.requiredField')),
   }),
   resetPassword: Yup.object().shape({
     password: Yup.string()
-      .min(12, AUTH_FORM_ERROR_MESSAGES.EMU003)
-      .matches(AUTH_PASSWORD, AUTH_FORM_ERROR_MESSAGES.EMU009)
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU004),
+      .min(6, getErrorMessage('auth.errors.passwordTooShort'))
+      .required(getErrorMessage('auth.errors.requiredField')),
     confirmPassword: Yup.string()
-      .oneOf([Yup.ref('password')], AUTH_FORM_ERROR_MESSAGES.EMU007)
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU008),
+      .oneOf(
+        [Yup.ref('password')],
+        getErrorMessage('auth.errors.passwordsDoNotMatch')
+      )
+      .required(getErrorMessage('auth.errors.requiredField')),
   }),
   changePassword: Yup.object().shape({
     oldPassword: Yup.string()
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU013)
-      .min(12, AUTH_FORM_ERROR_MESSAGES.EMU003)
-      .matches(AUTH_PASSWORD, AUTH_FORM_ERROR_MESSAGES.EMU009),
+      .required(getErrorMessage('auth.errors.requiredField'))
+      .min(6, getErrorMessage('auth.errors.passwordTooShort')),
     newPassword: Yup.string()
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU014)
-      .min(12, AUTH_FORM_ERROR_MESSAGES.EMU003)
-      .matches(AUTH_PASSWORD, AUTH_FORM_ERROR_MESSAGES.EMU009)
-      .notOneOf([Yup.ref('oldPassword')], AUTH_FORM_ERROR_MESSAGES.EMU015),
+      .required(getErrorMessage('auth.errors.requiredField'))
+      .min(6, getErrorMessage('auth.errors.passwordTooShort'))
+      .notOneOf(
+        [Yup.ref('oldPassword')],
+        getErrorMessage('auth.errors.passwordsDoNotMatch')
+      ),
     confirmPassword: Yup.string()
-      .required(AUTH_FORM_ERROR_MESSAGES.EMU016)
-      .oneOf([Yup.ref('newPassword')], AUTH_FORM_ERROR_MESSAGES.EMU017),
+      .required(getErrorMessage('auth.errors.requiredField'))
+      .oneOf(
+        [Yup.ref('newPassword')],
+        getErrorMessage('auth.errors.passwordsDoNotMatch')
+      ),
   }),
 };
+
 export default validatorSchema;

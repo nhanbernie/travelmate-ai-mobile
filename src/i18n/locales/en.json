@@ -1,8 +1,122 @@
 {
-  "app_name": "AI Interviewer",
-  "app_description": "AI Interviewer helps you practice interviews and improve your answers to interview questions.",
-  "welcome_message": "Welcome to AI Interviewer!",
-  "start_button": "Start Interview",
+  "app_name": "TravelMate AI",
+  "app_description": "Your Personal Travel Companion",
+  "welcome_message": "Welcome to TravelMate AI!",
+  "start_button": "Start Planning",
   "settings": "Settings",
-  "language": "Language"
+  "language": "Language",
+  "auth": {
+    "login": {
+      "title": "Welcome Back!",
+      "subtitle": "Sign in to plan your next adventure",
+      "button": "Sign In",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot Password?",
+      "noAccount": "Don't have an account? ",
+      "signUp": "Sign Up",
+      "processing": "Signing in..."
+    },
+    "register": {
+      "title": "Welcome to TravelMate AI",
+      "subtitle": "Your Personal Travel Companion",
+      "button": "Create Account",
+      "haveAccount": "Already have an account? ",
+      "signIn": "Sign In",
+      "processing": "Creating account..."
+    },
+    "forgotPassword": {
+      "title": "Forgot Password",
+      "subtitle": "Enter your email to receive verification code",
+      "button": "Send Request",
+      "processing": "Sending request..."
+    },
+    "verifyOtp": {
+      "title": "Verify Code",
+      "subtitle": "Enter the verification code sent to your email",
+      "button": "Verify",
+      "codeSentTo": "Code sent to:",
+      "processing": "Verifying..."
+    },
+    "resetPassword": {
+      "title": "Create New Password",
+      "subtitle": "Enter your new password",
+      "button": "Reset Password",
+      "processing": "Resetting password..."
+    },
+    "fields": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter your email"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "Enter your username"
+      },
+      "confirmPassword": {
+        "label": "Confirm Password",
+        "placeholder": "Re-enter your password"
+      },
+      "newPassword": {
+        "label": "New Password",
+        "placeholder": "Enter your new password"
+      },
+      "verificationCode": {
+        "label": "Verification Code",
+        "placeholder": "Enter 6-digit code"
+      }
+    },
+    "social": {
+      "divider": "Or continue with",
+      "google": "Continue with Google",
+      "apple": "Continue with Apple",
+      "facebook": "Continue with Facebook"
+    },
+    "errors": {
+      "invalidEmail": "Please enter a valid email address",
+      "passwordTooShort": "Password must be at least 6 characters",
+      "passwordsDoNotMatch": "Passwords do not match",
+      "requiredField": "This field is required",
+      "invalidCode": "Please enter a valid verification code",
+      "usernameTooShort": "Username must be at least 3 characters",
+      "passwordComplexity": "Password must contain uppercase letters, numbers, and special characters",
+      "samePassword": "New password must be different from current password"
+    },
+    "validation": {
+      "emailRequired": "Email is required",
+      "passwordRequired": "Password is required",
+      "usernameRequired": "Username is required",
+      "confirmPasswordRequired": "Confirm password is required",
+      "oldPasswordRequired": "Old password is required",
+      "newPasswordRequired": "New password is required",
+      "codeRequired": "Verification code is required"
+    }
+  },
+  "tabs": {
+    "home": "Home",
+    "trips": "Trips",
+    "explore": "Explore",
+    "profile": "Profile"
+  },
+  "common": {
+    "loading": "Loading...",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "yes": "Yes",
+    "no": "No",
+    "profile": "Profile",
+    "profileDescription": "Your profile information will appear here",
+    "testAuth": "Test Authentication",
+    "scrollContent": "Scroll content item"
+  }
 }
