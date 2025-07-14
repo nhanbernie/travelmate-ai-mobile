@@ -118,5 +118,30 @@
     "profileDescription": "Your profile information will appear here",
     "testAuth": "Test Authentication",
     "scrollContent": "Scroll content item"
+  },
+  "homepage": {
+    "header": {
+      "welcomeBack": "Welcome back, {{username}}!",
+      "travelCompanion": "Your travel companion"
+    },
+    "quickActions": {
+      "title": "Quick Actions",
+      "createTrip": "Create Trip",
+      "explore": "Explore",
+      "myPlaces": "My Places",
+      "settings": "Settings"
+    },
+    "travelInsights": {
+      "title": "Travel Insights",
+      "countries": "Countries",
+      "miles": "Miles",
+      "daysAvg": "Days avg"
+    },
+    "recentActivities": {
+      "title": "Recent Activities",
+      "noActivities": "No recent activities found.",
+      "flightToParis": "Flight to Paris",
+      "hoursAgo": "2 hours ago"
+    }
   }
 }

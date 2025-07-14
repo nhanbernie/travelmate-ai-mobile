@@ -3,7 +3,10 @@ import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppText } from '@/components/ui';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useTranslation } from 'react-i18next';
 const TravelInsights = () => {
+  const { t } = useTranslation();
+
   return (
     <View className="rounded-2xl overflow-hidden shadow-lg">
       <LinearGradient
@@ -13,7 +16,7 @@ const TravelInsights = () => {
         end={{ x: 0, y: 1 }}
         style={{ padding: 16 }}
       >
-        <AppText variant="h4">TravelInsights</AppText>
+        <AppText variant="h4">{t('homepage.travelInsights.title')}</AppText>
         <View className="py-5">
           {/* Icon */}
           <View className="flex-row justify-around">
@@ -26,7 +29,7 @@ const TravelInsights = () => {
                 8
               </AppText>
               <AppText className="text-center text-[#4B5563]">
-                Countries
+                {t('homepage.travelInsights.countries')}
               </AppText>
             </View>
 
@@ -37,7 +40,9 @@ const TravelInsights = () => {
               <AppText className="text-center font-bold text-[#E95D77]">
                 12.367
               </AppText>
-              <AppText className="text-center text-[#4B5563]">Miles</AppText>
+              <AppText className="text-center text-[#4B5563]">
+                {t('homepage.travelInsights.miles')}
+              </AppText>
             </View>
 
             <View className="flex-col items-center justify-start gap-1">
@@ -47,7 +52,9 @@ const TravelInsights = () => {
               <AppText className="text-center font-bold text-[#E95D77]">
                 6
               </AppText>
-              <AppText className="text-center text-[#4B5563]">Days avg</AppText>
+              <AppText className="text-center text-[#4B5563]">
+                {t('homepage.travelInsights.daysAvg')}
+              </AppText>
             </View>
           </View>
         </View>
