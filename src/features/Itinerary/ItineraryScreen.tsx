@@ -7,9 +7,15 @@ import { AppText } from '@/components/ui/AppText';
 import { useTheme } from '@/hooks/useTheme';
 import { AppButton } from '@/components/ui';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 
 const ItineraryScreen = () => {
   const { colors } = useTheme();
+  const { navigate } = useSafeNavigation();
+
+  const handleCreateItinerary = () => {
+    navigate('/trips/create');
+  };
 
   return (
     <View className="flex-1">
@@ -21,12 +27,12 @@ const ItineraryScreen = () => {
             </AppText>
           </View>
 
-
           <View className="flex-shrink-0">
             <AppButton
               title="Add Itinerary"
               textClassName="text-[#E95D77] text-base font-semibold"
               className="bg-[#FEE7ED] "
+              onPress={handleCreateItinerary}
               endIcon={
                 <Ionicons name="add-outline" size={24} color="#E95D77" />
               }
