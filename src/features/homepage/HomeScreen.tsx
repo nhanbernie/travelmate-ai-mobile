@@ -8,7 +8,7 @@ import {
 } from './components';
 import { useScrollDetector } from '@/hooks/useScrollDetector';
 
-const Homepage = () => {
+const HomeScreen = () => {
   const { scrollHandler, scrollEventThrottle } = useScrollDetector(20, 8);
 
   return (
@@ -31,4 +31,4 @@ const Homepage = () => {
   );
 };
 
-export default Homepage;
+export default HomeScreen;

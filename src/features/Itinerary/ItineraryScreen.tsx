@@ -8,7 +8,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { AppButton } from '@/components/ui';
 import { Ionicons } from '@expo/vector-icons';
 
-const ItineraryPage = () => {
+const ItineraryScreen = () => {
   const { colors } = useTheme();
 
   return (
@@ -48,4 +48,4 @@ const ItineraryPage = () => {
   );
 };
 
-export default ItineraryPage;
+export default ItineraryScreen;

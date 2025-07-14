@@ -1,4 +1,4 @@
-import ItineraryPage from '@/features/Itinerary/ItineraryPage';
+import ItineraryScreen from '@/features/Itinerary/ItineraryScreen';
 import ScreenWrapper from '@/components/layouts/ScreenWrapper ';
 const Itinerary = () => {
   return (
@@ -8,7 +8,7 @@ const Itinerary = () => {
         bottom: false,
       }}
     >
-      <ItineraryPage />
+      <ItineraryScreen />
     </ScreenWrapper>
   );
 };
