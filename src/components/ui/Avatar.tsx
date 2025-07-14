@@ -8,11 +8,12 @@ interface AvatarProps {
   avatarUrl?: string;
   size?: number;
   onPress?: () => void;
+  className?: string;
 }
 
-const Avatar = ({ avatarUrl, size, onPress }: AvatarProps) => {
+const Avatar = ({ avatarUrl, size, onPress, className }: AvatarProps) => {
   return (
-    <Pressable onPress={onPress}>
+    <Pressable className={className} onPress={onPress}>
       <View className="bg-white dark:bg-gray-800 p-1 rounded-full shadow-lg">
         <Image
           source={{
