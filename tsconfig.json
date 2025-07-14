@@ -20,7 +20,8 @@
       "@/layouts/*": ["./components/layouts/*"],
       "@/redux/*": ["./redux/*"],
       "@/slices/*": ["./redux/slices/*"],
-      "@/features/*": ["./features/*"]
+      "@/features/*": ["./features/*"],
+      "@/ui/*": ["./components/ui/*"]
     }
   },
   "include": [

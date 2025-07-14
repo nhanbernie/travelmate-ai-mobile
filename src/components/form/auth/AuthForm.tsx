@@ -8,7 +8,7 @@ import {
 } from '@/common/constants/form.constant';
 import { TextField } from '../TextField';
 import { useFormSubmit } from '@/hooks/useFormSubmit';
-import { AppText } from '../../ui/AppText';
+import { AppText } from '@/ui/AppText';
 import { cn } from '@/utils/cn';
 import * as yup from 'yup';
 import AuthLogin from '@/components/AuthLogin';
