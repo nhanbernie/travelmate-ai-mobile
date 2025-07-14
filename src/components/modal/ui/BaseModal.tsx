@@ -47,7 +47,7 @@ const BaseModal: React.FC<BaseModalProps> = ({
   const sizeStyle = useMemo(() => {
     const baseStyle = {
       backgroundColor: 'white',
-      borderRadius: 12,
+      borderRadius: 30,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.25,

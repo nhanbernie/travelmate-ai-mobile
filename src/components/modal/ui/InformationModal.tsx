@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import BaseModal from './BaseModal';
 import { InformationModalConfig, InformationType } from '../types';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 interface InformationModalProps {
   config: InformationModalConfig;
@@ -27,22 +28,20 @@ const InformationModal: React.FC<InformationModalProps> = React.memo(
       onClose();
     };
 
-    // Xác định icon cho từng loại thông báo
     const getIcon = (type: InformationType) => {
       switch (type) {
         case 'success':
-          return '✅';
+          return 'checkmark-circle';
         case 'error':
-          return '❌';
+          return 'close-circle';
         case 'warning':
-          return '⚠️';
+          return 'warning';
         case 'info':
         default:
-          return 'ℹ️';
+          return 'information-circle';
       }
     };
 
-    // Xác định màu nút cho từng loại
     const getButtonColorHex = (type: InformationType) => {
       switch (type) {
         case 'success':
@@ -64,64 +63,36 @@ const InformationModal: React.FC<InformationModalProps> = React.memo(
         position={position}
         size={size}
       >
-        <View style={styles.container}>
-          <View style={styles.iconContainer}>
-            <Text style={styles.icon}>{getIcon(variant)}</Text>
+        <View className="p-6 items-center">
+          <View className="mb-4">
+            <Ionicons
+              name={getIcon(variant)}
+              color={getButtonColorHex(variant)}
+              size={36}
+            />
           </View>
 
-          <Text style={styles.title}>{title}</Text>
+          <Text className="text-lg font-bold text-gray-800 text-center mb-2">
+            {title}
+          </Text>
 
-          <Text style={styles.message}>{message}</Text>
+          <Text className="text-base text-gray-500 text-center mb-6">
+            {message}
+          </Text>
 
           <TouchableOpacity
             onPress={handleButtonPress}
-            style={[
-              styles.button,
-              { backgroundColor: getButtonColorHex(variant) },
-            ]}
+            style={{ backgroundColor: getButtonColorHex(variant) }}
+            className="px-6 py-3 rounded-lg"
           >
-            <Text style={styles.buttonText}>{buttonText}</Text>
+            <Text className="text-white font-semibold text-base">
+              {buttonText}
+            </Text>
           </TouchableOpacity>
         </View>
       </BaseModal>
     );
   }
 );
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 24,
-    alignItems: 'center',
-  },
-  iconContainer: {
-    marginBottom: 16,
-  },
-  icon: {
-    fontSize: 36,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#1F2937',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  message: {
-    fontSize: 16,
-    color: '#6B7280',
-    textAlign: 'center',
-    marginBottom: 24,
-  },
-  button: {
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 8,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontWeight: '600',
-    fontSize: 16,
-  },
-});
 
 export default InformationModal;

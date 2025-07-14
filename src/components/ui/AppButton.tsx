@@ -5,6 +5,8 @@ import {
   ActivityIndicator,
   GestureResponderEvent,
   View,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import { cn } from '@/utils/cn';
 
@@ -14,10 +16,12 @@ interface AppButtonProps {
   isLoading?: boolean;
   disabled?: boolean;
   className?: string;
+  style?: StyleProp<ViewStyle>;
   classNameButton?: string;
   textClassName?: string;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  activeOpacity?: number;
 }
 
 const AppButton = ({
@@ -26,10 +30,12 @@ const AppButton = ({
   isLoading,
   disabled,
   className,
+  style,
   classNameButton,
   textClassName,
   startIcon,
   endIcon,
+  activeOpacity = 0.6,
 }: AppButtonProps) => {
   const mergedClass = cn(
     'flex-row items-center justify-center px-4 py-3 rounded-full bg-blue-500',
@@ -40,9 +46,10 @@ const AppButton = ({
   return (
     <TouchableOpacity
       className={mergedClass}
+      style={style}
       onPress={onPress}
       disabled={disabled || isLoading}
-      activeOpacity={0.7}
+      activeOpacity={activeOpacity}
     >
       {isLoading ? (
         <ActivityIndicator color="#fff" />
