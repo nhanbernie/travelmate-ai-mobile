@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import BaseModal from './BaseModal';
 import { InformationModalConfig, InformationType } from '../types';
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 interface InformationModalProps {
   config: InformationModalConfig;
   onClose: () => void;
@@ -31,14 +31,14 @@ const InformationModal: React.FC<InformationModalProps> = React.memo(
     const getIcon = (type: InformationType) => {
       switch (type) {
         case 'success':
-          return '✅';
+          return 'checkmark-circle';
         case 'error':
-          return '❌';
+          return 'close-circle';
         case 'warning':
-          return '⚠️';
+          return 'warning';
         case 'info':
         default:
-          return 'ℹ️';
+          return 'information-circle';
       }
     };
 
@@ -66,7 +66,7 @@ const InformationModal: React.FC<InformationModalProps> = React.memo(
       >
         <View style={styles.container}>
           <View style={styles.iconContainer}>
-            <Text style={styles.icon}>{getIcon(variant)}</Text>
+            <Ionicons name={getIcon(variant)} color={getButtonColorHex(variant)} size={36} />
           </View>
 
           <Text style={styles.title}>{title}</Text>
