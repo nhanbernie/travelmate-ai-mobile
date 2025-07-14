@@ -36,12 +36,7 @@
     "experiments": {
       "typedRoutes": true
     },
-    "extra": {
-      "router": {},
-      "eas": {
-        "projectId": "59f2b5f6-39df-4b00-a206-33f0c9b0faf9"
-      }
-    },
+
     "android": {
       "package": "com.nhanbernie.boltexponativewind",
       "softwareKeyboardLayoutMode": "pan"
