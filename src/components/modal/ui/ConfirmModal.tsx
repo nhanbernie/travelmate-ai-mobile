@@ -19,13 +19,16 @@ const ConfirmModal: React.FC<ConfirmModalProps> = React.memo(
       onConfirm,
       onCancel,
       hideCancel = false,
+      hideConfirm = false,
       variant = 'default',
       position,
       size,
     } = config;
 
     const handleConfirm = () => {
-      onConfirm();
+      if (onConfirm) {
+        onConfirm();
+      }
       onClose();
     };
 
@@ -57,7 +60,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = React.memo(
         size={size}
       >
         <View style={styles.container}>
-          <Text style={styles.title}>{title}</Text>
+          {title && <Text style={styles.title}>{title}</Text>}
 
           {children ? (
             <View style={styles.contentContainer}>{children}</View>
@@ -65,27 +68,31 @@ const ConfirmModal: React.FC<ConfirmModalProps> = React.memo(
             message && <Text style={styles.message}>{message}</Text>
           )}
 
-          <View style={styles.buttonContainer}>
-            {!hideCancel && (
-              <TouchableOpacity
-                onPress={handleCancel}
-                style={[styles.button, styles.cancelButton]}
-              >
-                <Text style={styles.cancelButtonText}>{cancelText}</Text>
-              </TouchableOpacity>
-            )}
+          {(!hideCancel || !hideConfirm) && (
+            <View style={styles.buttonContainer}>
+              {!hideCancel && (
+                <TouchableOpacity
+                  onPress={handleCancel}
+                  style={[styles.button, styles.cancelButton]}
+                >
+                  <Text style={styles.cancelButtonText}>{cancelText}</Text>
+                </TouchableOpacity>
+              )}
 
-            <TouchableOpacity
-              onPress={handleConfirm}
-              style={[
-                styles.button,
-                styles.confirmButton,
-                { backgroundColor: getConfirmButtonColor() },
-              ]}
-            >
-              <Text style={styles.confirmButtonText}>{confirmText}</Text>
-            </TouchableOpacity>
-          </View>
+              {!hideConfirm && (
+                <TouchableOpacity
+                  onPress={handleConfirm}
+                  style={[
+                    styles.button,
+                    styles.confirmButton,
+                    { backgroundColor: getConfirmButtonColor() },
+                  ]}
+                >
+                  <Text style={styles.confirmButtonText}>{confirmText}</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          )}
         </View>
       </BaseModal>
     );

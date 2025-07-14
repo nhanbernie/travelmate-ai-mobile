@@ -33,14 +33,15 @@ export interface InformationModalConfig extends BaseModalConfig {
 // Props cho Confirm Modal
 export interface ConfirmModalConfig extends BaseModalConfig {
   type: 'Confirm';
-  title: string;
+  title?: string;
   message?: string;
   children?: ReactNode;
   confirmText?: string;
   cancelText?: string;
-  onConfirm: () => void;
+  onConfirm?: () => void;
   onCancel?: () => void;
   hideCancel?: boolean;
+  hideConfirm?: boolean;
   variant?: 'default' | 'danger' | 'success';
 }
 

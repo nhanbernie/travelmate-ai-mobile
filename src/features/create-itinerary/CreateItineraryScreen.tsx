@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Pressable } from 'react-native';
-import { AppText } from '@/components/ui/AppText';
+import { View, ScrollView } from 'react-native';
 import { useTheme } from '@/hooks/useTheme';
 import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 import { useCreateItinerary } from './hooks/useCreateItinerary';
@@ -11,7 +10,8 @@ import BudgetRange from './components/BudgetRange';
 import TravelPreferences from './components/TravelPreferences';
 import AccommodationSelector from './components/AccommodationSelector';
 import TransportationSelector from './components/TransportationSelector';
-import { cn } from '@/utils/cn';
+import { AppButton } from '@/components/ui';
+import { BlurView } from 'expo-blur';
 
 const CreateItineraryScreen: React.FC<CreateItineraryProps> = ({
   onSubmit,
@@ -101,35 +101,43 @@ const CreateItineraryScreen: React.FC<CreateItineraryProps> = ({
         </View>
       </ScrollView>
 
-      {/* Fixed Bottom Button */}
-      <View className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-6">
-        <View className="flex-row gap-3">
-          <Pressable
-            onPress={handleCancel}
-            className="flex-1 py-4 px-6 rounded-xl border border-gray-300 bg-white"
-          >
-            <AppText
-              variant="body"
-              className="text-center text-gray-700 font-semibold"
-            >
-              Cancel
-            </AppText>
-          </Pressable>
+      {/* Button with Blur Background */}
+      <BlurView
+        intensity={100}
+        tint="extraLight"
+        className="absolute bottom-0 left-0 right-0"
+        style={{
+          borderTopWidth: 1,
+          borderTopColor: 'rgba(255, 255, 255, 0.5)',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        }}
+      >
+        <View className="p-6" style={{ paddingBottom: 34 }}>
+          <View className="flex-row gap-3">
+            <AppButton
+              onPress={handleCancel}
+              className="flex-1 py-4 px-6 rounded-2xl border border-gray-300"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
+              title="Cancel"
+              textClassName="text-gray-700 font-semibold"
+            />
 
-          <Pressable
-            onPress={handleSubmit}
-            className="flex-2 py-4 px-6 rounded-xl"
-            style={{ backgroundColor: colors.primaryColor }}
-          >
-            <AppText
-              variant="body"
-              className="text-center text-white font-semibold"
-            >
-              Create My Perfect Trip
-            </AppText>
-          </Pressable>
+            <AppButton
+              onPress={handleSubmit}
+              className="flex-2 py-4 px-6 rounded-2xl"
+              style={{
+                backgroundColor: colors.primaryColor,
+                shadowColor: colors.primaryColor,
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.3,
+                elevation: 8,
+              }}
+              title="Create My Perfect Trip"
+              textClassName="text-white font-semibold"
+            />
+          </View>
         </View>
-      </View>
+      </BlurView>
     </View>
   );
 };
