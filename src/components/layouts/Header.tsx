@@ -5,7 +5,10 @@ import { useSelector } from 'react-redux';
 import { selectUser } from '@/redux/selectors/auth.selectors';
 import { useTranslation } from 'react-i18next';
 import SafeLanguageSwitcher from '../ui/SafeLanguageSwitcher';
-const Header = () => {
+interface HeaderProps {
+  onPressAvatar?: () => void;
+}
+const Header = ({ onPressAvatar }: HeaderProps) => {
   const { colors } = useTheme();
   const user = useSelector(selectUser);
   const { t } = useTranslation();
@@ -31,7 +34,7 @@ const Header = () => {
         </View>
       </View>
       <View className="flex-shrink-0">
-        <Avatar />
+        <Avatar onPress={onPressAvatar} />
       </View>
     </View>
   );
