@@ -3,7 +3,8 @@ import { store } from '@/redux/store';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
-import TravelMateToast from '@/components/feedback/TravelMateToast';
+import TravelMateToast from '@/components/feedback/toast/TravelMateToast';
+import { ModalProvider, ModalRenderer } from '@/components/modal';
 
 const toastConfig = {
   success: (props: any) => <TravelMateToast {...props} type="success" />,
@@ -14,14 +15,18 @@ const toastConfig = {
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <SafeAreaProvider style={{ flex: 1 }}>
-      <Provider store={store}>
-        <ThemeProvider>
-          {children}
-          <Toast config={toastConfig} />
-        </ThemeProvider>
-      </Provider>
-    </SafeAreaProvider>
+    <ModalProvider>
+      <ModalRenderer />
+
+      <SafeAreaProvider style={{ flex: 1 }}>
+        <Provider store={store}>
+          <ThemeProvider>
+            {children}
+            <Toast config={toastConfig} />
+          </ThemeProvider>
+        </Provider>
+      </SafeAreaProvider>
+    </ModalProvider>
   );
 };
 
