@@ -21,21 +21,27 @@ export const useModal = () => {
   };
 
   // Hiển thị Confirm Modal
-  const showConfirm = (config: {
-    title: string; 
-    message?: string;
-    children?: React.ReactNode;
-    confirmText?: string;
-    cancelText?: string;
-    onConfirm: () => void;
-    onCancel?: () => void;
-    hideCancel?: boolean;
-    variant?: 'default' | 'danger' | 'success';
-    position?: 'center' | 'top' | 'bottom';
-    size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-  }) => {
+  const showConfirm = (
+    config: {
+      title?: string;
+      message?: string;
+      children?: React.ReactNode;
+      confirmText?: string;
+      cancelText?: string;
+      onConfirm?: () => void;
+      onCancel?: () => void;
+      hideCancel?: boolean;
+      hideConfirm?: boolean;
+      variant?: 'default' | 'danger' | 'success';
+      position?: 'center' | 'top' | 'bottom';
+      size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
+    } = {}
+  ) => {
     return showModal({
       type: 'Confirm',
+      title: '',
+      hideCancel: true,
+      hideConfirm: true,
       ...config,
     });
   };
