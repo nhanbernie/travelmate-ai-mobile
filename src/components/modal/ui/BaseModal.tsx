@@ -5,6 +5,7 @@ import { ModalPosition, ModalSize } from '../types';
 import { getAnimationConfig, BACKDROP_OPACITY } from '../utils';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { width: deviceWidth, height: deviceHeight } = Dimensions.get('screen');
 
 interface BaseModalProps {
   isVisible: boolean;
@@ -77,10 +78,7 @@ const BaseModal: React.FC<BaseModalProps> = ({
   }, [size]);
 
   const modalStyle = useMemo(() => {
-    if (size === 'full') {
-      return { margin: 0 };
-    }
-    return {};
+    return { margin: 0 };
   }, [size]);
 
   // Chọn animation dựa trên vị trí để mượt mà hơn
@@ -127,6 +125,10 @@ const BaseModal: React.FC<BaseModalProps> = ({
         animationConfig.hideModalContentWhileAnimating
       }
       avoidKeyboard={true}
+      deviceHeight={deviceHeight}
+      deviceWidth={deviceWidth}
+      statusBarTranslucent={true}
+      presentationStyle="overFullScreen"
     >
       <View style={[styles.container, positionStyle]}>
         <View style={sizeStyle}>{children}</View>
