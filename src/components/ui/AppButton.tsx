@@ -47,7 +47,9 @@ const AppButton = ({
       {isLoading ? (
         <ActivityIndicator color="#fff" />
       ) : (
-        <View className={cn('flex-row justify-start items-center', classNameButton)}>
+        <View
+          className={cn('flex-row justify-start items-center', classNameButton)}
+        >
           {startIcon && <View className="mr-2">{startIcon}</View>}
           {title && (
             <Text className={cn('text-black font-medium', textClassName)}>
