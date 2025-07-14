@@ -5,26 +5,30 @@ import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@/hooks/useTheme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useScrollContext } from '@/contexts/ScrollContext';
+import { useTabBarContext } from '@/contexts/TabBarContext';
 
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const { colors } = useTheme();
   const insets = useSafeAreaInsets();
   const { isScrollingDown } = useScrollContext();
+  const { isTabBarVisible } = useTabBarContext();
 
   // Animation for tab bar visibility
   const translateY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // Animate the tab bar when scrolling direction changes
+    // Animate the tab bar when scrolling direction changes or visibility changes
+    const shouldHide = isScrollingDown || !isTabBarVisible;
+
     Animated.spring(translateY, {
-      toValue: isScrollingDown ? 100 : 0, // Move down (hide) when scrolling down
+      toValue: shouldHide ? 100 : 0, // Move down (hide) when scrolling down or not visible
       useNativeDriver: true,
       friction: 6,
       tension: 100,
       restSpeedThreshold: 0.01,
       restDisplacementThreshold: 0.01,
     }).start();
-  }, [isScrollingDown]);
+  }, [isScrollingDown, isTabBarVisible]);
 
   return (
     <Animated.View
@@ -49,6 +53,20 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         }
 
         if (['_sitemap', '+not-found'].includes(route.name)) return null;
+
+        // Debug: Log route names to see actual route structure
+        if (__DEV__) {
+          console.log('TabBar route:', route.name);
+        }
+
+        // Hide tab for create itinerary screen and any nested routes
+        if (
+          route.name.includes('create') ||
+          route.name.includes('trips/create') ||
+          route.name === '(main)/trips/create'
+        ) {
+          return null;
+        }
 
         const isFocused = state.index === index;
 
