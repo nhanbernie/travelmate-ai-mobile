@@ -11,7 +11,6 @@ const CreateItinerary = () => {
   const { navigate } = useSafeNavigation();
   const { setTabBarVisible } = useTabBarContext();
 
-  // Hide TabBar when this screen is focused
   useFocusEffect(
     React.useCallback(() => {
       setTabBarVisible(false);
@@ -23,9 +22,6 @@ const CreateItinerary = () => {
   );
 
   const handleSubmit = (data: CreateItineraryFormData) => {
-    console.log('Create itinerary data:', data);
-    // TODO: Implement API call to create itinerary
-    // For now, just navigate back
     navigate('/trips');
   };
 
