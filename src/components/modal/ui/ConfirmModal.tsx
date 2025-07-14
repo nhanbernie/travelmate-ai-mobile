@@ -8,87 +8,89 @@ interface ConfirmModalProps {
   onClose: () => void;
 }
 
-const ConfirmModal: React.FC<ConfirmModalProps> = ({ config, onClose }) => {
-  const {
-    title,
-    message,
-    children,
-    confirmText = 'Confirm',
-    cancelText = 'Cancel',
-    onConfirm,
-    onCancel,
-    hideCancel = false,
-    variant = 'default',
-    position,
-    size,
-  } = config;
+const ConfirmModal: React.FC<ConfirmModalProps> = React.memo(
+  ({ config, onClose }) => {
+    const {
+      title,
+      message,
+      children,
+      confirmText = 'Confirm',
+      cancelText = 'Cancel',
+      onConfirm,
+      onCancel,
+      hideCancel = false,
+      variant = 'default',
+      position,
+      size,
+    } = config;
 
-  const handleConfirm = () => {
-    onConfirm();
-    onClose();
-  };
+    const handleConfirm = () => {
+      onConfirm();
+      onClose();
+    };
 
-  const handleCancel = () => {
-    if (onCancel) {
-      onCancel();
-    }
-    onClose();
-  };
+    const handleCancel = () => {
+      if (onCancel) {
+        onCancel();
+      }
+      onClose();
+    };
 
-  // Xác định màu cho nút confirm theo variant
-  const getConfirmButtonColor = () => {
-    switch (variant) {
-      case 'danger':
-        return '#EF4444';
-      case 'success':
-        return '#10B981';
-      case 'default':
-      default:
-        return '#3B82F6';
-    }
-  };
+    // Xác định màu cho nút confirm theo variant
+    const getConfirmButtonColor = () => {
+      switch (variant) {
+        case 'danger':
+          return '#EF4444';
+        case 'success':
+          return '#10B981';
+        case 'default':
+        default:
+          return '#3B82F6';
+      }
+    };
 
-  return (
-    <BaseModal
-      isVisible={true}
-      onClose={handleCancel}
-      position={position}
-      size={size}
-    >
-      <View style={styles.container}>
-        <Text style={styles.title}>{title}</Text>
+    return (
+      <BaseModal
+        isVisible={true}
+        onClose={handleCancel}
+        position={position}
+        size={size}
+      >
+        <View style={styles.container}>
+          <Text style={styles.title}>{title}</Text>
 
-        {children ? (
-          <View style={styles.contentContainer}>{children}</View>
-        ) : (
-          message && <Text style={styles.message}>{message}</Text>
-        )}
-
-        <View style={styles.buttonContainer}>
-          {!hideCancel && (
-            <TouchableOpacity
-              onPress={handleCancel}
-              style={[styles.button, styles.cancelButton]}
-            >
-              <Text style={styles.cancelButtonText}>{cancelText}</Text>
-            </TouchableOpacity>
+          {children ? (
+            <View style={styles.contentContainer}>{children}</View>
+          ) : (
+            message && <Text style={styles.message}>{message}</Text>
           )}
 
-          <TouchableOpacity
-            onPress={handleConfirm}
-            style={[
-              styles.button,
-              styles.confirmButton,
-              { backgroundColor: getConfirmButtonColor() },
-            ]}
-          >
-            <Text style={styles.confirmButtonText}>{confirmText}</Text>
-          </TouchableOpacity>
+          <View style={styles.buttonContainer}>
+            {!hideCancel && (
+              <TouchableOpacity
+                onPress={handleCancel}
+                style={[styles.button, styles.cancelButton]}
+              >
+                <Text style={styles.cancelButtonText}>{cancelText}</Text>
+              </TouchableOpacity>
+            )}
+
+            <TouchableOpacity
+              onPress={handleConfirm}
+              style={[
+                styles.button,
+                styles.confirmButton,
+                { backgroundColor: getConfirmButtonColor() },
+              ]}
+            >
+              <Text style={styles.confirmButtonText}>{confirmText}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </BaseModal>
-  );
-};
+      </BaseModal>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {

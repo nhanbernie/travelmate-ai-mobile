@@ -4,6 +4,7 @@ import React, {
   useState,
   useCallback,
   ReactNode,
+  useMemo,
 } from 'react';
 import { ModalConfig, ModalContextValue } from './types';
 
@@ -27,14 +28,14 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
 
   // Hiển thị modal mới
   const showModal = useCallback((config: Omit<ModalConfig, 'id'>) => {
-    const id = Date.now().toString() + Math.random().toString(36).substr(2, 9);
+    const id = `modal_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     const newModal = { ...config, id } as ModalConfig;
 
     setModals((prev) => [...prev, newModal]);
     return id;
   }, []);
 
-  // Ẩn modal theo ID
+  // Ẩn modal theo ID với animation delay
   const hideModal = useCallback((id: string) => {
     setModals((prev) => prev.filter((modal) => modal.id !== id));
   }, []);
@@ -44,14 +45,20 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
     setModals([]);
   }, []);
 
-  const value: ModalContextValue = {
-    modals,
-    showModal,
-    hideModal,
-    hideAllModals,
-  };
+  // Memoize context value để tránh re-render
+  const contextValue = useMemo(
+    () => ({
+      modals,
+      showModal,
+      hideModal,
+      hideAllModals,
+    }),
+    [modals, showModal, hideModal, hideAllModals]
+  );
 
   return (
-    <ModalContext.Provider value={value}>{children}</ModalContext.Provider>
+    <ModalContext.Provider value={contextValue}>
+      {children}
+    </ModalContext.Provider>
   );
 };

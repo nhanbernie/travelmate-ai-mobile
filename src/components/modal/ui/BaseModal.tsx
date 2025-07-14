@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { View, Dimensions, StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import { ModalPosition, ModalSize } from '../types';
+import { getAnimationConfig, BACKDROP_OPACITY } from '../utils';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -20,8 +21,8 @@ const BaseModal: React.FC<BaseModalProps> = ({
   size = 'md',
   children,
 }) => {
-  // Xác định style cho vị trí
-  const getPositionStyle = () => {
+  // Memoize styles để tránh re-render không cần thiết
+  const positionStyle = useMemo(() => {
     switch (position) {
       case 'top':
         return {
@@ -42,10 +43,9 @@ const BaseModal: React.FC<BaseModalProps> = ({
           alignItems: 'center' as const,
         };
     }
-  };
+  }, [position]);
 
-  // Xác định style cho kích thước
-  const getSizeStyle = () => {
+  const sizeStyle = useMemo(() => {
     const baseStyle = {
       backgroundColor: 'white',
       borderRadius: 12,
@@ -75,28 +75,62 @@ const BaseModal: React.FC<BaseModalProps> = ({
       default:
         return { ...baseStyle, width: screenWidth * 0.9, maxWidth: 400 };
     }
-  };
+  }, [size]);
 
-  const getModalStyle = () => {
+  const modalStyle = useMemo(() => {
     if (size === 'full') {
       return { margin: 0 };
     }
     return {};
+  }, [size]);
+
+  // Chọn animation dựa trên vị trí để mượt mà hơn
+  const getAnimations = () => {
+    switch (position) {
+      case 'top':
+        return {
+          animationIn: 'slideInDown' as const,
+          animationOut: 'slideOutUp' as const,
+        };
+      case 'bottom':
+        return {
+          animationIn: 'slideInUp' as const,
+          animationOut: 'slideOutDown' as const,
+        };
+      case 'center':
+      default:
+        return {
+          animationIn: 'zoomIn' as const,
+          animationOut: 'zoomOut' as const,
+        };
+    }
   };
+
+  const { animationIn, animationOut } = getAnimations();
+  const animationConfig = getAnimationConfig();
 
   return (
     <Modal
       isVisible={isVisible}
       onBackdropPress={onClose}
       onBackButtonPress={onClose}
-      backdropOpacity={0.5}
-      animationIn="fadeInUp"
-      animationOut="fadeOutDown"
-      style={getModalStyle()}
-      useNativeDriverForBackdrop
+      backdropOpacity={BACKDROP_OPACITY}
+      animationIn={animationIn}
+      animationOut={animationOut}
+      animationInTiming={animationConfig.animationInTiming}
+      animationOutTiming={animationConfig.animationOutTiming}
+      backdropTransitionInTiming={animationConfig.backdropTransitionInTiming}
+      backdropTransitionOutTiming={animationConfig.backdropTransitionOutTiming}
+      style={modalStyle}
+      useNativeDriverForBackdrop={animationConfig.useNativeDriver}
+      useNativeDriver={animationConfig.useNativeDriver}
+      hideModalContentWhileAnimating={
+        animationConfig.hideModalContentWhileAnimating
+      }
+      avoidKeyboard={true}
     >
-      <View style={[styles.container, getPositionStyle()]}>
-        <View style={getSizeStyle()}>{children}</View>
+      <View style={[styles.container, positionStyle]}>
+        <View style={sizeStyle}>{children}</View>
       </View>
     </Modal>
   );

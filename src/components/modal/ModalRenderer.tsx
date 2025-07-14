@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useModalContext } from './ModalProvider';
 import InformationModal from './ui/InformationModal';
 import ConfirmModal from './ui/ConfirmModal';
@@ -6,28 +6,36 @@ import ConfirmModal from './ui/ConfirmModal';
 const ModalRenderer: React.FC = () => {
   const { modals, hideModal } = useModalContext();
 
-  // Chỉ hiển thị modal đầu tiên trong queue
-  const currentModal = modals[0];
+  // Memoize current modal để tránh re-render
+  const currentModal = useMemo(() => modals[0], [modals]);
 
-  if (!currentModal) {
-    return null;
-  }
-
-  const handleClose = () => {
-    if (currentModal.onClose) {
+  // Memoize handleClose để tránh re-creation
+  const handleClose = useCallback(() => {
+    if (currentModal?.onClose) {
       currentModal.onClose();
     }
-    hideModal(currentModal.id);
-  };
+    if (currentModal?.id) {
+      hideModal(currentModal.id);
+    }
+  }, [currentModal?.id, currentModal?.onClose, hideModal]);
 
-  switch (currentModal.type) {
-    case 'Information':
-      return <InformationModal config={currentModal} onClose={handleClose} />;
-    case 'Confirm':
-      return <ConfirmModal config={currentModal} onClose={handleClose} />;
-    default:
+  // Memoize modal component để tránh re-render - LUÔN gọi useMemo
+  const modalComponent = useMemo(() => {
+    if (!currentModal) {
       return null;
-  }
+    }
+
+    switch (currentModal.type) {
+      case 'Information':
+        return <InformationModal config={currentModal} onClose={handleClose} />;
+      case 'Confirm':
+        return <ConfirmModal config={currentModal} onClose={handleClose} />;
+      default:
+        return null;
+    }
+  }, [currentModal, handleClose]);
+
+  return modalComponent;
 };
 
 export default ModalRenderer;

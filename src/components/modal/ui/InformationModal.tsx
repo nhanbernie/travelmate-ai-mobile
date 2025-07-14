@@ -8,86 +8,85 @@ interface InformationModalProps {
   onClose: () => void;
 }
 
-const InformationModal: React.FC<InformationModalProps> = ({
-  config,
-  onClose,
-}) => {
-  const {
-    variant,
-    title,
-    message,
-    buttonText = 'OK',
-    onButtonPress,
-    position,
-    size,
-  } = config;
+const InformationModal: React.FC<InformationModalProps> = React.memo(
+  ({ config, onClose }) => {
+    const {
+      variant,
+      title,
+      message,
+      buttonText = 'OK',
+      onButtonPress,
+      position,
+      size,
+    } = config;
 
-  const handleButtonPress = () => {
-    if (onButtonPress) {
-      onButtonPress();
-    }
-    onClose();
-  };
+    const handleButtonPress = () => {
+      if (onButtonPress) {
+        onButtonPress();
+      }
+      onClose();
+    };
 
-  // Xác định icon cho từng loại thông báo
-  const getIcon = (type: InformationType) => {
-    switch (type) {
-      case 'success':
-        return '✅';
-      case 'error':
-        return '❌';
-      case 'warning':
-        return '⚠️';
-      case 'info':
-      default:
-        return 'ℹ️';
-    }
-  };
+    // Xác định icon cho từng loại thông báo
+    const getIcon = (type: InformationType) => {
+      switch (type) {
+        case 'success':
+          return '✅';
+        case 'error':
+          return '❌';
+        case 'warning':
+          return '⚠️';
+        case 'info':
+        default:
+          return 'ℹ️';
+      }
+    };
 
-  // Xác định màu nút cho từng loại
-  const getButtonColorHex = (type: InformationType) => {
-    switch (type) {
-      case 'success':
-        return '#10B981';
-      case 'error':
-        return '#EF4444';
-      case 'warning':
-        return '#F59E0B';
-      case 'info':
-      default:
-        return '#3B82F6';
-    }
-  };
+    // Xác định màu nút cho từng loại
+    const getButtonColorHex = (type: InformationType) => {
+      switch (type) {
+        case 'success':
+          return '#10B981';
+        case 'error':
+          return '#EF4444';
+        case 'warning':
+          return '#F59E0B';
+        case 'info':
+        default:
+          return '#3B82F6';
+      }
+    };
 
-  return (
-    <BaseModal
-      isVisible={true}
-      onClose={onClose}
-      position={position}
-      size={size}
-    >
-      <View style={styles.container}>
-        <View style={styles.iconContainer}>
-          <Text style={styles.icon}>{getIcon(variant)}</Text>
+    return (
+      <BaseModal
+        isVisible={true}
+        onClose={onClose}
+        position={position}
+        size={size}
+      >
+        <View style={styles.container}>
+          <View style={styles.iconContainer}>
+            <Text style={styles.icon}>{getIcon(variant)}</Text>
+          </View>
+
+          <Text style={styles.title}>{title}</Text>
+
+          <Text style={styles.message}>{message}</Text>
+
+          <TouchableOpacity
+            onPress={handleButtonPress}
+            style={[
+              styles.button,
+              { backgroundColor: getButtonColorHex(variant) },
+            ]}
+          >
+            <Text style={styles.buttonText}>{buttonText}</Text>
+          </TouchableOpacity>
         </View>
-
-        <Text style={styles.title}>{title}</Text>
-
-        <Text style={styles.message}>{message}</Text>
-
-        <TouchableOpacity
-          onPress={handleButtonPress}
-          style={[
-            styles.button,
-            { backgroundColor: getButtonColorHex(variant) },
-          ]}
-        >
-          <Text style={styles.buttonText}>{buttonText}</Text>
-        </TouchableOpacity>
-      </View>
-    </BaseModal>
-  );
-};
+      </BaseModal>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
