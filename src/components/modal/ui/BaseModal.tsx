@@ -21,7 +21,6 @@ const BaseModal: React.FC<BaseModalProps> = ({
   size = 'md',
   children,
 }) => {
-  // Memoize styles để tránh re-render không cần thiết
   const positionStyle = useMemo(() => {
     switch (position) {
       case 'top':
