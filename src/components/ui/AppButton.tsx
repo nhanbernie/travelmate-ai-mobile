@@ -38,7 +38,7 @@ const AppButton = ({
   activeOpacity = 0.6,
 }: AppButtonProps) => {
   const mergedClass = cn(
-    'flex-row items-center justify-center px-4 py-3 rounded-full bg-blue-500',
+    'flex-row items-center justify-center px-4 py-3 rounded-full bg-gray-100',
     disabled ? 'opacity-50' : '',
     className
   );
