@@ -66,7 +66,12 @@ const Profile = () => {
       variant: 'danger',
       confirmText: 'Delete',
       cancelText: 'Keep',
+      position: 'top',
     });
+  };
+
+  const handleTestConfirmWithoutButtons = () => {
+    showConfirm(); // Không truyền gì -> không có nút
   };
 
   return (
@@ -105,6 +110,15 @@ const Profile = () => {
               onPress={handleTestConfirmWithCustomContent}
             >
               <Text style={styles.buttonText}>Test Custom Confirm Modal</Text>
+            </Pressable>
+
+            <Pressable
+              style={styles.testButton}
+              onPress={handleTestConfirmWithoutButtons}
+            >
+              <Text style={styles.buttonText}>
+                Test Confirm Without Buttons
+              </Text>
             </Pressable>
           </View>
 

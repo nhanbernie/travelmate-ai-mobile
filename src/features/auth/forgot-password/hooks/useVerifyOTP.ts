@@ -16,7 +16,6 @@ const useVerifyOTP = () => {
           email: data.email,
           otp: data.otp,
         }).unwrap();
-        console.log('SUBMIT VERIFY OTP', data, result);
         if (result.success) {
           // Pass email and OTP to reset-password page
           router.replace({

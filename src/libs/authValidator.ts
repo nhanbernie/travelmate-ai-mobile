@@ -26,6 +26,7 @@ const validatorSchema = {
       .email(getErrorMessage('auth.errors.invalidEmail'))
       .required(getErrorMessage('auth.errors.requiredField')),
     password: Yup.string()
+      .matches(AUTH_PASSWORD, getErrorMessage('auth.errors.passwordComplexity'))
       .min(6, getErrorMessage('auth.errors.passwordTooShort'))
       .required(getErrorMessage('auth.errors.requiredField')),
     confirmPassword: Yup.string()
@@ -51,6 +52,7 @@ const validatorSchema = {
   }),
   resetPassword: Yup.object().shape({
     password: Yup.string()
+      .matches(AUTH_PASSWORD, getErrorMessage('auth.errors.passwordComplexity'))
       .min(6, getErrorMessage('auth.errors.passwordTooShort'))
       .required(getErrorMessage('auth.errors.requiredField')),
     confirmPassword: Yup.string()

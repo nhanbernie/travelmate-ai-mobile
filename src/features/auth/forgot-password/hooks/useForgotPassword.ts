@@ -9,12 +9,10 @@ const useForgotPassword = () => {
 
   return useCallback(
     async (data: { email: string }) => {
-      console.log('Submitting forgot password for email:', data.email);
       try {
         dispatch(setLoading(true));
         dispatch(setError(null));
         const result = await forgotPasswordMutation(data).unwrap();
-        console.log('SUBMIT FORGOT PASSWORD', data.email, result);
 
         if (result.success) {
           router.push({
