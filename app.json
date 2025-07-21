@@ -36,11 +36,16 @@
     "experiments": {
       "typedRoutes": true
     },
-
     "android": {
       "package": "com.nhanbernie.boltexponativewind",
       "softwareKeyboardLayoutMode": "pan"
     },
-    "owner": "nhanbernie"
+    "owner": "nhanbernie",
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "1ec3fcd4-092e-40d7-9233-0d6955f20f08"
+      }
+    }
   }
 }
