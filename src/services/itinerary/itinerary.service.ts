@@ -1,6 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { baseQueryWithReauth } from '../api/baseQuery';
-import { generateItineraryEndpoint } from './endpoints';
+import {
+  generateItineraryEndpoint,
+  getMyItinerariesEndpoint,
+  getItineraryDetailEndpoint,
+} from './endpoints';
 
 export const itineraryApi = createApi({
   reducerPath: 'itineraryApi',
@@ -8,9 +12,13 @@ export const itineraryApi = createApi({
   tagTypes: ['Itinerary'],
   endpoints: (builder) => ({
     generateItinerary: generateItineraryEndpoint(builder),
+    getMyItineraries: getMyItinerariesEndpoint(builder),
+    getItineraryDetail: getItineraryDetailEndpoint(builder),
   }),
 });
 
 export const {
   useGenerateItineraryMutation,
+  useGetMyItinerariesQuery,
+  useGetItineraryDetailQuery,
 } = itineraryApi;
