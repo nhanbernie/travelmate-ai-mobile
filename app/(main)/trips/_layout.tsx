@@ -10,6 +10,12 @@ export default function TripsLayout() {
           presentation: 'modal',
         }}
       />
+      <Stack.Screen
+        name="result"
+        options={{
+          presentation: 'card',
+        }}
+      />
     </Stack>
   );
 }
