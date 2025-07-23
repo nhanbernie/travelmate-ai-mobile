@@ -19,7 +19,7 @@ const Header = ({ onPressAvatar }: HeaderProps) => {
         <View className="mb-3">
           <AppText
             variant="h2"
-            className={`text-[${colors.primaryColor}]`}
+            className={`text-[${colors.primaryColor}] font-extrabold`}
             numberOfLines={2}
           >
             {t('homepage.header.welcomeBack', {
