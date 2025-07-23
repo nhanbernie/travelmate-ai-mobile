@@ -24,6 +24,7 @@ interface AppButtonProps {
   activeOpacity?: number;
 }
 
+
 const AppButton = ({
   title,
   onPress,
