@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ScrollView, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { BlurView } from 'expo-blur';
 import { useTheme } from '@/hooks/useTheme';
 import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 import { AppButton, AppText } from '@/components/ui';
@@ -24,16 +25,21 @@ const ItineraryResultScreen: React.FC<ItineraryResultScreenProps> = ({
   const handleSaveItinerary = () => {
     // TODO: Implement save functionality
     console.log('Save itinerary:', itineraryData.itineraryId);
+    // Could show success message and navigate back
+    // Alert.alert('Success', 'Itinerary saved successfully!');
   };
 
-  const handleShareItinerary = () => {
-    // TODO: Implement share functionality
-    console.log('Share itinerary:', itineraryData.itineraryId);
+  const handleViewAllTrips = () => {
+    navigate('/trips');
   };
 
   return (
     <View className="flex-1 bg-gray-50">
-      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+      <ScrollView
+        className="flex-1"
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 120 }}
+      >
         <View className="p-4 gap-4">
           {/* Itinerary Header */}
           <ItineraryHeader data={itineraryData} />
@@ -73,26 +79,43 @@ const ItineraryResultScreen: React.FC<ItineraryResultScreenProps> = ({
         </View>
       </ScrollView>
 
-      {/* Bottom Actions */}
-      <View className="bg-white p-4 border-t border-gray-200">
-        <View className="flex-row gap-3">
-          <AppButton
-            onPress={() => navigate('/trips')}
-            className="flex-1 py-3 px-4 rounded-2xl bg-gray-100"
-            title="View All Trips"
-            textClassName="text-gray-700 font-semibold"
-          />
-          <AppButton
-            onPress={handleSaveItinerary}
-            className="flex-1 py-3 px-4 rounded-2xl"
-            style={{
-              backgroundColor: colors.primaryColor,
-            }}
-            title="Save Itinerary"
-            textClassName="text-white font-semibold"
-          />
+      {/* Bottom Actions with BlurView */}
+      <BlurView
+        intensity={100}
+        tint="extraLight"
+        className="absolute bottom-0 left-0 right-0"
+        style={{
+          borderTopWidth: 1,
+          borderTopColor: 'rgba(255, 255, 255, 0.5)',
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        }}
+      >
+        <View className="p-6" style={{ paddingBottom: 34 }}>
+          <View className="flex-row gap-3">
+            <AppButton
+              onPress={handleViewAllTrips}
+              className="flex-1 py-4 px-6 rounded-2xl border border-gray-300"
+              style={{ backgroundColor: 'rgba(255, 255, 255, 0.9)' }}
+              title="View All Trips"
+              textClassName="text-gray-700 font-semibold"
+            />
+
+            <AppButton
+              onPress={handleSaveItinerary}
+              className="flex-2 py-4 px-6 rounded-2xl"
+              style={{
+                backgroundColor: colors.primaryColor,
+                shadowColor: colors.primaryColor,
+                shadowOffset: { width: 0, height: 4 },
+                shadowOpacity: 0.3,
+                elevation: 8,
+              }}
+              title="Save Itinerary"
+              textClassName="text-white font-semibold"
+            />
+          </View>
         </View>
-      </View>
+      </BlurView>
     </View>
   );
 };

@@ -16,7 +16,6 @@ export const generateItineraryEndpoint = (
     }),
     invalidatesTags: ['Itinerary'],
     transformResponse: (response: CreateItineraryAPIResponse) => {
-      console.log('Generate Itinerary Success:', response);
       return response;
     },
     transformErrorResponse: (response: any) => {

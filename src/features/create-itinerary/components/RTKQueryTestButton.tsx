@@ -4,7 +4,8 @@ import { useGenerateItineraryMutation } from '@/services/itinerary';
 import { CreateItineraryAPIRequest } from '../types';
 
 export const RTKQueryTestButton: React.FC = () => {
-  const [generateItinerary, { isLoading, error }] = useGenerateItineraryMutation();
+  const [generateItinerary, { isLoading, error }] =
+    useGenerateItineraryMutation();
 
   const testRTKQuery = async () => {
     const testData: CreateItineraryAPIRequest = {
@@ -18,10 +19,8 @@ export const RTKQueryTestButton: React.FC = () => {
     };
 
     try {
-      console.log('🚀 Testing RTK Query with data:', testData);
       const response = await generateItinerary(testData).unwrap();
-      
-      console.log('✅ RTK Query Success:', response);
+
       Alert.alert(
         'RTK Query Test Success',
         `Status: ${response.statusCode}\nMessage: ${response.message}`,
@@ -29,18 +28,16 @@ export const RTKQueryTestButton: React.FC = () => {
       );
     } catch (err) {
       console.error('❌ RTK Query Error:', err);
-      Alert.alert(
-        'RTK Query Test Error',
-        JSON.stringify(err, null, 2),
-        [{ text: 'OK' }]
-      );
+      Alert.alert('RTK Query Test Error', JSON.stringify(err, null, 2), [
+        { text: 'OK' },
+      ]);
     }
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity 
-        style={[styles.button, isLoading && styles.buttonDisabled]} 
+      <TouchableOpacity
+        style={[styles.button, isLoading && styles.buttonDisabled]}
         onPress={testRTKQuery}
         disabled={isLoading}
       >
@@ -48,7 +45,7 @@ export const RTKQueryTestButton: React.FC = () => {
           {isLoading ? 'Testing RTK Query...' : 'Test RTK Query API'}
         </Text>
       </TouchableOpacity>
-      
+
       {error && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>Error: {JSON.stringify(error)}</Text>

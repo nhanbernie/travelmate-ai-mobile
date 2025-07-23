@@ -116,8 +116,6 @@ export class SecureStorageService {
 
   static async setUserData(userData: StoredUserData): Promise<void> {
     try {
-      console.log(`Saving user data: ${JSON.stringify(userData)}`);
-
       await SecureStore.setItemAsync(
         STORAGE_KEYS.USER_DATA,
         JSON.stringify(userData)
