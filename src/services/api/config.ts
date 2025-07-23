@@ -15,6 +15,9 @@ export const API_ENDPOINTS = {
   },
   USER: {},
   TRAVEL: {},
+  ITINERARY: {
+    GENERATE: '/ai/itinerary/generate',
+  },
 } as const;
 
 export const API_CONFIG = {
