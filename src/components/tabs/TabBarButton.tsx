@@ -1,12 +1,14 @@
 import { Pressable, StyleSheet } from 'react-native';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Animated, {
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
+  runOnJS,
 } from 'react-native-reanimated';
+import { SPRING_CONFIG } from '@/utils/reanimatedConfig';
 
 interface TabBarButtonProps {
   isFocused: boolean;
@@ -23,51 +25,54 @@ interface TabBarButtonProps {
 const TabBarButton: React.FC<TabBarButtonProps> = (props) => {
   const { isFocused, label, routeName, color } = props;
 
-  const scale = useSharedValue(0);
+  const scale = useSharedValue(isFocused ? 1 : 0);
+
+  // Memoize icon name to prevent unnecessary re-renders
+  const iconName = useMemo(() => {
+    switch (routeName) {
+      case 'index':
+        return 'home-outline';
+      case 'explore':
+        return 'compass-outline';
+      case 'create':
+        return 'add-circle-outline';
+      case 'trips':
+        return 'map-outline';
+      default:
+        return 'person-outline';
+    }
+  }, [routeName]);
 
   useEffect(() => {
     scale.value = withSpring(
       typeof isFocused === 'boolean' ? (isFocused ? 1 : 0) : isFocused,
-      { duration: 350 }
+      SPRING_CONFIG
     );
-  }, [scale, isFocused]);
+  }, [isFocused]);
 
   const animatedIconStyle = useAnimatedStyle(() => {
+    'worklet';
     const scaleValue = interpolate(scale.value, [0, 1], [1, 1.4]);
     const top = interpolate(scale.value, [0, 1], [0, 8]);
 
     return {
-      // styles
       transform: [{ scale: scaleValue }],
       top,
     };
-  });
+  }, []);
+
   const animatedTextStyle = useAnimatedStyle(() => {
+    'worklet';
     const opacity = interpolate(scale.value, [0, 1], [1, 0]);
 
     return {
-      // styles
       opacity,
     };
-  });
+  }, []);
   return (
     <Pressable {...props} style={styles.container}>
       <Animated.View style={[animatedIconStyle]}>
-        <Ionicons
-          name={
-            routeName === 'index'
-              ? 'home-outline'
-              : routeName === 'explore'
-              ? 'compass-outline'
-              : routeName === 'create'
-              ? 'add-circle-outline'
-              : routeName === 'trips'
-              ? 'map-outline'
-              : 'person-outline'
-          }
-          size={26}
-          color={color}
-        />
+        <Ionicons name={iconName} size={26} color={color} />
       </Animated.View>
 
       <Animated.Text
