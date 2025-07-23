@@ -1,0 +1,1 @@
+export { generateItineraryEndpoint } from './generateItinerary';
