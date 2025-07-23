@@ -54,11 +54,6 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 
         if (['_sitemap', '+not-found'].includes(route.name)) return null;
 
-        // Debug: Log route names to see actual route structure
-        if (__DEV__) {
-          console.log('TabBar route:', route.name);
-        }
-
         // Hide tab for create itinerary screen and any nested routes
         if (
           route.name.includes('create') ||
