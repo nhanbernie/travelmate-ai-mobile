@@ -1,24 +1,24 @@
 import React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Alert } from 'react-native';
 import { useTheme } from '@/hooks/useTheme';
 import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 import { useCreateItinerary } from './hooks/useCreateItinerary';
-import { CreateItineraryProps } from './types';
+import { useGenerateItineraryMutation } from '@/services/itinerary';
+import { useAppDispatch } from '@/redux/hooks';
+import { setCurrentItinerary } from '@/redux/slices/itinerary.slice';
 import DestinationInput from './components/DestinationInput';
-import DateSelector from './components/DateSelector';
-import BudgetRange from './components/BudgetRange';
-import TravelPreferences from './components/TravelPreferences';
-import AccommodationSelector from './components/AccommodationSelector';
-import TransportationSelector from './components/TransportationSelector';
+import { DatePicker } from '@/ui/DatePicker';
+import { TravelerCounterNew } from './components/TravelerCounterNew';
+import { TripTypeSelectorNew } from './components/TripTypeSelectorNew';
+import { BudgetSelectorNew } from './components/BudgetSelectorNew';
+import { PreferencesSelectorNew } from './components/PreferencesSelectorNew';
 import { AppButton } from '@/components/ui';
 import { BlurView } from 'expo-blur';
 
-const CreateItineraryScreen: React.FC<CreateItineraryProps> = ({
-  onSubmit,
-  onCancel,
-}) => {
+const CreateItineraryScreen: React.FC = () => {
   const { colors } = useTheme();
   const { navigate } = useSafeNavigation();
+  const dispatch = useAppDispatch();
   const {
     formData,
     errors,
@@ -26,24 +26,41 @@ const CreateItineraryScreen: React.FC<CreateItineraryProps> = ({
     updateStartDate,
     updateEndDate,
     updateBudget,
-    togglePreference,
-    toggleAccommodation,
-    toggleTransportation,
+    updateNumberOfTravelers,
+    updateTripType,
+    updatePreferences,
     validateForm,
   } = useCreateItinerary();
 
-  const handleSubmit = () => {
+  // RTK Query mutation
+  const [generateItinerary, { isLoading, error: apiError }] =
+    useGenerateItineraryMutation();
+
+  const handleSubmit = async () => {
     if (validateForm()) {
-      onSubmit(formData);
+      try {
+        const response = await generateItinerary(formData).unwrap();
+
+        if (response.success) {
+          console.log('Itinerary created successfully:', response.data);
+          // Store data in Redux
+          dispatch(setCurrentItinerary(response.data));
+          // Navigate to result screen
+          navigate('/trips/result');
+        }
+      } catch (error) {
+        console.error('❌ Failed to create itinerary:', error);
+        Alert.alert(
+          'Lỗi',
+          'Có lỗi xảy ra khi tạo lịch trình. Vui lòng thử lại.',
+          [{ text: 'OK' }]
+        );
+      }
     }
   };
 
   const handleCancel = () => {
-    if (onCancel) {
-      onCancel();
-    } else {
-      navigate('/trips');
-    }
+    navigate('/trips');
   };
 
   return (
@@ -63,40 +80,48 @@ const CreateItineraryScreen: React.FC<CreateItineraryProps> = ({
 
           {/* Date Selectors */}
           <View className="flex-row gap-4 mb-6">
-            <DateSelector
+            <DatePicker
               label="Start Date"
-              value={formData.startDate}
-              onDateChange={updateStartDate}
+              value={formData.startDate ? new Date(formData.startDate) : null}
+              onValueChange={updateStartDate}
               error={errors.startDate}
               minimumDate={new Date()}
+              containerStyle={{ flex: 1 }}
             />
-            <DateSelector
+            <DatePicker
               label="End Date"
-              value={formData.endDate}
-              onDateChange={updateEndDate}
+              value={formData.endDate ? new Date(formData.endDate) : null}
+              onValueChange={updateEndDate}
               error={errors.endDate}
-              minimumDate={formData.startDate || new Date()}
+              minimumDate={
+                formData.startDate ? new Date(formData.startDate) : new Date()
+              }
+              containerStyle={{ flex: 1 }}
             />
           </View>
 
-          {/* Budget Range */}
-          <BudgetRange value={formData.budget} onValueChange={updateBudget} />
+          {/* Number of Travelers */}
+          <TravelerCounterNew
+            value={formData.numberOfTravelers}
+            onValueChange={updateNumberOfTravelers}
+          />
 
           {/* Travel Preferences */}
-          <TravelPreferences
-            preferences={formData.preferences}
-            onPreferenceToggle={togglePreference}
+          <PreferencesSelectorNew
+            value={formData.preferences}
+            onValueChange={updatePreferences}
           />
 
-          {/* Accommodation & Transportation */}
-          <AccommodationSelector
-            accommodations={formData.accommodation}
-            onAccommodationToggle={toggleAccommodation}
+          {/* Trip Type */}
+          <TripTypeSelectorNew
+            value={formData.tripType}
+            onValueChange={updateTripType}
           />
 
-          <TransportationSelector
-            transportations={formData.transportation}
-            onTransportationToggle={toggleTransportation}
+          {/* Budget */}
+          <BudgetSelectorNew
+            value={formData.budget}
+            onValueChange={updateBudget}
           />
         </View>
       </ScrollView>
@@ -132,8 +157,10 @@ const CreateItineraryScreen: React.FC<CreateItineraryProps> = ({
                 shadowOpacity: 0.3,
                 elevation: 8,
               }}
-              title="Create My Perfect Trip"
+              title={isLoading ? 'Creating...' : 'Create My Perfect Trip'}
               textClassName="text-white font-semibold"
+              disabled={isLoading}
+              isLoading={isLoading}
             />
           </View>
         </View>

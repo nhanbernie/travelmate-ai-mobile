@@ -3,7 +3,6 @@ import ScreenWrapper from '@/components/layouts/ScreenWrapper ';
 import SubHeader from '@/components/layouts/SubHeader';
 import CreateItineraryScreen from '@/features/create-itinerary/CreateItineraryScreen';
 import { useSafeNavigation } from '@/hooks/useSafeNavigation';
-import { CreateItineraryFormData } from '@/features/create-itinerary/types';
 import { useFocusEffect } from '@react-navigation/native';
 import { useTabBarContext } from '@/contexts/TabBarContext';
 
@@ -21,10 +20,6 @@ const CreateItinerary = () => {
     }, [setTabBarVisible])
   );
 
-  const handleSubmit = (data: CreateItineraryFormData) => {
-    navigate('/trips');
-  };
-
   const handleCancel = () => {
     navigate('/trips');
   };
@@ -41,7 +36,7 @@ const CreateItinerary = () => {
         onBackPress={handleCancel}
         title="Create Itinerary"
       />
-      <CreateItineraryScreen onSubmit={handleSubmit} onCancel={handleCancel} />
+      <CreateItineraryScreen />
     </ScreenWrapper>
   );
 };

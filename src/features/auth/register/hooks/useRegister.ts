@@ -35,7 +35,7 @@ const useRegisterSubmit = () => {
               expires_in: result.data.expires_in,
             })
           );
-          router.replace('/(auth)/login');
+          router.replace('/(auth)/login/index');
         } else {
           throw new Error(result.message || 'Registration failed');
         }

@@ -31,7 +31,6 @@ const LANGUAGE_DETECTOR = {
       // Try to get saved language from AsyncStorage
       const savedLanguage = await AsyncStorage.getItem('user-language');
       if (savedLanguage) {
-        console.log('Found saved language:', savedLanguage);
         callback(savedLanguage);
         return;
       }
@@ -105,12 +104,12 @@ i18n
 
 // Add event listener to track language changes
 i18n.on('languageChanged', (lng) => {
-  console.log('Language changed to:', lng);
+  // console.log('Language changed to:', lng);
 });
 
 // Add event listener to track initialization
 i18n.on('initialized', (options) => {
-  console.log('i18n initialized with language:', i18n.language);
+  // console.log('i18n initialized with language:', i18n.language);
 });
 
 export default i18n;

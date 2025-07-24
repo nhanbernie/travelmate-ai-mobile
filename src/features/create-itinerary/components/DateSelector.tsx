@@ -1,41 +1,72 @@
 import React, { useState } from 'react';
 import { View, Pressable, Platform } from 'react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { AppText } from '@/components/ui/AppText';
-import { useTheme } from '@/hooks/useTheme';
+
 import { Ionicons } from '@expo/vector-icons';
 import { cn } from '@/utils/cn';
 
 interface DateSelectorProps {
   label: string;
   value: Date | null;
-  onDateChange: (date: Date | null) => void;
+  onValueChange: (date: Date | null) => void;
   placeholder?: string;
   minimumDate?: Date;
+  maximumDate?: Date;
   icon?: string;
   error?: string;
+  mode?: 'date' | 'time' | 'datetime';
 }
 
 const DateSelector: React.FC<DateSelectorProps> = ({
   label,
   value,
-  onDateChange,
+  onValueChange,
   placeholder = 'Select date',
   minimumDate,
+  maximumDate,
   icon = 'calendar-outline',
   error,
+  mode = 'date',
 }) => {
-  const { colors } = useTheme();
+  const [showPicker, setShowPicker] = useState(false);
 
   const handleDatePress = () => {
-    // TODO: Implement date picker modal or use expo-date-picker
-    console.log('Date picker pressed');
+    setShowPicker(true);
+  };
+
+  const handleDateChange = (event: any, selectedDate?: Date) => {
+    const currentDate = selectedDate || value;
+    setShowPicker(Platform.OS === 'ios');
+
+    if (event.type === 'set' && currentDate) {
+      onValueChange(currentDate);
+    }
   };
 
   const formatDate = (date: Date | null) => {
     if (!date) return placeholder;
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
+
+    if (mode === 'time') {
+      return date.toLocaleTimeString('vi-VN', {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    }
+
+    if (mode === 'datetime') {
+      return date.toLocaleString('vi-VN', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+    }
+
+    return date.toLocaleDateString('vi-VN', {
+      day: '2-digit',
+      month: '2-digit',
       year: 'numeric',
     });
   };
@@ -68,6 +99,17 @@ const DateSelector: React.FC<DateSelectorProps> = ({
         <AppText variant="error" className="mt-1 ml-1">
           {error}
         </AppText>
+      )}
+
+      {showPicker && (
+        <DateTimePicker
+          value={value || new Date()}
+          mode={mode}
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          onChange={handleDateChange}
+          minimumDate={minimumDate}
+          maximumDate={maximumDate}
+        />
       )}
     </View>
   );

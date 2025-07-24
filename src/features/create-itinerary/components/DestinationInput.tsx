@@ -24,7 +24,7 @@ const DestinationInput: React.FC<DestinationInputProps> = ({
     <View className="mb-6">
       <View
         className={cn(
-          'flex-row items-center bg-pink-50 rounded-xl p-4',
+          'flex-row items-center bg-pink-50 rounded-3xl p-2 px-4',
           error && 'border border-red-300'
         )}
       >
@@ -39,7 +39,7 @@ const DestinationInput: React.FC<DestinationInputProps> = ({
           onChangeText={onChangeText}
           placeholder={placeholder}
           placeholderTextColor="#E95D77"
-          className="flex-1 text-base text-gray-900"
+          className="flex-1 text-xl text-gray-900"
           style={{ color: colors.textPrimary }}
         />
       </View>

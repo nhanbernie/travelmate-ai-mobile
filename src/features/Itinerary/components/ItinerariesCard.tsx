@@ -4,41 +4,72 @@ import { AppText } from '@/components/ui/AppText';
 import { useTheme } from '@/hooks/useTheme';
 import { Ionicons } from '@expo/vector-icons';
 import { cn } from '@/utils/cn';
+import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 
 export interface ItineraryCardProps {
-  id: string;
-  title: string;
-  image: string;
+  itineraryId: string;
+  destination: string;
   startDate: string;
   endDate: string;
-  duration: number;
-  location: string;
-  description: string;
+  numberOfTravelers: number;
+  preferences: string[];
+  tripType: 'budget' | 'mid-range' | 'luxury';
+  aiSummary: string;
+  createdAt: string;
   onShare?: () => void;
 }
 
 const ItinerariesCard = ({
-  id,
-  title,
-  image,
+  itineraryId,
+  destination,
   startDate,
   endDate,
-  duration,
-  location,
-  description,
+  numberOfTravelers,
+  preferences,
+  tripType,
+  aiSummary,
+  createdAt,
   onShare,
 }: ItineraryCardProps) => {
   const { colors, isDark } = useTheme();
+  const { navigate } = useSafeNavigation();
   const [imageError, setImageError] = useState(false);
+
+  const handleCardPress = () => {
+    navigate(`/trips/result?id=${itineraryId}`);
+  };
+
+  // Helper functions
+  const calculateDuration = () => {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+    });
+  };
+
+  // Default image for all itineraries
+  const defaultImage =
+    'https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=400&h=300&fit=crop';
 
   const formattedDate = `${startDate} - ${endDate}`;
 
   return (
-    <View
+    <TouchableOpacity
+      onPress={handleCardPress}
       className={cn(
         'mb-8 rounded-3xl overflow-hidden shadow-lg mx-1', // Thêm mx-1 để có không gian cho shadow hiển thị
         isDark ? 'bg-gray-800' : 'bg-white'
       )}
+      activeOpacity={0.8}
     >
       {/* Image container with overlay info */}
       <View className="relative">
@@ -57,7 +88,7 @@ const ItinerariesCard = ({
         ) : (
           <Image
             source={{
-              uri: image,
+              uri: defaultImage,
             }}
             className="w-full h-48"
             resizeMode="cover"
@@ -68,7 +99,7 @@ const ItinerariesCard = ({
         {/* Info overlay at bottom-left */}
         <View className="absolute bottom-0 left-0 p-4 w-full bg-black/40">
           <AppText variant="title" weight="semibold" className="text-white">
-            {title}
+            {destination}
           </AppText>
           <View className="flex-row items-center mt-1">
             <Ionicons name="time-outline" size={14} color="#FFFFFF" />
@@ -101,7 +132,7 @@ const ItinerariesCard = ({
               className="ml-1"
               style={{ color: colors.greyColor }}
             >
-              {duration} days
+              {calculateDuration()} days
             </AppText>
           </View>
           <View className="flex-row items-center">
@@ -115,7 +146,7 @@ const ItinerariesCard = ({
               className="ml-1"
               style={{ color: colors.greyColor }}
             >
-              {location}
+              {destination}
             </AppText>
           </View>
         </View>
@@ -126,10 +157,10 @@ const ItinerariesCard = ({
           style={{ color: colors.textPrimary }}
           numberOfLines={2}
         >
-          {description}
+          {aiSummary}
         </AppText>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

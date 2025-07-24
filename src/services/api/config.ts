@@ -15,6 +15,11 @@ export const API_ENDPOINTS = {
   },
   USER: {},
   TRAVEL: {},
+  ITINERARY: {
+    GENERATE: '/ai/itinerary/generate',
+    MY_ITINERARIES: '/ai/itinerary/my-itineraries',
+    DETAIL: '/ai/itinerary', // Will append /{id}
+  },
 } as const;
 
 export const API_CONFIG = {

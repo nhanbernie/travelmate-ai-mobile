@@ -1,36 +1,27 @@
 import { View, FlatList, Alert } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import ItinerariesCard, { ItineraryCardProps } from './ItinerariesCard';
+import React from 'react';
+import ItinerariesCard from './ItinerariesCard';
 import ItinerariesCardSkeleton from './ItinerariesCardSkeleton';
 import EmptyItinerary from './EmptyItinerary';
-import { mockItinerariesData } from '@/services/mock/mockItineraries';
 import { useScrollDetector } from '@/hooks/useScrollDetector';
-
-const mockItineraries: ItineraryCardProps[] = mockItinerariesData;
+import { useGetMyItinerariesQuery } from '@/services/itinerary';
 
 const HistoryItinerary = () => {
   const { scrollHandler, scrollEventThrottle } = useScrollDetector(25, 6);
-  const [itineraries, setItineraries] = useState<ItineraryCardProps[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchItineraries = async () => {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+  // RTK Query hook
+  const { data: response, isLoading, error } = useGetMyItinerariesQuery();
 
-        setItineraries(mockItineraries);
-      } catch (error) {
-        console.error('Error fetching itineraries:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const itineraries = response?.data || [];
+  const loading = isLoading;
 
-    fetchItineraries();
-  }, []);
+  // Handle error
+  if (error) {
+    console.error('Error fetching itineraries:', error);
+  }
 
-  const handleShare = (id: string) => {
-    Alert.alert('Share', `Sharing itinerary ${id}`);
+  const handleShare = (itineraryId: string) => {
+    Alert.alert('Share', `Sharing itinerary ${itineraryId}`);
   };
 
   if (loading) {
@@ -49,9 +40,12 @@ const HistoryItinerary = () => {
   return (
     <FlatList
       data={itineraries}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.itineraryId}
       renderItem={({ item }) => (
-        <ItinerariesCard {...item} onShare={() => handleShare(item.id)} />
+        <ItinerariesCard
+          {...item}
+          onShare={() => handleShare(item.itineraryId)}
+        />
       )}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{

@@ -23,12 +23,12 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
     Animated.spring(translateY, {
       toValue: shouldHide ? 100 : 0, // Move down (hide) when scrolling down or not visible
       useNativeDriver: true,
-      friction: 6,
-      tension: 100,
-      restSpeedThreshold: 0.01,
-      restDisplacementThreshold: 0.01,
+      friction: 8,
+      tension: 120,
+      restSpeedThreshold: 0.001,
+      restDisplacementThreshold: 0.001,
     }).start();
-  }, [isScrollingDown, isTabBarVisible]);
+  }, [isScrollingDown, isTabBarVisible, translateY]);
 
   return (
     <Animated.View
@@ -53,11 +53,6 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         }
 
         if (['_sitemap', '+not-found'].includes(route.name)) return null;
-
-        // Debug: Log route names to see actual route structure
-        if (__DEV__) {
-          console.log('TabBar route:', route.name);
-        }
 
         // Hide tab for create itinerary screen and any nested routes
         if (

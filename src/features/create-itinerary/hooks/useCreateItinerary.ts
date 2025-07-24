@@ -1,72 +1,15 @@
 import { useState, useCallback } from 'react';
-import {
-  CreateItineraryFormData,
-  TravelPreference,
-  AccommodationType,
-  TransportationType,
-} from '../types';
-
-const initialPreferences: TravelPreference[] = [
-  {
-    id: '1',
-    name: 'Adventure',
-    icon: '🏔️',
-    color: 'bg-pink-500',
-    selected: false,
-  },
-  {
-    id: '2',
-    name: 'Culture',
-    icon: '🏛️',
-    color: 'bg-pink-500',
-    selected: false,
-  },
-  { id: '3', name: 'Food', icon: '🍽️', color: 'bg-pink-500', selected: false },
-  {
-    id: '4',
-    name: 'Nature',
-    icon: '🌲',
-    color: 'bg-pink-500',
-    selected: false,
-  },
-  {
-    id: '5',
-    name: 'Relaxation',
-    icon: '🏖️',
-    color: 'bg-pink-500',
-    selected: false,
-  },
-  {
-    id: '6',
-    name: 'Shopping',
-    icon: '🛍️',
-    color: 'bg-pink-500',
-    selected: false,
-  },
-];
-
-const initialAccommodations: AccommodationType[] = [
-  { id: '1', name: 'Hotel', selected: false },
-  { id: '2', name: 'Resort', selected: false },
-  { id: '3', name: 'Apartment', selected: false },
-  { id: '4', name: 'Hostel', selected: false },
-];
-
-const initialTransportations: TransportationType[] = [
-  { id: '1', name: 'Flight', icon: 'airplane-outline', selected: false },
-  { id: '2', name: 'Car', icon: 'car-outline', selected: false },
-  { id: '3', name: 'Bus', icon: 'bus-outline', selected: false },
-];
+import { CreateItineraryFormData } from '../types';
 
 export const useCreateItinerary = () => {
   const [formData, setFormData] = useState<CreateItineraryFormData>({
     destination: '',
-    startDate: null,
-    endDate: null,
-    budget: 2500,
-    preferences: initialPreferences,
-    accommodation: initialAccommodations,
-    transportation: initialTransportations,
+    startDate: '',
+    endDate: '',
+    numberOfTravelers: 2,
+    preferences: [],
+    tripType: 'mid-range',
+    budget: '2000000',
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -82,7 +25,8 @@ export const useCreateItinerary = () => {
   );
 
   const updateStartDate = useCallback(
-    (startDate: Date | null) => {
+    (date: Date | null) => {
+      const startDate = date ? date.toISOString().split('T')[0] : '';
       setFormData((prev) => ({ ...prev, startDate }));
       if (errors.startDate) {
         setErrors((prev) => ({ ...prev, startDate: '' }));
@@ -92,7 +36,8 @@ export const useCreateItinerary = () => {
   );
 
   const updateEndDate = useCallback(
-    (endDate: Date | null) => {
+    (date: Date | null) => {
+      const endDate = date ? date.toISOString().split('T')[0] : '';
       setFormData((prev) => ({ ...prev, endDate }));
       if (errors.endDate) {
         setErrors((prev) => ({ ...prev, endDate: '' }));
@@ -101,35 +46,23 @@ export const useCreateItinerary = () => {
     [errors.endDate]
   );
 
-  const updateBudget = useCallback((budget: number) => {
+  const updateBudget = useCallback((budget: string) => {
     setFormData((prev) => ({ ...prev, budget }));
   }, []);
 
-  const togglePreference = useCallback((id: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      preferences: prev.preferences.map((pref) =>
-        pref.id === id ? { ...pref, selected: !pref.selected } : pref
-      ),
-    }));
+  const updateNumberOfTravelers = useCallback((numberOfTravelers: number) => {
+    setFormData((prev) => ({ ...prev, numberOfTravelers }));
   }, []);
 
-  const toggleAccommodation = useCallback((id: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      accommodation: prev.accommodation.map((acc) =>
-        acc.id === id ? { ...acc, selected: !acc.selected } : acc
-      ),
-    }));
-  }, []);
+  const updateTripType = useCallback(
+    (tripType: 'budget' | 'mid-range' | 'luxury') => {
+      setFormData((prev) => ({ ...prev, tripType }));
+    },
+    []
+  );
 
-  const toggleTransportation = useCallback((id: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      transportation: prev.transportation.map((trans) =>
-        trans.id === id ? { ...trans, selected: !trans.selected } : trans
-      ),
-    }));
+  const updatePreferences = useCallback((preferences: string[]) => {
+    setFormData((prev) => ({ ...prev, preferences }));
   }, []);
 
   const validateForm = useCallback(() => {
@@ -162,12 +95,12 @@ export const useCreateItinerary = () => {
   const resetForm = useCallback(() => {
     setFormData({
       destination: '',
-      startDate: null,
-      endDate: null,
-      budget: 2500,
-      preferences: initialPreferences,
-      accommodation: initialAccommodations,
-      transportation: initialTransportations,
+      startDate: '',
+      endDate: '',
+      numberOfTravelers: 2,
+      preferences: [],
+      tripType: 'mid-range',
+      budget: '2000000',
     });
     setErrors({});
   }, []);
@@ -179,9 +112,9 @@ export const useCreateItinerary = () => {
     updateStartDate,
     updateEndDate,
     updateBudget,
-    togglePreference,
-    toggleAccommodation,
-    toggleTransportation,
+    updateNumberOfTravelers,
+    updateTripType,
+    updatePreferences,
     validateForm,
     resetForm,
   };
