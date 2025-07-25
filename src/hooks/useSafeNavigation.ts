@@ -19,8 +19,17 @@ export const useSafeNavigation = () => {
     }
   }, []);
 
+  const goBack = useCallback(() => {
+    try {
+      router.back();
+    } catch (error) {
+      console.warn('Navigation back error:', error);
+    }
+  }, []);
+
   return {
     navigate,
+    goBack,
     canNavigate,
   };
 };
