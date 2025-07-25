@@ -21,10 +21,19 @@ const useRegisterSubmit = () => {
       try {
         dispatch(setLoading(true));
         dispatch(setError(null));
-        const result = await registerMutation({
-          ...data,
-          username: data.username ?? '',
-        }).unwrap();
+        console.log('register data:', data);
+
+        // Extract only the fields needed for API call (excluding confirmPassword)
+        const { email, password, username } = data;
+        const registerPayload = {
+          email,
+          password,
+          username: username ?? '',
+        };
+
+        console.log('register payload:', registerPayload);
+
+        const result = await registerMutation(registerPayload).unwrap();
 
         if (result.success && result.data) {
           dispatch(
@@ -35,7 +44,7 @@ const useRegisterSubmit = () => {
               expires_in: result.data.expires_in,
             })
           );
-          router.replace('/(auth)/login/index');
+          router.replace('/(auth)/login');
         } else {
           throw new Error(result.message || 'Registration failed');
         }

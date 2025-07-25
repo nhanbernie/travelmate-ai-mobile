@@ -5,14 +5,13 @@ export interface LoginRequest {
 }
 
 export interface LogoutRequest {
-  refresh_token?: string; 
+  refresh_token?: string;
 }
 
 export interface RegisterRequest {
   username: string;
   email: string;
   password: string;
-  confirmPassword: string;
 }
 
 export interface ForgotPasswordRequest {
