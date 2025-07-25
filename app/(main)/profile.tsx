@@ -8,6 +8,7 @@ import { AppText } from '@/components/ui/AppText';
 import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 import LanguageTestScreen from '@/components/test/LanguageTestScreen';
 import { useModal } from '@/components/modal';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Profile = () => {
   const { t } = useTranslation();
@@ -74,6 +75,10 @@ const Profile = () => {
     showConfirm(); // Không truyền gì -> không có nút
   };
 
+  const handleLogout = () => {
+    handleTestAuth();
+  };
+
   return (
     <ScreenWrapper>
       <ScrollView
@@ -84,34 +89,27 @@ const Profile = () => {
         <View style={styles.container}>
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Modal System Tests</Text>
-
             <Pressable style={styles.testButton} onPress={handleTestSuccess}>
               <Text style={styles.buttonText}>Test Success Modal</Text>
             </Pressable>
-
             <Pressable style={styles.testButton} onPress={handleTestError}>
               <Text style={styles.buttonText}>Test Error Modal</Text>
             </Pressable>
-
             <Pressable style={styles.testButton} onPress={handleTestWarning}>
               <Text style={styles.buttonText}>Test Warning Modal</Text>
             </Pressable>
-
             <Pressable style={styles.testButton} onPress={handleTestInfo}>
               <Text style={styles.buttonText}>Test Info Modal</Text>
             </Pressable>
-
             <Pressable style={styles.testButton} onPress={handleTestConfirm}>
               <Text style={styles.buttonText}>Test Confirm Modal</Text>
             </Pressable>
-
             <Pressable
               style={styles.testButton}
               onPress={handleTestConfirmWithCustomContent}
             >
               <Text style={styles.buttonText}>Test Custom Confirm Modal</Text>
             </Pressable>
-
             <Pressable
               style={styles.testButton}
               onPress={handleTestConfirmWithoutButtons}
@@ -119,6 +117,9 @@ const Profile = () => {
               <Text style={styles.buttonText}>
                 Test Confirm Without Buttons
               </Text>
+            </Pressable>
+            <Pressable onPress={handleLogout} style={styles.testButton}>
+              <Text style={styles.buttonText}>Logout</Text>
             </Pressable>
           </View>
 
