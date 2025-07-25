@@ -9,10 +9,8 @@ import '../src/i18n';
 import '../global.css';
 import AppProvider from '@/provider/AppProvider';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { I18nProvider } from '@/components/providers/I18nProvider';
 import { configureReanimatedLogger } from '@/utils/reanimatedConfig';
 
-// Configure Reanimated logger on app start
 configureReanimatedLogger();
 
 export default function RootLayout() {
