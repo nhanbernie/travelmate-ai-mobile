@@ -23,11 +23,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       if (authenticated) {
         router.replace('/(main)');
       } else {
-        router.replace('/(auth)/login/index');
+        router.replace('/(auth)/login');
       }
     } catch (error) {
       setIsAuthenticated(false);
-      router.replace('/(auth)/login/index');
+      router.replace('/(auth)/login');
     } finally {
       setIsLoading(false);
     }
@@ -42,7 +42,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const logout = async () => {
     await SecureStorageService.clearAuthData();
     setIsAuthenticated(false);
-    router.replace('/(auth)/login/index');
+    router.replace('/(auth)/login');
   };
 
   useEffect(() => {
