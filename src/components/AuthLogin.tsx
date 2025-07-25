@@ -20,8 +20,8 @@ const AuthLogin = ({ type }: AuthLoginProps) => {
   const handleNavigation = () => {
     navigate(
       type === 'login'
-        ? { pathname: '/(auth)/register/index' }
-        : { pathname: '/(auth)/login/index' }
+        ? { pathname: '/(auth)/register' }
+        : { pathname: '/(auth)/login' }
     );
   };
 

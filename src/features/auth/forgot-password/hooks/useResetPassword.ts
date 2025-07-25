@@ -25,7 +25,7 @@ const useResetPassword = () => {
         }).unwrap();
 
         if (result.success) {
-          router.push('/(auth)/login/index');
+          router.push('/(auth)/login');
         }
       } catch (error: any) {
         console.error('Error resetting password:', error);
