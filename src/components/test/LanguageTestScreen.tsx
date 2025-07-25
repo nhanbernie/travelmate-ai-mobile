@@ -11,9 +11,7 @@ const LanguageTestScreen = () => {
 
   const handleLanguageChange = async (language: string) => {
     try {
-      console.log('Direct language change to:', language);
       await i18n.changeLanguage(language);
-      console.log('Language changed successfully');
     } catch (error) {
       console.error('Error changing language:', error);
     }

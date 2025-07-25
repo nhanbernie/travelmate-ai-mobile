@@ -20,11 +20,9 @@ export const getMyItinerariesEndpoint = (
     }),
     providesTags: ['Itinerary'],
     transformResponse: (response: MyItinerariesResponse) => {
-      console.log('✅ Get My Itineraries Success:', response);
       return response;
     },
     transformErrorResponse: (response: any) => {
-      console.error('❌ Get My Itineraries Error:', response);
       return response;
     },
   });

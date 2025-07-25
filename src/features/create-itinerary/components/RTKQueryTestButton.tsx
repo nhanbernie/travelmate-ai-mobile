@@ -19,10 +19,8 @@ export const RTKQueryTestButton: React.FC = () => {
     };
 
     try {
-      console.log('🚀 Testing RTK Query with data:', testData);
       const response = await generateItinerary(testData).unwrap();
 
-      console.log('✅ RTK Query Success:', response);
       Alert.alert(
         'RTK Query Test Success',
         `Status: ${response.statusCode}\nMessage: ${response.message}`,

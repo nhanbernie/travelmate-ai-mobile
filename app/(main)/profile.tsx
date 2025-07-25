@@ -18,7 +18,7 @@ const Profile = () => {
     useModal();
 
   const handleTestAuth = () => {
-    navigate('/(auth)/login');
+    navigate('/(auth)/login/index');
   };
 
   // Test modal functions

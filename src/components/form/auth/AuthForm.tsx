@@ -85,7 +85,7 @@ const AuthForm = ({
 
               <View className="flex-row justify-end">
                 <Pressable
-                  onPress={() => navigate('/(auth)/forgot-password')}
+                  onPress={() => navigate('/(auth)/forgot-password/index')}
                   className="text-[#00C5A7]"
                 >
                   <AppText variant="body" className="text-[#F58601]">
