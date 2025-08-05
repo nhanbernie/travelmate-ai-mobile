@@ -13,7 +13,7 @@ export default function RegisterPage() {
     <AuthLayout>
       <View className="flex-1 w-full justify-center px-6 py-8">
         <View className="mb-8">
-          <AppText variant="h1" className="text-center text-[#E95D77] mb-2">
+          <AppText variant="h1" className="text-center text-[#E95D77] mb-2 font-extrabold">
             {t('auth.register.title')}
           </AppText>
           <AppText variant="subtitle" className="text-center text-[#4B5563]">
