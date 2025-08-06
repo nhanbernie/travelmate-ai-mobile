@@ -1,7 +1,7 @@
 module.exports = {
   expo: {
-    name: 'TravelMate AI',
-    slug: 'travelmateai',
+    name: 'Schedoryn',
+    slug: 'schedoryn',
     description: 'A travel companion app that uses AI to help plan trips.',
     version: '1.0.0',
     orientation: 'portrait',

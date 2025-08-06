@@ -12,7 +12,7 @@ export default function TermsPage() {
         </AppText>
 
         <AppText variant="body" className="mb-4 leading-6">
-          Welcome to TravelMate AI. By using our service, you agree to these
+          Welcome to Schedoryn. By using our service, you agree to these
           terms...
         </AppText>
 

@@ -1,4 +1,4 @@
-# 🌍 TravelMate AI - Mobile App
+# 🌍 Schedoryn - Mobile App
 
 A modern travel companion app built with React Native and Expo, featuring AI-powered trip planning and smart travel insights.
 
@@ -18,6 +18,7 @@ npx expo start
 ```
 
 ## 🎨 UI Link
+
 https://motiff.com/file/yOIQamMQ6cWWKtJZswAAH2T?nodeId=0%3A1&type=design
 
 ## 📱 Features

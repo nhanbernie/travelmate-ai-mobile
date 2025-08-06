@@ -1,7 +1,7 @@
 {
-  "app_name": "TravelMate AI",
+  "app_name": "Schedoryn",
   "app_description": "Trợ lý du lịch cá nhân của bạn",
-  "welcome_message": "Chào mừng bạn đến với TravelMate AI!",
+  "welcome_message": "Chào mừng bạn đến với Schedoryn!",
   "start_button": "Bắt đầu lên kế hoạch",
   "settings": "Cài đặt",
   "language": "Ngôn ngữ",
@@ -17,7 +17,7 @@
       "processing": "Đang đăng nhập..."
     },
     "register": {
-      "title": "Chào mừng đến với TravelMate AI",
+      "title": "Chào mừng đến với Schedoryn",
       "subtitle": "Trợ lý du lịch cá nhân của bạn",
       "button": "Tạo tài khoản",
       "haveAccount": "Đã có tài khoản? ",

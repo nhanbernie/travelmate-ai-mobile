@@ -68,13 +68,13 @@ const LanguageTestScreen = () => {
           Sample Translations:
         </AppText>
         <AppText variant="body" className="mb-1">
-          App Name: {t('app_name', 'TravelMate AI')}
+          App Name: {t('app_name', 'Schedoryn')}
         </AppText>
         <AppText variant="body" className="mb-1">
           Login Title: {t('auth.login.title', 'Welcome Back!')}
         </AppText>
         <AppText variant="body" className="mb-1">
-          Register Title: {t('auth.register.title', 'Welcome to TravelMate AI')}
+          Register Title: {t('auth.register.title', 'Welcome to Schedoryn')}
         </AppText>
         <AppText variant="body" className="mb-1">
           Email Label: {t('auth.fields.email.label', 'Email')}

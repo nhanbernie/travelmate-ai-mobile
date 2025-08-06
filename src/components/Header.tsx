@@ -7,7 +7,7 @@ export const Header = () => {
 
   return (
     <View className="flex-row justify-between items-center px-4 py-3 bg-blue-500">
-      <Text className="text-white text-lg font-bold">TravelMate AI</Text>
+      <Text className="text-white text-lg font-bold">Schedoryn</Text>
       <TouchableOpacity
         onPress={logout}
         className="bg-red-500 px-3 py-1 rounded"
