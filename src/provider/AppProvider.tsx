@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import TravelMateToast from '@/components/feedback/toast/TravelMateToast';
 import { ModalProvider, ModalRenderer } from '@/components/modal';
+import { AuthProvider } from '@/contexts/AuthContext';
 
 const toastConfig = {
   success: (props: any) => <TravelMateToast {...props} type="success" />,
@@ -15,18 +16,20 @@ const toastConfig = {
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ModalProvider>
-      <ModalRenderer />
+    <AuthProvider>
+      <ModalProvider>
+        <ModalRenderer />
 
-      <SafeAreaProvider style={{ flex: 1 }}>
-        <Provider store={store}>
-          <ThemeProvider>
-            {children}
-            <Toast config={toastConfig} />
-          </ThemeProvider>
-        </Provider>
-      </SafeAreaProvider>
-    </ModalProvider>
+        <SafeAreaProvider style={{ flex: 1 }}>
+          <Provider store={store}>
+            <ThemeProvider>
+              {children}
+              <Toast config={toastConfig} />
+            </ThemeProvider>
+          </Provider>
+        </SafeAreaProvider>
+      </ModalProvider>
+    </AuthProvider>
   );
 };
 

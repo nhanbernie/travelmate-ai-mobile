@@ -10,6 +10,7 @@ import '../global.css';
 import AppProvider from '@/provider/AppProvider';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { configureReanimatedLogger } from '@/utils/reanimatedConfig';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 configureReanimatedLogger();
 
@@ -25,14 +26,14 @@ export default function RootLayout() {
   }
 
   return (
-    <AppProvider>
-      <AuthProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <AppProvider>
         <Stack screenOptions={{ headerShown: false }}>
           <Stack.Screen name="(auth)" />
           <Stack.Screen name="(main)" />
           <Stack.Screen name="+not-found" />
         </Stack>
-      </AuthProvider>
-    </AppProvider>
+      </AppProvider>
+    </GestureHandlerRootView>
   );
 }

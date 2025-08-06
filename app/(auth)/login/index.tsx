@@ -4,7 +4,6 @@ import AuthForm from '@/components/form/auth/AuthForm';
 import { AppText } from '@/components/ui/AppText';
 import useLoginSubmit from '@/features/auth/login/hooks/useLoginSubmit';
 import { useTranslation } from 'react-i18next';
-
 export default function LoginPage() {
   const { t } = useTranslation();
   const onSubmit = useLoginSubmit();

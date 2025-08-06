@@ -2,15 +2,14 @@ import { View } from 'react-native';
 import { AppButton } from '@/components/ui';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useTheme } from '@/hooks/useTheme';
-import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
-
+import { useSafeNavigation } from '@/hooks/useSafeNavigation';
 type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
 
 const QuickActionItem = () => {
   const { colors } = useTheme();
-  const router = useRouter();
   const { t } = useTranslation();
+  const { navigate } = useSafeNavigation();
 
   const QUICK_ACTIONS: {
     title: string;
@@ -22,7 +21,7 @@ const QuickActionItem = () => {
       title: t('homepage.quickActions.createTrip'),
       icon: 'add',
       color: colors.primaryColor,
-      route: '/trips',
+      route: '/trips/create',
     },
     {
       title: t('homepage.quickActions.explore'),
@@ -46,7 +45,7 @@ const QuickActionItem = () => {
 
   const handlePress = (route: string | undefined) => {
     if (route) {
-      router.push(route as any);
+      navigate(route);
     } else {
       // what need to handle
     }

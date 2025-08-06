@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
 import React, { useEffect, useMemo } from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Animated, {
@@ -70,7 +70,7 @@ const TabBarButton: React.FC<TabBarButtonProps> = (props) => {
     };
   }, []);
   return (
-    <Pressable {...props} style={styles.container}>
+    <Pressable {...props} className="flex-1 justify-center items-center gap-1">
       <Animated.View style={[animatedIconStyle]}>
         <Ionicons name={iconName} size={26} color={color} />
       </Animated.View>
@@ -89,14 +89,5 @@ const TabBarButton: React.FC<TabBarButtonProps> = (props) => {
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 4,
-  },
-});
 
 export default TabBarButton;
