@@ -1,6 +1,6 @@
 # Internationalization (i18n) Implementation
 
-This document describes the complete i18n implementation for the TravelMate AI mobile app using React Native, Expo, and modern 2025 best practices.
+This document describes the complete i18n implementation for the Schedoryn mobile app using React Native, Expo, and modern 2025 best practices.
 
 ## Overview
 

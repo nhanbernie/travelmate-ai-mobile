@@ -1,5 +1,4 @@
 import Toast from 'react-native-toast-message';
-import { store } from '@/redux/store';
 
 export interface ToastConfig {
   type: 'success' | 'error' | 'info' | 'warning';
@@ -26,9 +25,9 @@ export class ToastService {
     return ToastService.instance;
   }
 
-  private generateToastId(config: ToastConfig): string {
-    return `${config.type}-${config.title}-${Date.now()}`;
-  }
+  // private generateToastId(config: ToastConfig): string {
+  //   return `${config.type}-${config.title}-${Date.now()}`;
+  // }
 
   private async processQueue() {
     if (this.isProcessing || this.toastQueue.length === 0) return;
@@ -37,7 +36,7 @@ export class ToastService {
     const config = this.toastQueue.shift();
 
     if (config) {
-      const toastId = this.generateToastId(config);
+      // const toastId = this.generateToastId(config);
 
       // Avoid duplicate toasts
       if (!this.activeToasts.has(`${config.type}-${config.title}`)) {

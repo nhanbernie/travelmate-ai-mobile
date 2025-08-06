@@ -190,6 +190,7 @@ export class SecureStorageService {
           await this.setTokenData(newTokenData);
           return true;
         } else {
+          return false;
         }
       }
 

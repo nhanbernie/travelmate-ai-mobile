@@ -1,6 +1,6 @@
+import { ApiResponse } from './types';
 import { ENV } from '@/utils/env';
 import { API_ENDPOINTS } from './config';
-
 export interface TokenData {
   access_token: string;
   refresh_token: string;
@@ -30,9 +30,8 @@ export const refreshTokenUtil = async (
     }
 
     const result = await response.json();
-    console.log('Refresh token response:', result);
 
-    if (result && result.success && result.data) {
+    if (result as ApiResponse) {
       return {
         access_token: result.data.access_token,
         refresh_token: result.data.refresh_token || refreshToken,
@@ -40,7 +39,6 @@ export const refreshTokenUtil = async (
       };
     }
 
-    console.log('Invalid refresh response structure');
     return null;
   } catch (error) {
     console.error('Error refreshing token:', error);
