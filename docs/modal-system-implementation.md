@@ -1,6 +1,6 @@
 # Modal System Implementation
 
-This document describes the complete modal system implementation for the TravelMate AI mobile app using React Native, Expo, and modern 2025 best practices with advanced performance optimizations.
+This document describes the complete modal system implementation for the Schedoryn mobile app using React Native, Expo, and modern 2025 best practices with advanced performance optimizations.
 
 ## Overview
 
