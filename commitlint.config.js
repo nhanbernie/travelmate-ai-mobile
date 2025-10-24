@@ -17,7 +17,8 @@ const configuration = {
         "chore",
         "revert",
         "merge",
-        "config",
+        "deps",
+        "config"
       ],
     ],
     "subject-case": [2, "never", ["sentence-case", "start-case", "pascal-case", "upper-case"]],
