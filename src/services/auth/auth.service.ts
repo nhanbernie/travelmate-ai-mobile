@@ -1,5 +1,5 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import { baseQueryWithReauth } from '../api/baseQuery';
+import { createApi } from "@reduxjs/toolkit/query/react";
+import { baseQueryWithReauth } from "../api/baseQuery";
 import {
   getMeEndpoint,
   loginEndpoint,
@@ -11,12 +11,13 @@ import {
   resetPasswordEndpoint,
   changePasswordEndpoint,
   logoutEndpoint,
-} from './endpoints';
+  googleLoginEndpoint,
+} from "./endpoints";
 
 export const authApi = createApi({
-  reducerPath: 'authApi',
+  reducerPath: "authApi",
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['User', 'Auth'],
+  tagTypes: ["User", "Auth"],
   endpoints: (builder) => ({
     getMe: getMeEndpoint(builder),
     login: loginEndpoint(builder),
@@ -28,6 +29,7 @@ export const authApi = createApi({
     resetPassword: resetPasswordEndpoint(builder),
     changePassword: changePasswordEndpoint(builder),
     logout: logoutEndpoint(builder),
+    googleLogin: googleLoginEndpoint(builder),
   }),
 });
 
@@ -42,4 +44,5 @@ export const {
   useResetPasswordMutation,
   useChangePasswordMutation,
   useLogoutMutation,
+  useGoogleLoginMutation,
 } = authApi;

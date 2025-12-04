@@ -1,8 +1,8 @@
-import { StatusBar, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import React, { useMemo } from 'react';
-import { useTheme } from '@/hooks/useTheme';
-import { StyleProp, ViewStyle } from 'react-native';
+import { Platform, StatusBar, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import React, { useMemo } from "react";
+import { useTheme } from "@/hooks/useTheme";
+import { StyleProp, ViewStyle } from "react-native";
 
 interface ScreenWrapperProps {
   children: React.ReactNode;
@@ -17,17 +17,13 @@ interface ScreenWrapperProps {
       };
 }
 
-const ScreenWrapper = ({
-  children,
-  style,
-  useSafeArea = true,
-}: ScreenWrapperProps) => {
+const ScreenWrapper = ({ children, style, useSafeArea = true }: ScreenWrapperProps) => {
   const { isDark, colors } = useTheme();
   const insets = useSafeAreaInsets();
 
   // Convert boolean to object if needed
   const safeAreaConfig =
-    typeof useSafeArea === 'boolean'
+    typeof useSafeArea === "boolean"
       ? {
           top: useSafeArea,
           bottom: false,
@@ -39,18 +35,18 @@ const ScreenWrapper = ({
   const wrapperStyle = useMemo(() => {
     return {
       flex: 1,
-      backgroundColor: isDark ? '#1F2937' : '#FFFFFF',
+      backgroundColor: isDark ? "#1F2937" : "#FFFFFF",
       paddingTop: safeAreaConfig.top ? insets.top : 0,
       paddingLeft: safeAreaConfig.left ? insets.left : 0,
       paddingRight: safeAreaConfig.right ? insets.right : 0,
-      paddingBottom: safeAreaConfig.bottom ? insets.bottom : 0,
+      paddingBottom: Platform.OS === "android" ? 0 : insets.bottom,
     };
   }, [insets, isDark, colors, safeAreaConfig]);
 
   return (
     <View style={{ flex: 1, backgroundColor: wrapperStyle.backgroundColor }}>
       <StatusBar
-        barStyle={isDark ? 'light-content' : 'dark-content'}
+        barStyle={isDark ? "light-content" : "dark-content"}
         backgroundColor="transparent"
         translucent
       />

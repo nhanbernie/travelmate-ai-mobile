@@ -21,7 +21,6 @@ const useRegisterSubmit = () => {
       try {
         dispatch(setLoading(true));
         dispatch(setError(null));
-        console.log('register data:', data);
 
         // Extract only the fields needed for API call (excluding confirmPassword)
         const { email, password, username } = data;
@@ -31,7 +30,6 @@ const useRegisterSubmit = () => {
           username: username ?? '',
         };
 
-        console.log('register payload:', registerPayload);
 
         const result = await registerMutation(registerPayload).unwrap();
 

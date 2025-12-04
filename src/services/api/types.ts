@@ -39,6 +39,11 @@ export interface ChangePasswordRequest {
   confirmPassword: string;
 }
 
+export interface GoogleLoginRequest {
+  idToken: string;
+  serverAuthCode?: string;
+}
+
 // User interface matching API response
 export interface User {
   id: string;

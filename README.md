@@ -8,6 +8,15 @@ A modern travel companion app built with React Native and Expo, featuring AI-pow
 # Install dependencies
 npm install
 
+# Install EAS CLI
+npm install -g eas-cli
+
+# Build
+eas build --profile development --platform android
+
+# Login to EAS
+npx eas login
+
 # Start development server
 npx expo start
 

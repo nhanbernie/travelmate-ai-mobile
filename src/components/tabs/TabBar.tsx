@@ -1,11 +1,11 @@
-import { StyleSheet, Animated } from 'react-native';
-import React, { useEffect, useRef } from 'react';
-import TabBarButton from './TabBarButton';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { useTheme } from '@/hooks/useTheme';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useScrollContext } from '@/contexts/ScrollContext';
-import { useTabBarContext } from '@/contexts/TabBarContext';
+import { StyleSheet, Animated } from "react-native";
+import React, { useEffect, useRef } from "react";
+import TabBarButton from "./TabBarButton";
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { useTheme } from "@/hooks/useTheme";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useScrollContext } from "@/contexts/ScrollContext";
+import { useTabBarContext } from "@/contexts/TabBarContext";
 
 const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
   const { colors } = useTheme();
@@ -35,7 +35,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
       style={[
         styles.tabbar,
         {
-          bottom: insets.bottom + 5,
+          bottom: Math.max(insets.bottom, 15),
           transform: [{ translateY }],
         },
       ]}
@@ -44,21 +44,21 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
         const { options } = descriptors[route.key];
         let label: string;
 
-        if (typeof options.tabBarLabel === 'string') {
+        if (typeof options.tabBarLabel === "string") {
           label = options.tabBarLabel;
-        } else if (typeof options.title === 'string') {
+        } else if (typeof options.title === "string") {
           label = options.title;
         } else {
           label = route.name;
         }
 
-        if (['_sitemap', '+not-found'].includes(route.name)) return null;
+        if (["_sitemap", "+not-found"].includes(route.name)) return null;
 
         // Hide tab for create itinerary screen and any nested routes
         if (
-          route.name.includes('create') ||
-          route.name.includes('trips/create') ||
-          route.name === '(main)/trips/create'
+          route.name.includes("create") ||
+          route.name.includes("trips/create") ||
+          route.name === "(main)/trips/create"
         ) {
           return null;
         }
@@ -67,7 +67,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 
         const onPress = () => {
           const event = navigation.emit({
-            type: 'tabPress',
+            type: "tabPress",
             target: route.key,
             canPreventDefault: true,
           });
@@ -79,7 +79,7 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 
         const onLongPress = () => {
           navigation.emit({
-            type: 'tabLongPress',
+            type: "tabLongPress",
             target: route.key,
           });
         };
@@ -102,16 +102,16 @@ const TabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
 
 const styles = StyleSheet.create({
   tabbar: {
-    position: 'absolute',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    position: "absolute",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "white",
     marginHorizontal: 20,
     paddingVertical: 15,
     borderRadius: 25,
-    borderCurve: 'continuous',
-    shadowColor: 'black',
+    borderCurve: "continuous",
+    shadowColor: "black",
     shadowOffset: { width: 0, height: 10 },
     shadowRadius: 10,
     shadowOpacity: 0.1,

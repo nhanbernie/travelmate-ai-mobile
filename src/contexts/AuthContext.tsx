@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { router } from 'expo-router';
-import { SecureStorageService } from '@/services/storage/secureStorage.service';
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { router } from "expo-router";
+import { SecureStorageService } from "@/services/storage/secureStorage.service";
+import { GoogleSignInService } from "@/services/auth/google.service";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -19,15 +20,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const authenticated = await SecureStorageService.isAuthenticated();
       setIsAuthenticated(authenticated);
-      console.log('Authenticated:', authenticated);
+      console.log("Authenticated:", authenticated);
       if (authenticated) {
-        router.replace('/(main)');
+        router.replace("/(main)");
       } else {
-        router.replace('/(auth)/login');
+        router.replace("/(auth)/login");
       }
     } catch (error) {
       setIsAuthenticated(false);
-      router.replace('/(auth)/login');
+      router.replace("/(auth)/login");
     } finally {
       setIsLoading(false);
     }
@@ -36,13 +37,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = async (userData: any) => {
     await SecureStorageService.setUserData(userData);
     setIsAuthenticated(true);
-    router.replace('/(main)');
+    router.replace("/(main)");
   };
 
   const logout = async () => {
+    try {
+      // Sign out from Google to clear cached account
+      await GoogleSignInService.signOut();
+    } catch (error) {}
+
     await SecureStorageService.clearAuthData();
     setIsAuthenticated(false);
-    router.replace('/(auth)/login');
+    router.replace("/(auth)/login");
   };
 
   useEffect(() => {
@@ -59,7 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
+    throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
 };

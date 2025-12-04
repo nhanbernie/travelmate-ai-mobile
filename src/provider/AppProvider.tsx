@@ -19,8 +19,7 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
     <AuthProvider>
       <ModalProvider>
         <ModalRenderer />
-
-        <SafeAreaProvider style={{ flex: 1 }}>
+        <SafeAreaProvider>
           <Provider store={store}>
             <ThemeProvider>
               {children}

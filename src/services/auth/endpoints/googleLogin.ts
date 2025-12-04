@@ -1,22 +1,21 @@
 import { EndpointBuilder } from "@reduxjs/toolkit/query/react";
-import { LoginRequest, AuthResponse } from "../../api/types";
+import { GoogleLoginRequest, AuthResponse } from "../../api/types";
 import { API_ENDPOINTS } from "../../api/config";
 
-export const loginEndpoint = (builder: EndpointBuilder<any, any, any>) =>
-  builder.mutation<AuthResponse, LoginRequest>({
+export const googleLoginEndpoint = (builder: EndpointBuilder<any, any, any>) =>
+  builder.mutation<AuthResponse, GoogleLoginRequest>({
     query: (credentials) => ({
-      url: API_ENDPOINTS.AUTH.LOGIN,
+      url: API_ENDPOINTS.AUTH.GOOGLE_LOGIN,
       method: "POST",
       body: credentials,
     }),
 
     invalidatesTags: ["User", "Auth"],
     transformResponse: (response: AuthResponse) => {
-      console.log("Login response:", response);
       return response;
     },
     transformErrorResponse: (response: any) => {
-      console.error("Login error here:", response);
+      console.error("Google login error:", response);
       return response;
     },
   });

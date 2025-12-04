@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Pressable, ActivityIndicator } from 'react-native';
 import { AppText } from '../ui/AppText';
-import { useLanguage, SupportedLanguage } from '@/hooks/useLanguage';
+import { useLanguage, SupportedLanguage } from '@/hooks/language/useLanguage';
 import { cn } from '@/utils/cn';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
