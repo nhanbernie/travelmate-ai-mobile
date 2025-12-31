@@ -60,11 +60,7 @@ const getToastConfig = (type: ToastComponentProps['type'], colors: any) => {
   }
 };
 
-const TravelMateToast = ({
-  text1,
-  text2,
-  type = 'info',
-}: ToastComponentProps) => {
+const SchedorynToast = ({ text1, text2, type = "info" }: ToastComponentProps) => {
   const { colors } = useTheme();
   const config = getToastConfig(type, colors);
 
@@ -83,7 +79,7 @@ const TravelMateToast = ({
       className="mx-4 overflow-hidden rounded-3xl shadow"
       style={{
         width: width - 32,
-        shadowColor: '#000',
+        shadowColor: "#000",
         shadowOffset: {
           width: 0,
           height: 2,
@@ -95,23 +91,14 @@ const TravelMateToast = ({
     >
       {config.useGradient ? (
         <LinearGradient
-          colors={
-            (config.gradientColors as [string, string]) || [
-              '#FEE7ED',
-              '#FFFFFF',
-            ]
-          }
+          colors={(config.gradientColors as [string, string]) || ["#FEE7ED", "#FFFFFF"]}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
           className={containerClass}
           style={baseStyle}
         >
           <View className="mr-3">
-            <Ionicons
-              name={config.iconName}
-              size={24}
-              color={config.iconColor}
-            />
+            <Ionicons name={config.iconName} size={24} color={config.iconColor} />
           </View>
           <View className="flex-1">
             <AppText
@@ -135,11 +122,7 @@ const TravelMateToast = ({
       ) : (
         <View className={containerClass} style={baseStyle}>
           <View className="mr-3">
-            <Ionicons
-              name={config.iconName}
-              size={24}
-              color={config.iconColor}
-            />
+            <Ionicons name={config.iconName} size={24} color={config.iconColor} />
           </View>
           <View className="flex-1">
             <AppText
@@ -165,4 +148,4 @@ const TravelMateToast = ({
   );
 };
 
-export default TravelMateToast;
+export default SchedorynToast;

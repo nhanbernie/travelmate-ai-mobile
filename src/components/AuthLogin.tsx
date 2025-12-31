@@ -5,6 +5,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { useTranslation } from "react-i18next";
 import { useSafeNavigation } from "@/hooks/useSafeNavigation";
 import { useGoogleSignIn } from "@/features/auth/login/hooks/useGoogleSignIn";
+import { GoogleIcon } from "./ui/GoogleIcon";
 
 interface AuthLoginProps {
   type: "login" | "register" | "forgotPassword";
@@ -41,7 +42,7 @@ const AuthLogin = ({ type }: AuthLoginProps) => {
           onPress={() => handleSocialLogin("google")}
           className="w-14 h-14 bg-white dark:bg-gray-800 rounded-full items-center justify-center border border-gray-200 dark:border-gray-700"
         >
-          <Ionicons name="logo-google" size={24} color="black" />
+          <GoogleIcon size={24} />
         </Pressable>
 
         <Pressable

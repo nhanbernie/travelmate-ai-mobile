@@ -59,10 +59,10 @@ export const useGoogleSignIn = () => {
       }
 
       // Show error toast for other errors
-      toastService.error(
-        "Sign-In Failed",
-        error.data?.message || error.message || "Failed to sign in with Google"
-      );
+      // toastService.error(
+      //   "Sign-In Failed",
+      //   error.data?.message || error.message || "Failed to sign in with Google"
+      // );
     } finally {
       setIsLoading(false);
     }
