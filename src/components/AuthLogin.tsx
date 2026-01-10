@@ -46,13 +46,6 @@ const AuthLogin = ({ type }: AuthLoginProps) => {
         </Pressable>
 
         <Pressable
-          onPress={() => handleSocialLogin("apple")}
-          className="w-14 h-14 bg-white dark:bg-gray-800 rounded-full items-center justify-center border border-gray-200 dark:border-gray-700"
-        >
-          <Ionicons name="logo-apple" size={24} color="#000" />
-        </Pressable>
-
-        <Pressable
           onPress={() => handleSocialLogin("facebook")}
           className="w-14 h-14 bg-white dark:bg-gray-800 rounded-full items-center justify-center border border-gray-200 dark:border-gray-700"
         >

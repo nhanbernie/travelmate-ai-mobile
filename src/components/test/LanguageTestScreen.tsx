@@ -40,7 +40,7 @@ const LanguageTestScreen = () => {
         <AppText variant="h3" className="mb-2">
           Safe Language Switcher - Tabs:
         </AppText>
-        <SafeLanguageSwitcher variant="tabs" />
+        {/* <SafeLanguageSwitcher variant="tabs" /> */}
       </View>
 
       <View className="mb-6">

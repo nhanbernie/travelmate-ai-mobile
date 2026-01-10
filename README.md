@@ -13,6 +13,7 @@ npm install -g eas-cli
 
 # Build
 eas build --profile development --platform android
+eas build --platform android --profile development
 
 # Login to EAS
 npx eas login
@@ -36,7 +37,7 @@ https://motiff.com/file/yOIQamMQ6cWWKtJZswAAH2T?nodeId=0%3A1&type=design
 - **🗺️ Interactive Maps**: Explore destinations
 - **📊 Travel Insights**: Track your journey statistics
 - **🎨 Dark/Light Theme**: Seamless theme switching
-- **📱 Responsive Design**: Optimized for all screen sizes
+- **📱 Responsive Design**: Optimized for all screen sizes  
 - **🔐 Secure Authentication**: Multiple login options
 
 ## 🛠️ Tech Stack

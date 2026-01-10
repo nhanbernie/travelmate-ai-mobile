@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import { ThemeProvider } from "@/contexts/ThemeContext";
@@ -15,6 +16,10 @@ const toastConfig = {
 };
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
+  useEffect(() => {
+    // Prevent SVG re-registration on hot reload
+  }, []);
+
   return (
     <AuthProvider>
       <ModalProvider>

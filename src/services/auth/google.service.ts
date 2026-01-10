@@ -9,7 +9,8 @@ export class GoogleSignInService {
 
     try {
       const webClientId = ENV.AUTH.GOOGLE.WEB_CLIENT_ID;
-
+      console.log("webclent id: ", webClientId);
+      
       if (!webClientId) {
         throw new Error(
           "Google Web Client ID is not configured. Please add EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID to your .env file"
