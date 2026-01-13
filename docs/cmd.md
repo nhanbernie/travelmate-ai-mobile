@@ -6,3 +6,5 @@ eas build --platform android --profile development
 npx expo prebuild --clean
 
 .\gradlew clean
+
+eas build --profile production
