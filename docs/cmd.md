@@ -1,6 +1,10 @@
 ./gradlew signingReport
 
 eas build -p android
-eas build --platform android --profile development              
+eas build --platform android --profile development
 
- .\gradlew clean
+npx expo prebuild --clean
+
+.\gradlew clean
+
+eas build --profile production
