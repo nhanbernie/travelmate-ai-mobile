@@ -3,13 +3,23 @@ module.exports = {
     name: "Schedoryn",
     slug: "schedoryn",
     description: "A travel companion app that uses AI to help plan trips.",
-    version: "1.0.0.1",
+    version: "1.0.1",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
     scheme: "myapp",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
+    android: {
+      versionCode: 5,
+      package: "com.nhanbernie.boltexponativewind",
+      softwareKeyboardLayoutMode: "pan",
+      adaptiveIcon: {
+        foregroundImage: "./assets/images/icon-android-foreground.png",
+        backgroundColor: "#ffffff",
+      },
+    },
     ios: {
+      buildNumber: "5",
       bundleIdentifier: "com.nhanbernie.boltexponativewind",
       supportsTablet: true,
       infoPlist: {
@@ -35,14 +45,6 @@ module.exports = {
     ],
     experiments: {
       typedRoutes: true,
-    },
-    android: {
-      package: "com.nhanbernie.boltexponativewind",
-      softwareKeyboardLayoutMode: "pan",
-      adaptiveIcon: {
-        foregroundImage: "./assets/images/icon.png",
-        backgroundColor: "#ffffff",
-      },
     },
     owner: "berniework",
     extra: {
