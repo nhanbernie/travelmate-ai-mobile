@@ -155,5 +155,10 @@
     "logoutConfirm": "Confirm Logout",
     "logoutMessage": "Are you sure you want to logout?",
     "version": "Version"
+  },
+  "explore": {
+    "emptyTitle": "No Shared Itineraries Yet",
+    "emptyDescription": "Be the first to inspire the community! Share your amazing travel itinerary and help others discover new adventures.",
+    "shareItinerary": "Share Your Itinerary"
   }
 }

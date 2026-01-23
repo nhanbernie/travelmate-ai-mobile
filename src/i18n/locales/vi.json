@@ -155,5 +155,10 @@
     "logoutConfirm": "Xác nhận đăng xuất",
     "logoutMessage": "Bạn có chắc chắn muốn đăng xuất?",
     "version": "Phiên bản"
+  },
+  "explore": {
+    "emptyTitle": "Chưa Có Lịch Trình Chia Sẻ",
+    "emptyDescription": "Hãy là người đầu tiên truyền cảm hứng cho cộng đồng! Chia sẻ lịch trình du lịch tuyệt vời của bạn và giúp mọi người khám phá những chuyến phiêu lưu mới.",
+    "shareItinerary": "Chia Sẻ Lịch Trình"
   }
 }

@@ -1,47 +1,37 @@
 import ScreenWrapper from "@/components/layouts/ScreenWrapper ";
-import { Text, ScrollView, StyleSheet } from "react-native";
+import { ScrollView, View } from "react-native";
 import { useScrollDetector } from "@/hooks/useScrollDetector";
+import { useState } from "react";
+import EmptyExplore from "./components/EmptyExplore";
 
 const ExploreScreen = () => {
   const { scrollHandler, scrollEventThrottle } = useScrollDetector();
-  
+
+  // TODO: Replace with real data fetching
+  const [exploreData, setExploreData] = useState<any[]>([]);
+  const isEmpty = exploreData.length === 0;
+
   return (
     <ScreenWrapper>
       <ScrollView
         onScroll={scrollHandler}
         scrollEventThrottle={scrollEventThrottle}
-        contentContainerStyle={styles.container}
+        className="flex-1"
+        showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.title}>Explore</Text>
-
-        {Array(20)
-          .fill(0)
-          .map((_, i) => (
-            <Text key={i} style={styles.dummyText}>
-              Explore content item {i + 1}
-            </Text>
-          ))}
+        {isEmpty ? (
+          <EmptyExplore />
+        ) : (
+          <View className="p-5">
+            {/* TODO: Render actual explore content here when data is available */}
+            {exploreData.map((item, index) => (
+              <View key={index}>{/* Explore item component */}</View>
+            ))}
+          </View>
+        )}
       </ScrollView>
     </ScreenWrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    alignItems: "center",
-    minHeight: "100%",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
-  },
-  dummyText: {
-    fontSize: 16,
-    marginVertical: 8,
-    color: "#666",
-  },
-});
 
 export default ExploreScreen;
