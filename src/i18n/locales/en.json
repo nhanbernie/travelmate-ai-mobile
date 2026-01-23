@@ -143,5 +143,17 @@
       "flightToParis": "Flight to Paris",
       "hoursAgo": "2 hours ago"
     }
+  },
+  "profile": {
+    "title": "Profile",
+    "settings": "Manage your settings",
+    "language": "Language",
+    "about": "About",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "logout": "Logout",
+    "logoutConfirm": "Confirm Logout",
+    "logoutMessage": "Are you sure you want to logout?",
+    "version": "Version"
   }
 }

@@ -143,5 +143,17 @@
       "flightToParis": "Chuyến bay đến Paris",
       "hoursAgo": "2 giờ trước"
     }
+  },
+  "profile": {
+    "title": "Hồ sơ",
+    "settings": "Quản lý cài đặt",
+    "language": "Ngôn ngữ",
+    "about": "Giới thiệu",
+    "terms": "Điều khoản dịch vụ",
+    "privacy": "Chính sách bảo mật",
+    "logout": "Đăng xuất",
+    "logoutConfirm": "Xác nhận đăng xuất",
+    "logoutMessage": "Bạn có chắc chắn muốn đăng xuất?",
+    "version": "Phiên bản"
   }
 }
