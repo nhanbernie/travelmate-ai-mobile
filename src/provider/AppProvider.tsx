@@ -21,19 +21,19 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   return (
-    <AuthProvider>
-      <ModalProvider>
-        <ModalRenderer />
-        <SafeAreaProvider>
-          <Provider store={store}>
-            <ThemeProvider>
+    <Provider store={store}>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <ModalProvider>
+              <ModalRenderer />
               {children}
               <Toast config={toastConfig} />
-            </ThemeProvider>
-          </Provider>
-        </SafeAreaProvider>
-      </ModalProvider>
-    </AuthProvider>
+            </ModalProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </Provider>
   );
 };
 

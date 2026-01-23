@@ -35,12 +35,10 @@ const LANGUAGE_DETECTOR = {
         return;
       }
 
-      // Fallback to device locale
-      const deviceLocale = getDeviceLanguage();
-      console.log("Using device locale:", deviceLocale);
-      callback(deviceLocale);
+      // Fallback to Vietnamese
+      callback("vi");
     } catch (error) {
-      callback("en"); // Fallback to English
+      callback("vi"); // Fallback to Vietnamese
     }
   },
   init: () => {},
@@ -65,7 +63,7 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: "en",
+    fallbackLng: "vi",
     debug: __DEV__,
 
     // Have a common namespace used around the full app

@@ -1,23 +1,25 @@
-import { View, Image } from 'react-native';
-import React from 'react';
-import { AppText, AppButton } from '@/components/ui';
-import { Ionicons } from '@expo/vector-icons';
-import { useTheme } from '@/hooks/useTheme';
-import { useSafeNavigation } from '@/hooks/useSafeNavigation';
+import { View, Image } from "react-native";
+import React from "react";
+import { AppText, AppButton } from "@/components/ui";
+import { Ionicons } from "@expo/vector-icons";
+import { useTheme } from "@/hooks/useTheme";
+import { useSafeNavigation } from "@/hooks/useSafeNavigation";
+import { useTranslation } from "react-i18next";
 
 const EmptyItinerary = () => {
   const { colors } = useTheme();
   const { navigate } = useSafeNavigation();
+  const { t } = useTranslation();
 
   const handleCreateTrip = () => {
-    navigate('/trips/create');
+    navigate("/trips/create");
   };
 
   return (
     <View className="flex-1 items-center justify-center px-6 py-10">
       {/* Illustration */}
       <Image
-        source={require('../../../../assets/illustrations/empty-itinerary.png')}
+        source={require("../../../../assets/illustrations/empty-itinerary.png")}
         style={{ width: 280, height: 280 }}
         resizeMode="contain"
       />
@@ -28,21 +30,17 @@ const EmptyItinerary = () => {
         className="text-center mt-6 mb-3"
         style={{ color: colors.primaryColor }}
       >
-        No Itineraries Yet
+        {t("itinerary.emptyTitle")}
       </AppText>
 
       {/* Description */}
-      <AppText
-        variant="body"
-        className="text-center text-gray-600 mb-8 px-4 leading-6"
-      >
-        Start planning your dream adventure!{'\n'}
-        Create your first itinerary and let AI help you organize the perfect trip.
+      <AppText variant="body" className="text-center text-gray-600 mb-8 px-4 leading-6">
+        {t("itinerary.emptyDescription")}
       </AppText>
 
       {/* CTA Button */}
       <AppButton
-        title="Create Your First Trip"
+        title={t("itinerary.createFirstTrip")}
         onPress={handleCreateTrip}
         className="py-4 px-8 rounded-3xl shadow-lg"
         style={{

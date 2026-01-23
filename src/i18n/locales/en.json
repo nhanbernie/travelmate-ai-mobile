@@ -160,5 +160,76 @@
     "emptyTitle": "No Shared Itineraries Yet",
     "emptyDescription": "Be the first to inspire the community! Share your amazing travel itinerary and help others discover new adventures.",
     "shareItinerary": "Share Your Itinerary"
+  },
+  "itinerary": {
+    "emptyTitle": "No Itineraries Yet",
+    "emptyDescription": "Let's get started! Create your first itinerary and let AI help you plan the perfect trip.",
+    "createFirstTrip": "Create Your First Trip",
+    "createTitle": "Create Itinerary",
+    "form": {
+      "destination": {
+        "placeholder": "Where would you like to go?"
+      },
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "travelers": {
+        "label": "Number of Travelers",
+        "count": "travelers"
+      },
+      "preferences": {
+        "label": "Travel Preferences",
+        "subtitle": "Select what interests you (multiple selection allowed)",
+        "culture": "Culture",
+        "food": "Food",
+        "nature": "Nature",
+        "adventure": "Adventure",
+        "relaxation": "Relaxation",
+        "shopping": "Shopping",
+        "nightlife": "Nightlife",
+        "history": "History"
+      },
+      "tripType": {
+        "label": "Trip Type",
+        "budget": {
+          "name": "Budget",
+          "description": "Cost-effective travel options"
+        },
+        "midRange": {
+          "name": "Mid-range",
+          "description": "Balance between quality and price"
+        },
+        "luxury": {
+          "name": "Luxury",
+          "description": "Premium travel experience"
+        }
+      },
+      "budget": {
+        "label": "Budget Range",
+        "under100": {
+          "label": "Under $100",
+          "description": "Budget-friendly options"
+        },
+        "range100to200": {
+          "label": "$100 - $200",
+          "description": "Most popular choice"
+        },
+        "range200to400": {
+          "label": "$200 - $400",
+          "description": "Comfortable spending"
+        },
+        "above400": {
+          "label": "Above $400",
+          "description": "Premium experience"
+        }
+      },
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "createButton": "Create My Perfect Trip"
+    },
+    "error": {
+      "title": "Error",
+      "message": "An error occurred while creating the itinerary. Please try again.",
+      "ok": "OK"
+    }
   }
 }

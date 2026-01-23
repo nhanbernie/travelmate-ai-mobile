@@ -2,9 +2,7 @@ import { View, Text } from "react-native";
 import { AppText, Avatar } from "../ui";
 import { useTheme } from "@/hooks/useTheme";
 import { useTranslation } from "react-i18next";
-import { useGetUserByIdQuery } from "@/services/auth";
-import { useState, useEffect } from "react";
-import { SecureStorageService } from "@/services/storage/secureStorage.service";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 interface HeaderProps {
   onPressAvatar?: () => void;
@@ -13,24 +11,7 @@ interface HeaderProps {
 const Header = ({ onPressAvatar }: HeaderProps) => {
   const { colors } = useTheme();
   const { t } = useTranslation();
-  const [userId, setUserId] = useState<string | null>(null);
-
-  // Get userId from SecureStorage
-  useEffect(() => {
-    const getUserId = async () => {
-      const userData = await SecureStorageService.getUserData();
-      if (userData?.id) {
-        setUserId(userData.id);
-      }
-    };
-    getUserId();
-  }, []);
-
-  // Fetch user data by ID - auto-cached by RTK Query
-  const { data: response } = useGetUserByIdQuery(userId!, {
-    skip: !userId, // Skip query if no userId
-  });
-  const user = response?.data;
+  const { user } = useCurrentUser();
 
   return (
     <View className="flex-row px-6 py-5 justify-between items-start">

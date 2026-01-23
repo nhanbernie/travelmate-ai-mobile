@@ -1,9 +1,10 @@
-import React from 'react';
-import { View, TextInput, Pressable } from 'react-native';
-import { AppText } from '@/components/ui/AppText';
-import { useTheme } from '@/hooks/useTheme';
-import { Ionicons } from '@expo/vector-icons';
-import { cn } from '@/utils/cn';
+import React from "react";
+import { View, TextInput, Pressable } from "react-native";
+import { AppText } from "@/components/ui/AppText";
+import { useTheme } from "@/hooks/useTheme";
+import { Ionicons } from "@expo/vector-icons";
+import { cn } from "@/utils/cn";
+import { useTranslation } from "react-i18next";
 
 interface DestinationInputProps {
   value: string;
@@ -15,29 +16,25 @@ interface DestinationInputProps {
 const DestinationInput: React.FC<DestinationInputProps> = ({
   value,
   onChangeText,
-  placeholder = 'Where would you like to go?',
+  placeholder,
   error,
 }) => {
   const { colors } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <View className="mb-6">
       <View
         className={cn(
-          'flex-row items-center bg-pink-50 rounded-3xl p-2 px-4',
-          error && 'border border-red-300'
+          "flex-row items-center bg-pink-50 rounded-3xl p-2 px-4",
+          error && "border border-red-300"
         )}
       >
-        <Ionicons
-          name="location-outline"
-          size={20}
-          color="#E95D77"
-          style={{ marginRight: 12 }}
-        />
+        <Ionicons name="location-outline" size={20} color="#E95D77" style={{ marginRight: 12 }} />
         <TextInput
           value={value}
           onChangeText={onChangeText}
-          placeholder={placeholder}
+          placeholder={placeholder || t("itinerary.form.destination.placeholder")}
           placeholderTextColor="#E95D77"
           className="flex-1 text-xl text-gray-900"
           style={{ color: colors.textPrimary }}

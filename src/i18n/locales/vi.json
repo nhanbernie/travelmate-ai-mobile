@@ -160,5 +160,76 @@
     "emptyTitle": "Chưa Có Lịch Trình Chia Sẻ",
     "emptyDescription": "Hãy là người đầu tiên truyền cảm hứng cho cộng đồng! Chia sẻ lịch trình du lịch tuyệt vời của bạn và giúp mọi người khám phá những chuyến phiêu lưu mới.",
     "shareItinerary": "Chia Sẻ Lịch Trình"
+  },
+  "itinerary": {
+    "emptyTitle": "Chưa Có Lịch Trình",
+    "emptyDescription": "Hãy bắt đầu ngay nào! Tạo lịch trình đầu tiên và để AI giúp bạn lên kế hoạch cho chuyến đi hoàn hảo.",
+    "createFirstTrip": "Tạo Chuyến Đi Đầu Tiên",
+    "createTitle": "Tạo Lịch Trình",
+    "form": {
+      "destination": {
+        "placeholder": "Bạn muốn đi đâu?"
+      },
+      "startDate": "Ngày Bắt Đầu",
+      "endDate": "Ngày Kết Thúc",
+      "travelers": {
+        "label": "Số Lượng Khách",
+        "count": "người"
+      },
+      "preferences": {
+        "label": "Sở Thích Du Lịch",
+        "subtitle": "Chọn những gì bạn quan tâm (có thể chọn nhiều)",
+        "culture": "Văn hóa",
+        "food": "Ẩm thực",
+        "nature": "Thiên nhiên",
+        "adventure": "Phiêu lưu",
+        "relaxation": "Nghỉ dưỡng",
+        "shopping": "Mua sắm",
+        "nightlife": "Đời sống về đêm",
+        "history": "Lịch sử"
+      },
+      "tripType": {
+        "label": "Loại Chuyến Đi",
+        "budget": {
+          "name": "Tiết kiệm",
+          "description": "Tiết kiệm chi phí"
+        },
+        "midRange": {
+          "name": "Trung bình",
+          "description": "Cân bằng giữa chất lượng và giá"
+        },
+        "luxury": {
+          "name": "Cao cấp",
+          "description": "Trải nghiệm cao cấp"
+        }
+      },
+      "budget": {
+        "label": "Ngân Sách",
+        "under100": {
+          "label": "Dưới 2.5 triệu",
+          "description": "Tiết kiệm"
+        },
+        "range100to200": {
+          "label": "2.5 - 5 triệu",
+          "description": "Phổ biến nhất"
+        },
+        "range200to400": {
+          "label": "5 - 10 triệu",
+          "description": "Thoải mái"
+        },
+        "above400": {
+          "label": "Trên 10 triệu",
+          "description": "Cao cấp"
+        }
+      },
+      "cancel": "Hủy",
+      "creating": "Đang tạo...",
+      "createButton": "Tạo Chuyến Đi Hoàn Hảo"
+    },
+    "error": {
+      "title": "Lỗi",
+      "message": "Có lỗi xảy ra khi tạo lịch trình. Vui lòng thử lại.",
+      "ok": "OK"
+    }
   }
 }
