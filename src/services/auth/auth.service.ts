@@ -2,6 +2,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { baseQueryWithReauth } from "../api/baseQuery";
 import {
   getMeEndpoint,
+  getUserByIdEndpoint,
   loginEndpoint,
   registerEndpoint,
   refreshTokenEndpoint,
@@ -20,6 +21,7 @@ export const authApi = createApi({
   tagTypes: ["User", "Auth"],
   endpoints: (builder) => ({
     getMe: getMeEndpoint(builder),
+    getUserById: getUserByIdEndpoint(builder),
     login: loginEndpoint(builder),
     register: registerEndpoint(builder),
     refreshToken: refreshTokenEndpoint(builder),
@@ -35,6 +37,7 @@ export const authApi = createApi({
 
 export const {
   useGetMeQuery,
+  useGetUserByIdQuery,
   useLoginMutation,
   useRegisterMutation,
   useRefreshTokenMutation,

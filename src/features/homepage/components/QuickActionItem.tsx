@@ -1,10 +1,10 @@
-import { View } from 'react-native';
-import { AppButton } from '@/components/ui';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useTheme } from '@/hooks/useTheme';
-import { useTranslation } from 'react-i18next';
-import { useSafeNavigation } from '@/hooks/useSafeNavigation';
-type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
+import { View } from "react-native";
+import { AppButton } from "@/components/ui";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useTheme } from "@/hooks/useTheme";
+import { useTranslation } from "react-i18next";
+import { useSafeNavigation } from "@/hooks/useSafeNavigation";
+type IoniconName = React.ComponentProps<typeof Ionicons>["name"];
 
 const QuickActionItem = () => {
   const { colors } = useTheme();
@@ -18,28 +18,28 @@ const QuickActionItem = () => {
     route?: string;
   }[] = [
     {
-      title: t('homepage.quickActions.createTrip'),
-      icon: 'add',
+      title: t("homepage.quickActions.createTrip"),
+      icon: "add",
       color: colors.primaryColor,
-      route: '/trips/create',
+      route: "/trips/create",
     },
     {
-      title: t('homepage.quickActions.explore'),
-      icon: 'compass',
+      title: t("homepage.quickActions.explore"),
+      icon: "compass",
       color: colors.secondaryColor,
-      route: '/explore',
+      route: "/explore",
     },
     {
-      title: t('homepage.quickActions.myPlaces'),
-      icon: 'location-outline',
+      title: t("homepage.quickActions.myPlaces"),
+      icon: "location-outline",
       color: colors.tertiaryColor,
-      route: '/trips',
+      route: "/trips",
     },
     {
-      title: t('homepage.quickActions.settings'),
-      icon: 'settings-outline',
+      title: t("homepage.quickActions.settings"),
+      icon: "settings-outline",
       color: colors.quaternaryColor,
-      route: '/profile',
+      route: "/profile",
     },
   ];
 
@@ -58,8 +58,8 @@ const QuickActionItem = () => {
             title={action.title}
             onPress={() => handlePress(action.route)}
             className="bg-white border border-[#F3F4F6] rounded-3xl w-full"
-            classNameButton="p-2"
-            textClassName="text-[#1F2937]"
+            classNameButton="p-2 flex-row items-center"
+            textClassName="text-[#1F2937] ml-3 flex-1"
             startIcon={
               <View
                 className="flex-row items-center justify-center rounded-full p-3"

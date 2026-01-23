@@ -1,4 +1,5 @@
 export { getMeEndpoint } from "./getMe";
+export { getUserByIdEndpoint } from "./getUserById";
 export { loginEndpoint } from "./login";
 export { registerEndpoint } from "./register";
 export { refreshTokenEndpoint } from "./refreshToken";

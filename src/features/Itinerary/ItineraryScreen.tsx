@@ -17,7 +17,10 @@ const ItineraryScreen = () => {
   // Fetch data at screen level to control UI visibility
   const { data: response, isLoading, error } = useGetMyItinerariesQuery();
   const itineraries = response?.data || [];
-  const hasData = itineraries.length > 0;
+
+  // Show header and filter during loading OR when has data
+  // Only hide when fetch is complete AND no data exists
+  const shouldShowHeaderAndFilter = isLoading || itineraries.length > 0;
 
   const handleCreateItinerary = () => {
     navigate("/trips/create");
@@ -25,7 +28,7 @@ const ItineraryScreen = () => {
 
   return (
     <View className="flex-1">
-      {hasData && (
+      {shouldShowHeaderAndFilter && (
         <SubHeader showBackButton={false} useGradient={false}>
           <View className="flex-row justify-between items-center py-4">
             <View className="flex-1">
@@ -48,7 +51,7 @@ const ItineraryScreen = () => {
       )}
 
       <View className="flex-1">
-        {hasData && (
+        {shouldShowHeaderAndFilter && (
           <View className="px-6 mb-2">
             <ItineraryFilter />
           </View>
