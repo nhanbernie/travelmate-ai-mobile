@@ -1,4 +1,3 @@
-import { useColorScheme } from "react-native";
 import { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 export type Theme = "light" | "dark";
@@ -7,17 +6,16 @@ export type ThemeMode = "light" | "dark";
 const STORAGE_KEY = "app-theme-mode";
 
 export function useTheme() {
-  // const systemTheme = useColorScheme() ?? "light";
   const [mode, setMode] = useState<ThemeMode>("light");
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const theme: Theme = mode === "light" ? "light" : "dark";
+  const theme: Theme = mode;
 
   useEffect(() => {
     const loadTheme = async () => {
       try {
         const saved = await AsyncStorage.getItem(STORAGE_KEY);
-        if (saved && ["light", "dark", "system"].includes(saved)) {
+        if (saved && ["light", "dark"].includes(saved)) {
           setMode(saved as ThemeMode);
         }
       } catch (error) {

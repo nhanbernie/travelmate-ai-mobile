@@ -3,14 +3,14 @@ module.exports = {
     name: "Schedoryn",
     slug: "schedoryn",
     description: "A travel companion app that uses AI to help plan trips.",
-    version: "1.0.1",
+    version: "1.0.2",
     orientation: "portrait",
     icon: "./assets/images/icon.png",
     scheme: "myapp",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
     android: {
-      versionCode: 5,
+      versionCode: 6,
       package: "com.nhanbernie.boltexponativewind",
       softwareKeyboardLayoutMode: "pan",
       adaptiveIcon: {
@@ -19,7 +19,7 @@ module.exports = {
       },
     },
     ios: {
-      buildNumber: "5",
+      buildNumber: "6",
       bundleIdentifier: "com.nhanbernie.boltexponativewind",
       supportsTablet: true,
       infoPlist: {

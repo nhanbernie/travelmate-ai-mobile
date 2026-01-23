@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { Provider } from "react-redux";
+import { View } from "react-native";
 import { store } from "@/redux/store";
-import { ThemeProvider } from "@/contexts/ThemeContext";
+import { ThemeProvider, useThemeContext } from "@/contexts/ThemeContext";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import SchedorynToast from "@/components/feedback/toast/SchedorynToast";
@@ -15,6 +16,16 @@ const toastConfig = {
   warning: (props: any) => <SchedorynToast {...props} type="warning" />,
 };
 
+const ThemeWrapper = ({ children }: { children: React.ReactNode }) => {
+  const { theme } = useThemeContext();
+  
+  return (
+    <View style={{ flex: 1 }} className={theme === "dark" ? "dark" : ""}>
+      {children}
+    </View>
+  );
+};
+
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     // Prevent SVG re-registration on hot reload
@@ -24,13 +35,15 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
     <Provider store={store}>
       <SafeAreaProvider>
         <ThemeProvider>
-          <AuthProvider>
-            <ModalProvider>
-              <ModalRenderer />
-              {children}
-              <Toast config={toastConfig} />
-            </ModalProvider>
-          </AuthProvider>
+          <ThemeWrapper>
+            <AuthProvider>
+              <ModalProvider>
+                <ModalRenderer />
+                {children}
+                <Toast config={toastConfig} />
+              </ModalProvider>
+            </AuthProvider>
+          </ThemeWrapper>
         </ThemeProvider>
       </SafeAreaProvider>
     </Provider>
