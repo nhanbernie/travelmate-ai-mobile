@@ -1,30 +1,29 @@
-import { View, FlatList, Alert } from 'react-native';
-import React from 'react';
-import ItinerariesCard from './ItinerariesCard';
-import ItinerariesCardSkeleton from './ItinerariesCardSkeleton';
-import EmptyItinerary from './EmptyItinerary';
-import { useScrollDetector } from '@/hooks/useScrollDetector';
-import { useGetMyItinerariesQuery } from '@/services/itinerary';
+import { View, FlatList, Alert } from "react-native";
+import React from "react";
+import ItinerariesCard from "./ItinerariesCard";
+import ItinerariesCardSkeleton from "./ItinerariesCardSkeleton";
+import EmptyItinerary from "./EmptyItinerary";
+import { useScrollDetector } from "@/hooks/useScrollDetector";
 
-const HistoryItinerary = () => {
+interface HistoryItineraryProps {
+  itineraries: any[];
+  isLoading: boolean;
+  error: any;
+}
+
+const HistoryItinerary = ({ itineraries, isLoading, error }: HistoryItineraryProps) => {
   const { scrollHandler, scrollEventThrottle } = useScrollDetector(25, 6);
-
-  // RTK Query hook
-  const { data: response, isLoading, error } = useGetMyItinerariesQuery();
-
-  const itineraries = response?.data || [];
-  const loading = isLoading;
 
   // Handle error
   if (error) {
-    console.error('Error fetching itineraries:', error);
+    console.error("Error fetching itineraries:", error);
   }
 
   const handleShare = (itineraryId: string) => {
-    Alert.alert('Share', `Sharing itinerary ${itineraryId}`);
+    Alert.alert("Share", `Sharing itinerary ${itineraryId}`);
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <View className="flex-1 px-6">
         <ItinerariesCardSkeleton />
@@ -42,10 +41,7 @@ const HistoryItinerary = () => {
       data={itineraries}
       keyExtractor={(item) => item.itineraryId}
       renderItem={({ item }) => (
-        <ItinerariesCard
-          {...item}
-          onShare={() => handleShare(item.itineraryId)}
-        />
+        <ItinerariesCard {...item} onShare={() => handleShare(item.itineraryId)} />
       )}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{
