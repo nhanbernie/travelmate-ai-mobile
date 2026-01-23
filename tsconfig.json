@@ -5,6 +5,7 @@
     "baseUrl": "./src",
     "paths": {
       "@/*": ["./*"],
+      "@/assets/*": ["./assets/*"],
       "@/common/*": ["./common/*"],
       "@/types/*": ["./common/types/*"],
       "@/enums/*": ["./common/enums/*"],
