@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     try {
       const authenticated = await SecureStorageService.isAuthenticated();
       setIsAuthenticated(authenticated);
-      console.log("Authenticated:", authenticated);
+      // console.log("Authenticated:", authenticated);
       if (authenticated) {
         router.replace("/(main)");
       } else {
@@ -42,9 +42,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logout = async () => {
     try {
-      // Sign out from Google to clear cached account
-      await GoogleSignInService.signOut();
-    } catch (error) {}
+      // Only sign out from Google if user logged in with Google
+      const loginMethod = await SecureStorageService.getLoginMethod();
+      if (loginMethod === 'google') {
+        await GoogleSignInService.signOut();
+      }
+    } catch (error) {
+      console.error('Error during logout:', error);
+    }
 
     await SecureStorageService.clearAuthData();
     setIsAuthenticated(false);

@@ -34,6 +34,9 @@ export const useGoogleSignIn = () => {
           expires_in: response.data.expires_in || 900,
         });
 
+        // Save login method as google
+        await SecureStorageService.setLoginMethod('google');
+
         // Save user data to SecureStorage
         await SecureStorageService.setUserData(response.data.user);
 

@@ -1,10 +1,11 @@
 import * as SecureStore from 'expo-secure-store';
 
-const STORAGE_KEYS = {
+export const STORAGE_KEYS = {
   ACCESS_TOKEN: 'access_token',
   REFRESH_TOKEN: 'refresh_token',
   USER_DATA: 'user_data',
   EXPIRES_AT: 'expires_at',
+  LOGIN_METHOD: 'login_method',
 } as const;
 
 // Interface cho token data
@@ -158,9 +159,28 @@ export class SecureStorageService {
         SecureStore.deleteItemAsync(STORAGE_KEYS.REFRESH_TOKEN),
         SecureStore.deleteItemAsync(STORAGE_KEYS.USER_DATA),
         SecureStore.deleteItemAsync(STORAGE_KEYS.EXPIRES_AT),
+        SecureStore.deleteItemAsync(STORAGE_KEYS.LOGIN_METHOD),
       ]);
     } catch (error) {
       console.error('Error clearing auth data:', error);
+    }
+  }
+
+  static async setLoginMethod(method: 'email' | 'google'): Promise<void> {
+    try {
+      await SecureStore.setItemAsync(STORAGE_KEYS.LOGIN_METHOD, method);
+    } catch (error) {
+      console.error('Error saving login method:', error);
+    }
+  }
+
+  static async getLoginMethod(): Promise<'email' | 'google' | null> {
+    try {
+      const method = await SecureStore.getItemAsync(STORAGE_KEYS.LOGIN_METHOD);
+      return method as 'email' | 'google' | null;
+    } catch (error) {
+      console.error('Error getting login method:', error);
+      return null;
     }
   }
 
@@ -169,9 +189,9 @@ export class SecureStorageService {
       const tokenData = await this.getTokenData();
       const userData = await this.getUserData();
       const isExpired = await this.isTokenExpired();
-      console.log('check token: ', isExpired);
-      console.log('check user: ', userData);
-      console.log('check tokenData: ', tokenData);
+      // console.log('check token: ', isExpired);
+      // console.log('check user: ', userData);
+      // console.log('check tokenData: ', tokenData);
       if (!tokenData || !userData) {
         return false;
       }

@@ -25,6 +25,8 @@ const useLoginSubmit = () => {
             refresh_token: result.data.refresh_token,
             expires_in: result.data.expires_in || 900,
           });
+          // Save login method as email
+          await SecureStorageService.setLoginMethod('email');
           toast.success(result.message || 'Login successful');
           // await SecureStorageService.setUserData(result.data.user);
           login(result.data.user);
